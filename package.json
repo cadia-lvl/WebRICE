@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "browser-sync": "browser-sync start --server --files index.html styles.css",
-    "sass": "node-sass styles.scss styles.css -w",
+    "sass": "node-sass main.scss styles.css -w",
     "dev": "npm-run-all --parallel sass browser-sync"
   },
   "author": "Sunneva Þorsteinsdóttir and Judy Fong",
