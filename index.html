@@ -1,25 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="is">
     <head>
         <meta charset="UTF-8">
+        <title>WebRICE demo</title>
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <div class="WebRICE_manage">
+            <audio class="WRPlayer" id="player"></audio>
             <image src="./Images/hearing-white-36dp.svg"/>
-            <button class="ListenButton">
+            <button onclick="playPause()" class="ListenButton">
                 <image src="./Images/play_arrow-white-36dp.svg"/>
             </button>
-            <button class="StopButton">
+            <button onclick="playPause()" class="PauseButton" style="display: none">
+                <img src="./Images/pause-white-36dp.svg" />
+            </button>
+            <button onclick="stop()" class="StopButton">
                 <image src="./Images/stop-white-36dp.svg"/>
             </button>
-            <button class="SpeedButton">
+            <button onclick="fasterOrSlower()" class="SpeedButton">
                 <image src="./Images/speed-white-36dp.svg"/>
             </button>
             <button class="SettingButton">
                     <image src="./Images/settings-white-36dp.svg"/>
-            </button>   
-        </div>         
+            </button>
+        </div>
         <!--Sample text-->
         <div class="WebRICE_text_container" id="content">
             <h1 id="content-1">Sólskin</h1>
@@ -34,6 +39,6 @@
                 </div>
             </div>
         </div>
-        <script type="module" src="script.js"></script>
+        <script type="text/javascript" src="script.js"></script>
     </body>
 </html>
