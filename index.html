@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
         <meta charset="UTF-8">
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <div class="WebRICE_manage">
-            <image src="./Images/hearing-white-36dp.svg"/>
+            <image  src="./Images/hearing-white-36dp.svg"/>
             <button class="ListenButton">
-                <image src="./Images/play_arrow-white-36dp.svg"/>
+                <image title="Hlusta" alt="Hlusta" src="./Images/play_arrow-white-36dp.svg"/>
             </button>
             <button class="StopButton">
                 <image src="./Images/stop-white-36dp.svg"/>
@@ -18,7 +19,27 @@
             </button>
             <button class="SettingButton">
                     <image src="./Images/settings-white-36dp.svg"/>
-            </button>   
+            </button>
+            <div class="SettingsMenu">
+                <h1>Stillingar</h1>
+                <section>
+                    <form>
+                        <fieldset>
+                            <legend>Stilla bakgrunnslitun</legend>
+                            <div>
+                                <label for="highlightStatus">Kveikt á bakgrunnslitun texta</label>
+                                <input id="highlightStatus" type="checkbox"/>
+                            </div>
+                        </fieldset>
+                        <input type="submit" value="Submit"/>
+                    </form>
+                </section>
+                <section>
+                    <h2></h2>
+                </section>
+
+
+            </div> 
         </div>         
         <!--Sample text-->
         </div>
@@ -33,6 +54,6 @@
                     </div>
                 </div>
             </div>
-        <script type="module" src="script.js"></script>
+        <script src="scripts.js"></script>
     </body>
 </html>

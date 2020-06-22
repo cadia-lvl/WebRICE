@@ -8,4 +8,12 @@
         background-color: black;
         border: 0em;
      }
+
+     .SettingsMenu-hide {
+        position: fixed;
+        display: none;
+        width: 50%;
+        height: 50%;
+        background-color: gray; 
+     }
 }
