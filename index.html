@@ -1,46 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="is">
     <head>
-        
+        <title>Veflesara próf</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <div class="WebRICE_manage">
-            <image  src="./Images/hearing-white-36dp.svg"/>
-            <button class="ListenButton">
+        <div id="WebRICE_manage"><!--WIll be changed so this is made in html and added to the same container as the settings-->
+            <image alt="Myndin sýnir eyra sem er að hlusta" src="./Images/hearing-white-36dp.svg"/>
+            <button id="ListenButton">
                 <image title="Hlusta" alt="Hlusta" src="./Images/play_arrow-white-36dp.svg"/>
             </button>
-            <button class="StopButton">
-                <image src="./Images/stop-white-36dp.svg"/>
+            <button id="StopButton">
+                <image title="Stopp" alt="Stoppa hlustun" src="./Images/stop-white-36dp.svg"/>
             </button>
-            <button class="SpeedButton">
-                <image src="./Images/speed-white-36dp.svg"/>
+            <button id="SpeedButton">
+                <image title="Breyta hraða" alt="Breyta hraða"class="speedIcon" src="./Images/speed-white-36dp.svg"/>
             </button>
-            <button class="SettingButton">
-                    <image src="./Images/settings-white-36dp.svg"/>
+            <button id="SettingButton">
+                <image title="Stillingar" alt="Stillingahjól" src="./Images/settings-white-36dp.svg"/>
             </button>
-            <div class="SettingsMenu">
-                <h1>Stillingar</h1>
-                <section>
-                    <form>
-                        <fieldset>
-                            <legend>Stilla bakgrunnslitun</legend>
-                            <div>
-                                <label for="highlightStatus">Kveikt á bakgrunnslitun texta</label>
-                                <input id="highlightStatus" type="checkbox"/>
-                            </div>
-                        </fieldset>
-                        <input type="submit" value="Submit"/>
-                    </form>
-                </section>
-                <section>
-                    <h2></h2>
-                </section>
-
-
-            </div> 
-        </div>         
+        </div>  
+        <div id="webrice"></div>
+        <!--Test element to append both-->     
         <!--Sample text-->
         <div class="WebRICE_text_container" id="content">
             <h1 id="content-1">Sólskin</h1>

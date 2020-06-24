@@ -1,19 +1,39 @@
 //Contains look!
-.WebRICE_manage{
-    background-color: black;
-    padding:0.5em;
-    display: inline-block;
-    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
-    button {
-        background-color: black;
-        border: 0em;
-     }
+$backg-color: #242121;
+$box-rad-1: 0.5rem 0.5rem 0.5rem 0.5rem;
+$box-rad-2: 0.1rem 0.1rem 0.1rem 0.1rem;
+$text-color: #FDF9F9;
 
-     .SettingsMenu-hide {
-        position: fixed;
-        display: none;
-        width: 50%;
-        height: 50%;
-        background-color: gray; 
-     }
+
+#WebRICE_manage{
+    background-color: $backg-color;
+    padding:0.3rem;
+    display: inline-flex;
+    border-radius: $box-rad-1;
+    > button  {
+       background-color: $backg-color;
+       border: 0em;
+       padding: 0 0.4em 0 0.4em;
+     } 
+}
+
+#settingsMenu {
+   margin: 0.3rem 0 0 0;
+   background-color:$backg-color;
+   color: $text-color;
+   padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+   position: absolute;
+   border-radius: $box-rad-2;
+   border-color: black;
+   //border-style: inset;
+   max-height: 30%;
+   overflow-y: scroll;
+
+   > h2 {
+      margin: 0;
+   }
+
+   > section{
+      padding: 0.2rem;
+   }
 }

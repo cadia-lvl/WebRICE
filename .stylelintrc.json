@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "rules": {
+    "scss/comment-no-empty": true,
+    "scss/at-rule-conditional-no-parentheses": true,
+    "scss/no-duplicate-dollar-variables": true,
+    "scss/at-each-key-value-single-line": true,
+    
+  }
+}
