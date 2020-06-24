@@ -8,12 +8,24 @@
         background-color: black;
         border: 0em;
      }
+}
 
-     .SettingsMenu-hide {
-        position: fixed;
-        display: none;
-        width: 50%;
-        height: 50%;
-        background-color: gray; 
-     }
+.settingsMenu {
+   margin: 0.3rem 0 0 0;
+   background-color:gray;
+   color: white;
+   padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+   position: absolute;
+   border-color: black;
+   //border-style: inset;
+   max-height: 30%;
+   overflow-y: scroll;
+
+   > h2 {
+      margin: 0;
+   }
+
+   > section{
+      padding: 0.2rem;
+   }
 }
