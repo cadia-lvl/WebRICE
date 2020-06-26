@@ -22,6 +22,18 @@ function createHighlightSection(){
     return isHighlightSection;
 }
 
+
+function createInformationSection(){
+    let isInfoSection = document.createElement("section");
+
+    let h3Element = document.createElement("h3");
+    h3Element.appendChild(document.createTextNode("Hvað er veflesari?"));
+    
+    
+
+    
+}
+
 //determines weather menu is active or not
 function hasMenu(childArr){
     for(item in childArr){
