@@ -9,9 +9,10 @@ let audioContent = ["example_voice_files/content-1.mp3",
 let WRPlayer = document.getElementById('player');
 let WebRICEWidget = document.getElementsByClassName("WebRICE_manage")[0];
 
-var listenBtn = document.getElementsByClassName("ListenButton")[0];
-var pauseBtn = document.getElementsByClassName("PauseButton")[0];
+let listenBtn = document.getElementsByClassName("ListenButton")[0];
+let pauseBtn = document.getElementsByClassName("PauseButton")[0];
 let speedBtn = document.getElementsByClassName("SpeedButton")[0];
+let stopBtn = document.getElementsByClassName("StopButton")[0];
 
 let playerStarted = false;
 let playerPaused = true;
@@ -68,6 +69,7 @@ function playPause() {
     playerPaused = false;
 }
 
+
 function stop() {
     WRPlayer.pause();
     initReader();
@@ -94,6 +96,11 @@ function fasterOrSlower() {
     };
     speedBtn.after(el);
 }
+
+listenBtn.onclick = playPause;
+pauseBtn.onclick = playPause;
+stopBtn.onclick = stop;
+speedBtn.onclick = fasterOrSlower;
 
 // Keyboard shortcuts
 // TODO: make sure they conform to accessibility settings

@@ -9,16 +9,16 @@
         <div class="WebRICE_manage">
             <audio class="WRPlayer" id="player"></audio>
             <image src="./Images/hearing-white-36dp.svg"/>
-            <button onclick="playPause()" class="ListenButton">
+            <button class="ListenButton">
                 <image src="./Images/play_arrow-white-36dp.svg"/>
             </button>
-            <button onclick="playPause()" class="PauseButton" style="display: none">
+            <button class="PauseButton">
                 <img src="./Images/pause-white-36dp.svg" />
             </button>
-            <button onclick="stop()" class="StopButton">
+            <button class="StopButton">
                 <image src="./Images/stop-white-36dp.svg"/>
             </button>
-            <button onclick="fasterOrSlower()" class="SpeedButton">
+            <button class="SpeedButton">
                 <image src="./Images/speed-white-36dp.svg"/>
             </button>
             <button class="SettingButton">
@@ -26,7 +26,7 @@
             </button>
         </div>
         <!--Sample text-->
-        <div class="WebRICE_text_container" id="content">
+        <div class="WebRICE_text_container">
             <h1 id="content-1">Sólskin</h1>
             <p id="content-2">Þú ert mitt sólskyn. Mitt eina sólskyn. Þú gleður mig þegar himinn gránar.</p>
             <p id="content-3">Þú ert mitt sólskyn. Mitt eina sólskyn. Ekki taka sólskyn mér frááááá</p>
@@ -39,6 +39,6 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="script.js"></script>
+        <script type="module" src="script.js"></script>
     </body>
 </html>
