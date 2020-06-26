@@ -7,17 +7,32 @@
     background-color: black;
     border: 0em; }
 
-.settingsMenu {
+#settingsCont {
   margin: 0.3rem 0 0 0;
-  background-color: gray;
-  color: white;
-  padding: 0.2rem 0.2rem 0.2rem 0.2rem;
   position: absolute;
   border-color: black;
   border-style: inset;
-  max-height: 30%;
-  overflow-y: scroll; }
-  .settingsMenu > h2 {
-    margin: 0; }
-  .settingsMenu > section {
-    padding: 0.2rem; }
+  background-color: gray; }
+  #settingsCont > #settingsHeader {
+    background-color: lightgray;
+    display: flex;
+    justify-content: end;
+    margin-bottom: 0.1rem; }
+    #settingsCont > #settingsHeader > button {
+      background-color: darkgray;
+      padding: 0;
+      border-width: 0; }
+      #settingsCont > #settingsHeader > button > img {
+        max-width: 100%; }
+  #settingsCont > .settingsMenu {
+    padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+    background-color: gray;
+    color: white;
+    max-height: 30%;
+    overflow-y: scroll; }
+    #settingsCont > .settingsMenu > h2 {
+      margin: 0; }
+    #settingsCont > .settingsMenu > section {
+      padding: 0.2rem; }
+      #settingsCont > .settingsMenu > section > h3 {
+        margin: 0; }

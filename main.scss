@@ -10,22 +10,49 @@
      }
 }
 
-.settingsMenu {
+
+#settingsCont{
    margin: 0.3rem 0 0 0;
-   background-color:gray;
-   color: white;
-   padding: 0.2rem 0.2rem 0.2rem 0.2rem;
    position: absolute;
    border-color: black;
    border-style: inset;
-   max-height: 30%;
-   overflow-y: scroll;
+   background-color:gray;
 
-   > h2 {
-      margin: 0;
+   & > #settingsHeader {
+      background-color: lightgray;
+      display: flex;
+      justify-content: end;
+      margin-bottom: 0.1rem;
+
+      & > button{
+         background-color: darkgray;
+         padding:0 ;
+         border-width: 0;
+
+         & > img {
+            max-width: 100%;
+         }
+      }
+   
    }
+   
+   & > .settingsMenu {
+      padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+      background-color:gray;
+      color: white;
+      max-height: 30%;
+      overflow-y: scroll;
+   
+      & > h2 {
+         margin: 0;
+      }
+   
+      & > section{
+         padding: 0.2rem;
 
-   > section{
-      padding: 0.2rem;
+         & > h3 {
+            margin: 0;
+         } 
+      }
    }
 }
