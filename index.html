@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="is">
     <head>
         <meta charset="UTF-8">
+        <title>WebRICE demo</title>
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <div class="WebRICE_manage">
+            <audio class="WRPlayer" id="player"></audio>
             <image src="./Images/hearing-white-36dp.svg"/>
             <button class="ListenButton">
                 <image src="./Images/play_arrow-white-36dp.svg"/>
+            </button>
+            <button class="PauseButton">
+                <img src="./Images/pause-white-36dp.svg" />
             </button>
             <button class="StopButton">
                 <image src="./Images/stop-white-36dp.svg"/>
@@ -18,10 +23,10 @@
             </button>
             <button class="SettingButton">
                     <image src="./Images/settings-white-36dp.svg"/>
-            </button>   
-        </div>         
+            </button>
+        </div>
         <!--Sample text-->
-        <div class="WebRICE_text_container" id="content">
+        <div class="WebRICE_text_container">
             <h1 id="content-1">Sólskin</h1>
             <p id="content-2">Þú ert mitt sólskyn. Mitt eina sólskyn. Þú gleður mig þegar himinn gránar.</p>
             <p id="content-3">Þú ert mitt sólskyn. Mitt eina sólskyn. Ekki taka sólskyn mér frááááá</p>
