@@ -12,21 +12,21 @@
   position: absolute;
   border-color: black;
   border-style: inset;
-  background-color: gray; }
+  background-color: black; }
   #settingsCont > #settingsHeader {
-    background-color: lightgray;
+    background-color: #3E3E3E;
     display: flex;
     justify-content: end;
     margin-bottom: 0.1rem; }
     #settingsCont > #settingsHeader > button {
-      background-color: darkgray;
+      background-color: #3E3E3E;
       padding: 0;
       border-width: 0; }
       #settingsCont > #settingsHeader > button > img {
         max-width: 100%; }
   #settingsCont > .settingsMenu {
     padding: 0.2rem 0.2rem 0.2rem 0.2rem;
-    background-color: gray;
+    background-color: black;
     color: white;
     max-height: 30%;
     overflow-y: scroll; }
@@ -36,3 +36,8 @@
       padding: 0.2rem; }
       #settingsCont > .settingsMenu > section > h3 {
         margin: 0; }
+    #settingsCont > .settingsMenu > #submitSettings {
+      border: 0;
+      background-color: #3E3E3E;
+      border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
+      color: white; }

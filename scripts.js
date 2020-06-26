@@ -7,6 +7,14 @@ const MAIN_CONTAINER = document.getElementById("webrice");
 const SETTINGS_ID = "settingsCont";
 
 
+function isCheckedCheckbox(box){
+    const boxStatus = JSON.parse(localStorage.getItem("highlight"));
+    console.log(boxStatus);
+    if(boxStatus === null) box.checked = true;
+    else box.checked =  boxStatus;
+}
+
+
 //_________________________
 function createHighlightSection(){
     let isHighlightSection = document.createElement("section");
@@ -14,11 +22,12 @@ function createHighlightSection(){
     let isHighlightLabel = document.createElement("label");
     let isHighlightInput = document.createElement("input");
     const highlightStatus = "highlightStatus";
-    isHighlightInput.setAttribute("id", highlightStatus);
-    isHighlightInput.setAttribute("type", "checkbox");
-    isHighlightInput.checked = true;
+    isHighlightInput.id = highlightStatus;
+    isHighlightInput.type = "checkbox";
+    isCheckedCheckbox(isHighlightInput);
+
     isHighlightLabel.appendChild(document.createTextNode(text.settings.colorBackg))
-    isHighlightLabel.setAttribute("for", highlightStatus);
+    isHighlightLabel.for = highlightStatus;
     //add children
     isHighlightSection.appendChild(isHighlightLabel);
     isHighlightSection.appendChild(isHighlightInput);
@@ -49,22 +58,35 @@ function createInformationSection(){
 function createSettingsHeader(){
     const headerCont = document.createElement("div");
 
-    headerCont.setAttribute("id", "settingsHeader");
+    headerCont.id = "settingsHeader";
     const exitButton = document.createElement("button")
-    exitButton.setAttribute("id", "closeSettings");
+    exitButton.id = "closeSettings";
 
     const exitImg = document.createElement("img");
-    exitImg.setAttribute("src", "./Images/close-white-18dp.svg");
-    exitImg.setAttribute("alt", "loka");
+    exitImg.src = "./Images/close-white-18dp.svg";
+    exitImg.alt = "loka";
 
     exitButton.appendChild(exitImg);
     headerCont.appendChild(exitButton);
     return headerCont;
 }
 
+function createSubmitButton(){
+    const submitButton = document.createElement("button");
+    submitButton.type = "submit";
+    submitButton.id = "submitSettings";
+    submitButton.appendChild(document.createTextNode(text.settings.submit));
+    return submitButton;
+}
+
+function saveSettings(){
+    const checkedVal = document.getElementById("highlightStatus").checked;
+    localStorage.setItem("highlight", checkedVal);
+}
+
 function createSettings(){
     const settingsCont = document.createElement("div");
-    settingsCont.setAttribute("id", SETTINGS_ID);
+    settingsCont.id = SETTINGS_ID;
 
     settingsCont.appendChild(createSettingsHeader())
 
@@ -77,18 +99,14 @@ function createSettings(){
 
     settings.appendChild(createHighlightSection());
     settings.appendChild(createInformationSection());
-
-    
-    let submitButton = document.createElement("input");
-    submitButton.setAttribute("type", "submit");
-    submitButton.setAttribute("value", "vista");
-    settings.appendChild(submitButton);
+    settings.appendChild(createSubmitButton());
 
     settingsCont.appendChild(settings);
 
     MAIN_CONTAINER.appendChild(settingsCont);
 
     document.getElementById("closeSettings").addEventListener("click", destroySettings);
+    document.getElementById("submitSettings").addEventListener("click", saveSettings);
 } 
 
 function destroySettings(){
