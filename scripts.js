@@ -1,9 +1,10 @@
 //Contains functionality!
-import { Settings } from "./resources/modules/Settings"
+import { Settings } from "./resources/modules/settings.mjs"
 
 const SettingsId = "settingsCont";
-const settings = new Settings(document.getElementById("webrice"));
+const settingsMod = new Settings(document.getElementById("webrice"), SettingsId);
 
+//Creates the settings when settings button is pushed
 document.querySelector(".SettingButton").addEventListener("click", function() {
-    document.getElementById(SettingsId) ? settings.destroySettings() : settings.createSettings();
+    document.getElementById(SettingsId) ? settingsMod.destroySettings() : settingsMod.createSettings();
 });
