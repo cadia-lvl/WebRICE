@@ -7,17 +7,21 @@
     "browser-sync": "browser-sync start --server --files index.html styles.css",
     "sass": "node-sass main.scss styles.css -w",
     "dev": "concurrently npm:sass npm:sass-watch npm:browser-sync",
-    "slint": "stylelint \"main.scss\" --syntax scss"
+    "slint": "stylelint \"main.scss\" --syntax scss",
+    "elint": "eslint . --ext .js",
+    "efix": "eslint . --ext .js --fix"
   },
   "author": "Sunneva Þorsteinsdóttir and Judy Fong",
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.26.7",
     "concurrently": "^5.2.0",
+    "eslint-config-google": "^0.14.0",
     "stylelint": "^13.6.1",
     "stylelint-config-recommended-scss": "^4.2.0"
   },
   "dependencies": {
+    "eslint": "^7.3.1",
     "node-sass": "^4.14.1",
     "stylelint-scss": "^3.18.0"
   }
