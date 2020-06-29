@@ -1,3 +1,4 @@
+import {MainButtons} from "mainButtons.mjs";
 // Contains functionality!
 // TODO: create a player class
 let audioContent = ["example_voice_files/content-1.mp3",
