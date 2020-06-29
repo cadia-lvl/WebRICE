@@ -2,7 +2,8 @@
 .WebRICE_manage{
     background-color: black;
     padding:0.5em;
-    display: inline-block;
+    display: flex;
+    width: max-content;
     border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
     button {
         background-color: black;

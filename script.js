@@ -1,4 +1,9 @@
 // Contains functionality!
+import {MainButtons} from "./mainButtons.mjs";
+
+const mainButtonClass = new MainButtons(document.getElementById("webrice"));
+mainButtonClass.createMainButtons();
+
 // TODO: create a player class
 let audioContent = ["example_voice_files/content-1.mp3",
                     "example_voice_files/content-2.mp3",
