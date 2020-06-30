@@ -1,4 +1,7 @@
 //Contains look!
+$dark-grey: #3E3E3E;
+$border-rad-subm: 0.2rem 0.2rem 0.2rem 0.2rem;
+
 .WebRICE_manage{
     background-color: black;
     padding:0.5em;
@@ -8,4 +11,57 @@
         background-color: black;
         border: 0em;
      }
+}
+
+
+#settingsCont{
+   margin: 0.3rem 0 0 0;
+   position: absolute;
+   border-color: black;
+   border-style: inset;
+   background-color:black;
+
+   & > #settingsHeader {
+      background-color: $dark-grey;
+      display: flex;
+      justify-content: end;
+      margin-bottom: 0.1rem;
+
+      & > button{
+         background-color: $dark-grey;
+         padding:0 ;
+         border-width: 0;
+
+         & > img {
+            max-width: 100%;
+         }
+      }
+   
+   }
+   
+   & > .settingsMenu {
+      padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+      background-color:black;
+      color: white;
+      max-height: 30%;
+      overflow-y: scroll;
+   
+      & > h2 {
+         margin: 0;
+      }
+   
+      & > section{
+         padding: 0.2rem;
+
+         & > h3 {
+            margin: 0;
+         } 
+      }
+      & > #submitSettings {
+         border: 0;
+         background-color: $dark-grey;
+         border-radius: $border-rad-subm;
+         color: white;
+      }
+   }
 }

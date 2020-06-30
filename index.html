@@ -6,7 +6,27 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <div class="webrice"></div>
+        <div class="WebRICE_manage">
+            <audio class="WRPlayer" id="player"></audio>
+            <image src="./Images/hearing-white-36dp.svg"/>
+            <button class="ListenButton">
+                <image title="Hlusta" alt="Hlusta" src="./Images/play_arrow-white-36dp.svg"/>
+            </button>
+            <button class="PauseButton">
+                <img src="./Images/pause-white-36dp.svg" />
+            </button>
+            <button class="StopButton">
+                <image src="./Images/stop-white-36dp.svg"/>
+            </button>
+            <button class="SpeedButton">
+                <image src="./Images/speed-white-36dp.svg"/>
+            </button>
+            <button class="SettingButton">
+                    <image src="./Images/settings-white-36dp.svg"/>
+            </button>
+        </div>
+        <div id="webrice"></div>         
+
         <!--Sample text-->
         <div class="WebRICE_text_container">
             <h1 id="content-1">Sólskin</h1>
@@ -20,7 +40,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <script type="module" src="script.js"></script>
+        <script type="module" src="scripts.js"></script>
     </body>
 </html>

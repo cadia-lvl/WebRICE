@@ -6,6 +6,41 @@
   .WebRICE_manage button {
     background-color: black;
     border: 0em; }
+
+#settingsCont {
+  margin: 0.3rem 0 0 0;
+  position: absolute;
+  border-color: black;
+  border-style: inset;
+  background-color: black; }
+  #settingsCont > #settingsHeader {
+    background-color: #3E3E3E;
+    display: flex;
+    justify-content: end;
+    margin-bottom: 0.1rem; }
+    #settingsCont > #settingsHeader > button {
+      background-color: #3E3E3E;
+      padding: 0;
+      border-width: 0; }
+      #settingsCont > #settingsHeader > button > img {
+        max-width: 100%; }
+  #settingsCont > .settingsMenu {
+    padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+    background-color: black;
+    color: white;
+    max-height: 30%;
+    overflow-y: scroll; }
+    #settingsCont > .settingsMenu > h2 {
+      margin: 0; }
+    #settingsCont > .settingsMenu > section {
+      padding: 0.2rem; }
+      #settingsCont > .settingsMenu > section > h3 {
+        margin: 0; }
+    #settingsCont > .settingsMenu > #submitSettings {
+      border: 0;
+      background-color: #3E3E3E;
+      border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
+      color: white; }
 .PauseButton {
   display: none;
 }
