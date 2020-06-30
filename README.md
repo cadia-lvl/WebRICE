@@ -18,7 +18,7 @@ We use the following linters: eslint and stylelint.
 We follow the [Google JavaScript style
 guide](https://google.github.io/styleguide/jsguide.html), and the [MDN HTML
 reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference).
-We validate our generated html with: https://validator.w3.org/
+We validate our generated HTML5 with: https://validator.w3.org/
 
 ## License
 This project is licensed under [Apache 2.0](LICENSE).
