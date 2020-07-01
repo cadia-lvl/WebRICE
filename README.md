@@ -11,7 +11,7 @@ instead of reading it.
 ## Usage
 TODO: write usage when we have an npm package and plugins
 
-A demo of WebRICE can be found [here](https://cadia-lvl.github.io/WebRICE/)
+A demo of WebRICE can be found [here](https://cadia-lvl.github.io/WebRICE/) once this repo is public.
 
 ## Contributing
 Use the following linters: eslint and stylelint.
