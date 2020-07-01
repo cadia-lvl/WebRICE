@@ -12,7 +12,7 @@ function makeSettings(){
 }
 
 //Creates the settings when settings button is pushed
-document.querySelector(".SettingButton").addEventListener("click", function() {
+document.querySelector("#SettingButton").addEventListener("click", function() {
     document.getElementById(SettingsId) ? settingsMod.destroySettings() : makeSettings();
 });// Contains functionality!
 // TODO: create a player class
@@ -23,12 +23,12 @@ let audioContent = ["example_voice_files/content-1.mp3",
                     "example_voice_files/content-5.mp3"];
 
 let WRPlayer = document.getElementById('player');
-let WebRICEWidget = document.getElementsByClassName("WebRICE_manage")[0];
+let WebRICEWidget = document.getElementById("WebRICE_manage");
 
-let listenBtn = document.getElementsByClassName("ListenButton")[0];
-let pauseBtn = document.getElementsByClassName("PauseButton")[0];
-let speedBtn = document.getElementsByClassName("SpeedButton")[0];
-let stopBtn = document.getElementsByClassName("StopButton")[0];
+let listenBtn = document.getElementById("ListenButton");
+let pauseBtn = document.getElementById("PauseButton");
+let speedBtn = document.getElementById("SpeedButton");
+let stopBtn = document.getElementById("StopButton");
 
 let playerStarted = false;
 let playerPaused = true;
