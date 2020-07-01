@@ -17,6 +17,7 @@ let WebRICEWidget = document.getElementsByClassName("WebRICE_manage")[0];
 let listenBtn = document.getElementsByClassName("ListenButton")[0];
 let pauseBtn = document.getElementsByClassName("PauseButton")[0];
 let speedBtn = document.getElementsByClassName("SpeedButton")[0];
+let downBtn = document.getElementsByClassName("DownloadButton")[0];
 let stopBtn = document.getElementsByClassName("StopButton")[0];
 
 let playerStarted = false;
@@ -80,6 +81,11 @@ function stop() {
     initReader();
 }
 
+function download() {
+    //temporary 
+    console.log("no clip but if there was it would have been downloaded")
+}
+
 
 function fasterOrSlower() {
     const el = document.createElement("input");
@@ -106,6 +112,7 @@ listenBtn.onclick = playPause;
 pauseBtn.onclick = playPause;
 stopBtn.onclick = stop;
 speedBtn.onclick = fasterOrSlower;
+downBtn.onClick = download;
 
 // Keyboard shortcuts
 // TODO: make sure they conform to accessibility settings
