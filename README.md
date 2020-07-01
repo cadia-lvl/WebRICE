@@ -13,18 +13,19 @@ TODO: write usage when we have an npm package and plugins
 
 A demo of WebRICE can be found [here](https://cadia-lvl.github.io/WebRICE/)
 
-## Contribution guidelines
-We use the following linters: eslint and stylelint.
-We follow the [Google JavaScript style
+## Contributing
+Use the following linters: eslint and stylelint.
+Make sure your JavaScript follows the [Google JavaScript style
 guide](https://google.github.io/styleguide/jsguide.html), and the [MDN HTML
 reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference).
-We validate our generated HTML5 with: https://validator.w3.org/
+Also, validate the generated HTML5 with: https://validator.w3.org/
+Then submit a pull request of your changes.
 
 ## License
 This project is licensed under [Apache 2.0](LICENSE).
 
 ## Authors/Credit
-* [Reykjavik University](https://ru.is)
+[Reykjavik University](https://ru.is)
 * Judy Fong [judyfong@ru.is](mailto:judyfong@ru.is)
 * Sunneva Þorsteinsdóttir [sunnevath@ru.is](mailto:sunnevath@ru.is)
 
