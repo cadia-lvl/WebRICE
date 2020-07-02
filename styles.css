@@ -12,6 +12,9 @@
     border: 0em;
     padding: 0 0.4em 0 0.4em; }
 
+#PauseButton {
+  display: none; }
+
 #settingsCont {
   margin: 0.3rem 0 0 0;
   position: absolute;
