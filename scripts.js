@@ -1,8 +1,24 @@
-// Contains functionality!
-import {MainButtons} from "./mainButtons.mjs";
+
+import {MainButtons} from "./resources/modules/mainButtons.mjs";
+import { Settings } from "./resources/modules/settings.mjs"
 
 const mainButtonClass = new MainButtons(document.getElementById("webrice"));
 mainButtonClass.createMainButtons();
+
+const SettingsId = "settingsCont";
+const settingsMod = new Settings(document.getElementById("webrice"), SettingsId);
+
+function makeSettings(){
+    settingsMod.createSettings();
+    document.getElementById("closeSettings").addEventListener("click", function() {
+        settingsMod.destroySettings();
+    });
+}
+
+//Creates the settings when settings button is pushed
+document.querySelector("#SettingButton").addEventListener("click", function() {
+    document.getElementById(SettingsId) ? settingsMod.destroySettings() : makeSettings();
+});// Contains functionality!
 
 // TODO: create a player class
 let audioContent = ["example_voice_files/content-1.mp3",
@@ -12,13 +28,12 @@ let audioContent = ["example_voice_files/content-1.mp3",
                     "example_voice_files/content-5.mp3"];
 
 let WRPlayer = document.getElementById('player');
-let WebRICEWidget = document.getElementsByClassName("WebRICE_manage")[0];
 
-let listenBtn = document.getElementsByClassName("ListenButton")[0];
-let pauseBtn = document.getElementsByClassName("PauseButton")[0];
-let speedBtn = document.getElementsByClassName("SpeedButton")[0];
-let downBtn = document.getElementsByClassName("DownloadButton")[0];
-let stopBtn = document.getElementsByClassName("StopButton")[0];
+let listenBtn = document.getElementById("ListenButton");
+let pauseBtn = document.getElementById("PauseButton");
+let speedBtn = document.getElementById("SpeedButton");
+let downBtn = document.getElementsByClassName("DownloadButton");
+let stopBtn = document.getElementById("StopButton");
 
 let playerStarted = false;
 let playerPaused = true;
