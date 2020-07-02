@@ -1,5 +1,9 @@
-//Contains functionality!
+
+import {MainButtons} from "./resources/modules/mainButtons.mjs";
 import { Settings } from "./resources/modules/settings.mjs"
+
+const mainButtonClass = new MainButtons(document.getElementById("webrice"));
+mainButtonClass.createMainButtons();
 
 const SettingsId = "settingsCont";
 const settingsMod = new Settings(document.getElementById("webrice"), SettingsId);
@@ -15,6 +19,7 @@ function makeSettings(){
 document.querySelector("#SettingButton").addEventListener("click", function() {
     document.getElementById(SettingsId) ? settingsMod.destroySettings() : makeSettings();
 });// Contains functionality!
+
 // TODO: create a player class
 let audioContent = ["example_voice_files/content-1.mp3",
                     "example_voice_files/content-2.mp3",
@@ -23,11 +28,11 @@ let audioContent = ["example_voice_files/content-1.mp3",
                     "example_voice_files/content-5.mp3"];
 
 let WRPlayer = document.getElementById('player');
-let WebRICEWidget = document.getElementById("WebRICE_manage");
 
 let listenBtn = document.getElementById("ListenButton");
 let pauseBtn = document.getElementById("PauseButton");
 let speedBtn = document.getElementById("SpeedButton");
+let downBtn = document.getElementsByClassName("DownloadButton");
 let stopBtn = document.getElementById("StopButton");
 
 let playerStarted = false;
@@ -91,6 +96,11 @@ function stop() {
     initReader();
 }
 
+function download() {
+    //temporary 
+    console.log("no clip but if there was it would have been downloaded")
+}
+
 
 function fasterOrSlower() {
     const el = document.createElement("input");
@@ -117,6 +127,7 @@ listenBtn.onclick = playPause;
 pauseBtn.onclick = playPause;
 stopBtn.onclick = stop;
 speedBtn.onclick = fasterOrSlower;
+downBtn.onClick = download;
 
 // Keyboard shortcuts
 // TODO: make sure they conform to accessibility settings

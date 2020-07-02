@@ -12,31 +12,21 @@ $border-rad-subm: 0.2rem 0.2rem 0.2rem 0.2rem;
     padding:0.3rem;
     display: inline-flex;
     border-radius: $box-rad-1;
-    > button  {
+    > button {
        background-color: $backg-color;
        border: 0em;
        padding: 0 0.4em 0 0.4em;
      } 
+   > div > button {
+      background-color: $backg-color;
+       border: 0em;
+       padding: 0 0.4em 0 0.4em;
+   }
 }
 
-#settingsMenu {
-   margin: 0.3rem 0 0 0;
-   background-color:$backg-color;
-   color: $text-color;
-   padding: 0.2rem 0.2rem 0.2rem 0.2rem;
-   position: absolute;
-   border-radius: $box-rad-2;
-   border-color: black;
-   //border-style: inset;
-   max-height: 30%;
-   overflow-y: scroll;
-
-   > h2 {
-      margin: 0;
-   }
-
-   > section{
-      padding: 0.2rem;
+#PauseButton {
+   display: none;
+ }
      
 #settingsCont{
    margin: 0.3rem 0 0 0;

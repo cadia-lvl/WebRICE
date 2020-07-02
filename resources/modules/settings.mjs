@@ -9,7 +9,6 @@ export class Settings {
 
     isCheckedCheckbox(box){
         const boxStatus = JSON.parse(localStorage.getItem("highlight"));
-        console.log(boxStatus);
         if(boxStatus === null) box.checked = true;
         else box.checked =  boxStatus;
     }
@@ -108,7 +107,6 @@ export class Settings {
     } 
     
     destroySettings(){
-        console.log(this.MainContainer);
         this.MainContainer.removeChild(document.getElementById(this.SettingsId));
     }
 }
