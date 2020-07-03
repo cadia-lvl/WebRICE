@@ -3,26 +3,17 @@
   padding: 0.3rem;
   display: inline-flex;
   border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; }
-
   #WebRICE_manage > button {
     background-color: #242121;
     border: 0em;
     padding: 0 0.4em 0 0.4em; }
+  #WebRICE_manage > div > button {
+    background-color: #242121;
+    border: 0em;
+    padding: 0 0.4em 0 0.4em; }
 
-#settingsMenu {
-  margin: 0.3rem 0 0 0;
-  background-color: #242121;
-  color: #FDF9F9;
-  padding: 0.2rem 0.2rem 0.2rem 0.2rem;
-  position: absolute;
-  border-radius: 0.1rem 0.1rem 0.1rem 0.1rem;
-  border-color: black;
-  max-height: 30%;
-  overflow-y: scroll; }
-  #settingsMenu > h2 {
-    margin: 0; }
-  #settingsMenu > section {
-    padding: 0.2rem; }
+#PauseButton {
+  display: none; }
 
 #settingsCont {
   margin: 0.3rem 0 0 0;
@@ -58,6 +49,3 @@
       background-color: #3E3E3E;
       border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
       color: white; }
-#PauseButton {
-  display: none;
-}
