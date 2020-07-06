@@ -7,8 +7,8 @@ export class Settings {
 
     }
 
-    isCheckedCheckbox(box){
-        const boxStatus = JSON.parse(localStorage.getItem("highlight"));
+    isCheckedCheckbox(box, localStoreVal){
+        const boxStatus = JSON.parse(localStorage.getItem(localStoreVal));
         if(boxStatus === null) box.checked = true;
         else box.checked =  boxStatus;
     }
@@ -21,7 +21,7 @@ export class Settings {
         const highlightStatus = "highlightStatus";
         isHighlightInput.id = highlightStatus;
         isHighlightInput.type = "checkbox";
-        this.isCheckedCheckbox(isHighlightInput);
+        this.isCheckedCheckbox(isHighlightInput, "highlight");
     
         isHighlightLabel.appendChild(document.createTextNode(text.settings.colorBackg))
         isHighlightLabel.for = highlightStatus;

@@ -4,6 +4,8 @@ import { Settings } from "./resources/modules/settings.mjs"
 const mainButtonClass = new MainButtons(document.getElementById("webrice"));
 mainButtonClass.createMainButtons();
 
+document.querySelector("#baseContainer").addEventListener("click", mainButtonClass.expandButtons);
+
 const SettingsId = "settingsCont";
 const settingsMod = new Settings(document.getElementById("webrice"), SettingsId);
 
