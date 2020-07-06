@@ -24,7 +24,14 @@ let audioContent = ["example_voice_files/content-1.mp3",
                     "example_voice_files/content-2.mp3",
                     "example_voice_files/content-3.mp3",
                     "example_voice_files/content-4.mp3",
-                    "example_voice_files/content-5.mp3"];
+                    "example_voice_files/content-5.mp3",
+                    "example_voice_files/content-6.mp3",
+                    "example_voice_files/content-7.mp3",
+                    "example_voice_files/content-8.mp3",
+                    "example_voice_files/content-9.mp3",
+                    "example_voice_files/content-10.mp3",
+                    "example_voice_files/content-11.mp3",
+                    "example_voice_files/content-12.mp3"];
 
 let WRPlayer = document.getElementById('player');
 
