@@ -1,6 +1,7 @@
 
-import {MainButtons} from "./resources/modules/mainButtons.mjs";
+import { MainButtons } from "./resources/modules/mainButtons.mjs";
 import { Settings } from "./resources/modules/settings.mjs"
+import { mount } from "./resources/modules/selection.js"
 
 const mainButtonClass = new MainButtons(document.getElementById("webrice"));
 mainButtonClass.createMainButtons();
@@ -166,4 +167,13 @@ function onKeyDown(e) {
     }
 }
 
-// TODO: Play functionality for selected text
+// user selected text
+document.addEventListener("mouseup", function() {
+    let sel = window.getSelection();
+    if (!sel) return;
+    let range = sel.getRangeAt(0);
+    // if collapsed, selection's start and end points are at the same position
+    if (range.collapsed) return;
+    let rect = range.getBoundingClientRect();
+    mount(rect.x + rect.width, rect.y + rect.height, sel.toString(), range.commonAncestorContainer);
+});
