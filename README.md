@@ -35,3 +35,5 @@ This project was funded by the Language Technology Programme for Icelandic
 [Almannarómur](https://almannaromur.is/), is funded by the Icelandic Ministry
 of Education, Science and Culture.
 
+We use icons created from [Material Design](https://www.material.io/).
+
