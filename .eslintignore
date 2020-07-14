@@ -1,0 +1,6 @@
+#don't lint the following:
+node_modules
+resources
+.*
+build
+webpack.config.js
