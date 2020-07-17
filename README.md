@@ -14,6 +14,7 @@ TODO: write usage when we have an npm package and plugins
 A demo of WebRICE can be found [here](https://cadia-lvl.github.io/WebRICE/) once this repo is public.
 
 ## Contributing
+We use TypeScript, CSS, and HTML.
 Use the following linters: eslint and stylelint.
 Make sure your JavaScript follows the [Google JavaScript style
 guide](https://google.github.io/styleguide/jsguide.html), and the [MDN HTML
