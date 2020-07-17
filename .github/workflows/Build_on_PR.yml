@@ -24,4 +24,5 @@ jobs:
         git remote -v
         git remote set-url origin git@github.com:${GITHUB_REPOSITORY}.git
         git remote -v
+        npm install
         npm run build
