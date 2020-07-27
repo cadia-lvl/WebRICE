@@ -1,16 +1,39 @@
+import {Settings} from "./modules/Settings";
+import{text} from "./lang/is";
+
 export class Reader{
     webText = "";
-    readonly CONTAINER_ID = "container_id";
-    readonly TEXT_CONTENT_ID = "webrice";
+    readonly CONTAINER_ID = "webrice";
+    readonly TEXT_CONTENT_ID = "WebRICE_text_container";
     constructor(){
         this.init();
     }
+
     public init(): void{
-        console.log("initialize the reader");
+        this.createInitialHTML();
+    }
+
+    private addListeners(id: string, functionName: EventListenerOrEventListenerObject){
+        const physicalButton = document.getElementById(id);
+        if(physicalButton) physicalButton.addEventListener("click", functionName);
+
     }
 
     private createInitialHTML(): void{
-        console.log("creates the initial html");
+        //Missing base container around the buttons
+        const container = document.getElementById(this.CONTAINER_ID);
+        
+        const settingsButton = new Settings(text.settings.conf.imagePath, 
+                                            text.settings.conf.alt, 
+                                            text.settings.conf.id, 
+                                            text.settings.conf.title, 
+                                            text.settings.userText);
+        if(container){
+            //and other buttons
+            container.appendChild(settingsButton.createHTML());
+        }
+        
+        this.addListeners(text.settings.conf.id, settingsButton.onClicked);
     }
 
     public getWebText(): string{
