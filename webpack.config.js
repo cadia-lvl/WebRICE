@@ -22,7 +22,6 @@ module.exports = {
         path: path.resolve(__dirname, "build"), //Absolute path from this file to build
     },
     devServer: {
-        contentBase: path.join(__dirname, 'build'),
         compress: true,
         port: 3000,
         open: true
