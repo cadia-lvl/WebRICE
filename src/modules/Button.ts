@@ -1,21 +1,21 @@
 export abstract class Button{
-    image: string;
+    svg: SVGSVGElement;
     altText: string;
     buttonId: string;
     titleText: string;
-    constructor(img: string, alt: string, id: string, title: string){
-        this.image = img;
+    constructor(svgElement: SVGSVGElement, alt: string, id: string, title: string){
+        this.svg = svgElement;
         this.altText = alt;
         this.buttonId = id;
         this.titleText = title;
     }
 
-    protected setImage(img: string): void{
-        this.image = img;
+    protected setSvg(newSvg: SVGSVGElement): void{
+        this.svg = newSvg;
     }
 
-    protected getImage(): string{
-        return this.image;
+    protected getSvg(): SVGSVGElement{
+        return this.svg;
     }
 
     protected setAltText(alt: string): void{
@@ -30,7 +30,7 @@ export abstract class Button{
         this.buttonId = id;
     }
 
-    protected getButtonId(): string{
+    public getButtonId(): string{
         return this.buttonId;
     }
 
@@ -43,19 +43,18 @@ export abstract class Button{
     }
 
     abstract onClicked(): void;
+
+    protected abstract setTabindex(button: HTMLDivElement): void;
     
-    public createHTML(): any{
-        const button = document.createElement("button");
+    public createHTML(): HTMLDivElement{
+        const button = document.createElement("div");
         button.id = this.buttonId;
-        const img = new Image();
-        img.setAttribute("src", this.image);
-        img.setAttribute("alt",this.altText);
-        img.setAttribute("title",this.titleText);
-        button.appendChild(img);
-        console.log(typeof(button));
+        button.setAttribute("role", "button");
+        button.setAttribute("alt",this.altText);
+        button.setAttribute("title",this.titleText);
+        this.setTabindex(button);
+        button.appendChild(this.svg);
         return button;
     }
-
-
 
 }
