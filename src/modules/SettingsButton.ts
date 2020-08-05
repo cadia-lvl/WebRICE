@@ -1,11 +1,9 @@
 import {Button} from "./Button";
 
 export class SettingsButton extends Button{
-    helpText: object;
     readonly TABINDX: string;
-    constructor(svgElement: SVGSVGElement, alt: string, id: string, title: string, helpText: object){
+    constructor(svgElement: SVGSVGElement, alt: string, id: string, title: string){
         super(svgElement, alt, id, title);
-        this.helpText = helpText;
         this.TABINDX = "4";
     }
     public onClicked(): void{
@@ -40,23 +38,17 @@ export class SettingsButton extends Button{
     }
 
     public hideSettingsModule(): void{
+        console.log("to be implemented");
 
     }
 
     public showSettingsModule(): void{
+        console.log("to be implemented");
 
     }
 
     public fetchUserSettings(): void{
-
-    }
-
-    private getHelpText(): object{
-        return this.helpText;
-    }
-
-    private setHelpText(text: object): void {
-        this.helpText = text;
+        console.log("to be implemented");
     }
 
     public createHTML(): HTMLDivElement{

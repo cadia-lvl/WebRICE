@@ -1,5 +1,5 @@
 import {SettingsButton} from "./modules/SettingsButton";
-import {PlayPauseButton} from "./modules/PlayPause";
+import {PlayPauseButton} from "./modules/PlayPauseButton";
 import {StopButton} from "./modules/StopButton";
 import {SpeedButton} from "./modules/SpeedButton";
 import{text} from "./lang/is";
@@ -58,7 +58,8 @@ class Reader{
         const mainSpeedButton = new SpeedButton(mainSpeedIcon.createHtml(),
                                                 text.ButtonAlt.speed,
                                                 "webriceSpeedButton",
-                                                text.ButtonTitle.speed)
+                                                text.ButtonTitle.speed);
+        
         //Eventlisteners added to buttons 
         this.addListeners(mainPlayPauseButton.getButtonId(), mainPlayPauseButton.onClicked);
         this.addListeners(mainStopButton.getButtonId(), mainStopButton.onClicked);
@@ -104,19 +105,6 @@ class Reader{
     this.addListeners(varConf.speedB.id, speedButtonClass.onClicked);
     //this.addListeners(varConf.settingsB.id, settingsButtonClass.onClicked);
     }*/
-
-    public changeIconColor(color: string): void{
-
-    }
-
-    public alwaysExpandedWebrice(val: boolean): void{
-
-    }
-
-    public changeIconSize(size:string):void{
-
-    }
-
 
 }
 

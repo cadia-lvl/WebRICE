@@ -14,11 +14,11 @@ export class SpeedButton extends Button{
     }
 
     speedUp(increase: number): void{
-
+        console.log("to be implemented");
     }
 
     slowDown(decrease: number): void{
-
+        console.log("to be implemented");
     }
 
     protected setTabindex(button: HTMLDivElement): void{
