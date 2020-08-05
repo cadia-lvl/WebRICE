@@ -1,15 +1,20 @@
-export const text = {
-    "base": {
-        
+export const text = {    
+    "ButtonAlt": {
+        "play": "hlusta á upplestur síðu",
+        "pause": "",
+        "stop": "stoppa lestur",
+        "speed": "breyta hraða lesturs",
+        "settings": "stillinga hnappur",
+    },
+    "ButtonTitle": {
+        "ear": "Hlusta",
+        "play": "Spila",
+        "pause": "Pása",
+        "stop": "Stoppa",
+        "speed": "Breyta hraða",
+        "settings": "Stillingar",
     },
     "settings": {
-        "conf": {
-            "title": "Stillingar",
-            "imagePath": "./../resources/Images/settings-white-36dp.svg",
-            "alt":"stillinga hnappur",
-            "id": "settingsButton"
-
-        },
         "userText":{
             "mainHead": "Stillingar",
             "whatIsHead": "Hvað er veflesari?",

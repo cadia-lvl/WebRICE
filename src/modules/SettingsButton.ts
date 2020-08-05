@@ -1,13 +1,19 @@
 import {Button} from "./Button";
 
-export class Settings extends Button{
+export class SettingsButton extends Button{
     helpText: object;
-    constructor(img: string, alt: string, id: string, title: string, helpText: object){
-        super(img, alt, id, title);
+    readonly TABINDX: string;
+    constructor(svgElement: SVGSVGElement, alt: string, id: string, title: string, helpText: object){
+        super(svgElement, alt, id, title);
         this.helpText = helpText;
+        this.TABINDX = "4";
     }
     public onClicked(): void{
         console.log("clicked!");
+    }
+
+    protected setTabindex(button: HTMLDivElement): void{
+        button.setAttribute("tabindex", this.TABINDX);
     }
 
     private createSettingsHeader(): HTMLElement{
@@ -51,5 +57,9 @@ export class Settings extends Button{
 
     private setHelpText(text: object): void {
         this.helpText = text;
+    }
+
+    public createHTML(): HTMLDivElement{
+        return document.createElement("div");
     }
 }
