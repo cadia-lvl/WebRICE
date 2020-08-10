@@ -4,11 +4,9 @@
   "description": "WebRICE is an open source web reader. It reads text aloud to users!",
   "main": "index.js",
   "scripts": {
-    "dev-serve": "webpack-dev-server",
-    "sass": "node-sass --watch ./build/WebRICE_styles.scss -o ./build",
     "build": "webpack",
-    "dev": "concurrently npm:sass npm:dev-serve",
-    "slint": "stylelint \"./build/WebRICE_styles.scss\" --syntax scss",
+    "dev": "webpack-dev-server",
+    "slint": "stylelint \"**/*.css\"|| echo \"lint faild for the above file(s)",
     "elint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "author": "Sunneva Þorsteinsdóttir and Judy Fong",
@@ -21,6 +19,7 @@
     "eslint-config-google": "^0.14.0",
     "stylelint": "^13.6.1",
     "stylelint-config-recommended-scss": "^4.2.0",
+    "stylelint-config-standard": "^20.0.0",
     "ts-loader": "^8.0.0",
     "typescript": "^3.9.6",
     "webpack": "^4.43.0",
@@ -29,8 +28,6 @@
   },
   "dependencies": {
     "@types/color": "^3.0.1",
-    "color": "^3.1.2",
-    "node-sass": "^4.14.1",
-    "stylelint-scss": "^3.18.0"
+    "color": "^3.1.2"
   }
 }

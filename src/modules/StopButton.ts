@@ -1,14 +1,9 @@
 import {Button} from "./Button";
+import{icon} from "./icons";
 
 export class StopButton extends Button{
-    readonly TABINDX: string;
-    constructor(svgElement: SVGSVGElement, alt: string, id: string, title: string){
-        super(svgElement, alt, id, title);
-        this.TABINDX = "2";
-    }
-
-    protected setTabindex(button: HTMLDivElement): void{
-        button.setAttribute("tabindex", this.TABINDX);
+    constructor(icon: icon, alt: string, id: string, title: string, classes?: string){
+        super(icon, alt, id, title, classes);
     }
 
     onClicked(): void{

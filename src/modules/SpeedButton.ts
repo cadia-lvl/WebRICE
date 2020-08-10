@@ -1,12 +1,11 @@
 import {Button} from "./Button";
+import{icon} from "./icons";
 
 export class SpeedButton extends Button{
     currentSpeed: number
-    readonly TABINDX: string
-    constructor(svgElement: SVGSVGElement, alt: string, id: string, title: string){
-        super(svgElement, alt, id, title);
+    constructor(icon: icon, alt: string, id: string, title: string, classes?: string){
+        super(icon, alt, id, title, classes);
         this.currentSpeed = 0;
-        this.TABINDX = "3";
     }
 
     onClicked(): void{
@@ -19,10 +18,6 @@ export class SpeedButton extends Button{
 
     slowDown(decrease: number): void{
         console.log("to be implemented");
-    }
-
-    protected setTabindex(button: HTMLDivElement): void{
-        button.setAttribute("tabindex", this.TABINDX);
     }
 
     getCurrentSpeed(): number{

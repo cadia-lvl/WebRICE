@@ -1,21 +1,25 @@
+import{icon} from "./icons";
+
 export abstract class Button{
-    svg: SVGSVGElement;
+    icon: icon;
     altText: string;
     buttonId: string;
     titleText: string;
-    constructor(svgElement: SVGSVGElement, alt: string, id: string, title: string){
-        this.svg = svgElement;
+    classes: string = "";
+    constructor(icon: icon, alt: string, id: string, title: string, classes?: string){
+        this.icon = icon;
         this.altText = alt;
         this.buttonId = id;
         this.titleText = title;
+        if(classes) this.classes = classes;
     }
 
-    protected setSvg(newSvg: SVGSVGElement): void{
-        this.svg = newSvg;
+    protected setIcon(newIcon: icon): void{
+        this.icon = newIcon;
     }
 
-    protected getSvg(): SVGSVGElement{
-        return this.svg;
+    protected getIcon(): icon{
+        return this.icon;
     }
 
     protected setAltText(alt: string): void{
@@ -43,8 +47,6 @@ export abstract class Button{
     }
 
     abstract onClicked(): void;
-
-    protected abstract setTabindex(button: HTMLDivElement): void;
     
     public createHTML(): HTMLDivElement{
         const button = document.createElement("div");
@@ -52,8 +54,9 @@ export abstract class Button{
         button.setAttribute("role", "button");
         button.setAttribute("alt",this.altText);
         button.setAttribute("title",this.titleText);
-        this.setTabindex(button);
-        button.appendChild(this.svg);
+        button.setAttribute("tabindex", "0");
+        if(this.classes !== "") button.classList.add(this.classes);
+        button.appendChild(this.icon.svg);
         return button;
     }
 

@@ -1,17 +1,12 @@
 import {Button} from "./Button";
+import {icon} from "./icons";
 
 export class SettingsButton extends Button{
-    readonly TABINDX: string;
-    constructor(svgElement: SVGSVGElement, alt: string, id: string, title: string){
-        super(svgElement, alt, id, title);
-        this.TABINDX = "4";
+    constructor(icon: icon, alt: string, id: string, title: string, classes?: string){
+        super(icon, alt, id, title, classes);
     }
     public onClicked(): void{
         console.log("clicked!");
-    }
-
-    protected setTabindex(button: HTMLDivElement): void{
-        button.setAttribute("tabindex", this.TABINDX);
     }
 
     private createSettingsHeader(): HTMLElement{
@@ -49,9 +44,5 @@ export class SettingsButton extends Button{
 
     public fetchUserSettings(): void{
         console.log("to be implemented");
-    }
-
-    public createHTML(): HTMLDivElement{
-        return document.createElement("div");
     }
 }

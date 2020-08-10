@@ -1,82 +1,97 @@
+
+/* Main Container styles */
 #webrice {
-  background-color: #242121;
-  display: inline-flex; }
-
-/*
-#WebRICE_manage{
-    background-color: $backg-color;
-    padding:0.3rem;
-    display: inline-flex;
-    border-radius: $box-rad-1;
-    > button {
-       background-color: $backg-color;
-       border: 0em;
-       padding: 0 0.4em 0 0.4em;
-     } 
-   > div > button {
-      background-color: $backg-color;
-       border: 0em;
-       padding: 0 0.4em 0 0.4em;
-   }
+   --main-color:  #242121;/*#5C5A61;*/
+   --bacg-test: radial-gradient(circle, #4b4950 0%, #242121 100%);
+   --light-bacg-test: radial-gradient(circle,#e7e4e4 0%, #f3f2f2 0 100%);
+   --secondary-color: #f3f2f2;
+   --border-color: #040505;/*#1b1818;*/
+   --icon-size: 1.5rem;
+   --border-width: 0.05rem;
+   --corner-curve: 0.2rem;
+   --border-rad: var(--corner-curve) var(--corner-curve) var(--corner-curve) var(--corner-curve);
+   --main-border: var(--border-width) solid var(--border-color);
+   /**/
+  display: inline-flex;
+  /*background-color:var(--main-color);*/
+  border-width: var(--border-width);
+  border-style: solid;
+  border-radius: var(--border-rad);
+  border-color: var(--border-color);
+  max-height: 1.732rem;
 }
 
-#PauseButton {
-   display: none;
+/* Buttons*/
+.webriceMainButton {
+   background: var(--bacg-test);
+   height: 100%;
+   padding: 0 0.4rem;
+   cursor: pointer;
+   border-left: var(--main-border);
  }
 
- .hide {
-   display:none;
- }
-     
-#settingsCont{
-   margin: 0.3rem 0 0 0;
-   position: absolute;
-   border-color: black;
-   border-style: inset;
-   background-color:black;
-
-   & > #settingsHeader {
-      background-color: $dark-grey;
-      display: flex;
-      justify-content: end;
-      margin-bottom: 0.1rem;
-
-      & > button{
-         background-color: $dark-grey;
-         padding:0 ;
-         border-width: 0;
-
-         & > img {
-            max-width: 100%;
-         }
-      }
-   
-   }
-   
-   & > .settingsMenu {
-      padding: 0.2rem 0.2rem 0.2rem 0.2rem;
-      background-color:black;
-      color: white;
-      max-height: 30%;
-      overflow-y: scroll;
-   
-      & > h2 {
-         margin: 0;
-      }
-   
-      & > section{
-         padding: 0.2rem;
-
-         & > h3 {
-            margin: 0;
-         } 
-      }
-      & > #submitSettings {
-         border: 0;
-         background-color: $dark-grey;
-         border-radius: $border-rad-subm;
-         color: white;
-      }
-   }
+.webriceMainButton:hover,
+.webriceMainButton:focus{
+   background: var(--light-bacg-test);
 }
-*/
+
+.webriceMainButton:hover svg,
+.webriceMainButton:focus svg{
+   fill: var(--main-color);
+}
+
+.webriceMainButton:last-child{
+   border-radius: 0 0.15rem 0.15rem 0;
+}
+
+
+#webriceSettingsButton{
+   display: flex;
+   justify-content: center;
+   position: relative;
+   z-index: 2;
+   border-radius: var(--border-rad);
+   border: var(--main-border);
+   background: var(--bacg-test);
+   max-width: 60%;
+   top: -0.63rem;
+   right: 0.25rem;
+}
+
+#webriceSettingsButton:hover,
+#webriceSettingsButton:focus{
+   background: var(--light-bacg-test);
+}
+
+/*  Icon styles */
+.mainWebriceIcon{
+   fill: var(--secondary-color);
+   height: var(--icon-size);
+   width: var(--icon-size);
+}
+
+#webriceSettingsButton:hover svg,
+#webriceSettingsButton:focus svg{
+   fill: var(--main-color);
+}
+
+#webriceEarIcon{
+   padding: 0 0.2rem;
+   fill: var(--secondary-color);
+   height: var(--icon-size);
+   width: var(--icon-size);
+   position: relative;
+   z-index: 0;
+}
+
+#webriceSettingsIcon{
+   height: 0.7rem;
+   width: 0.7rem;
+}
+
+
+#webriceDuoCont{
+   max-height: 2.245rem;
+   border-radius: 0.15rem 0 0 0.15rem;
+   background: var(--bacg-test);
+}

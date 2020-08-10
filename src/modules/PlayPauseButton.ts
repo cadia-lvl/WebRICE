@@ -1,15 +1,19 @@
 import {Button} from "./Button";
+import{icon} from "./icons";
 
 export class PlayPauseButton extends Button{
     isPlaying: boolean;
-    readonly TABINDX: string;
-    constructor(svgElement: SVGSVGElement, alt: string, id: string, title: string){
-        super(svgElement, alt, id, title);
+    constructor(icon: icon, alt: string, id: string, title: string, classes?: string){
+        super(icon, alt, id, title, classes);
         this.isPlaying = false;
-        this.TABINDX = "1";
     }
 
     onClicked(): void{
+        const thisButton = document.getElementById(this.buttonId);
+        if(!thisButton) return;
+
+        console.log()
+        //const currentSVG = thisButton.removeChild();
         /*
         const expanded = document.getElementById(varConf.base.containerId);
         if(expanded){
@@ -25,10 +29,6 @@ export class PlayPauseButton extends Button{
 
     private toggleApperance(): void{
         //Changes play to pause and pause to play
-    }
-
-    protected setTabindex(button: HTMLDivElement): void{
-        button.setAttribute("tabindex", this.TABINDX);
     }
 
     getIsPlaying(): boolean{
