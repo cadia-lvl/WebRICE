@@ -1,5 +1,5 @@
 import {Button} from "./Button";
-import{icon} from "./icons";
+import {icon} from "./icons";
 
 export class PlayPauseButton extends Button{
     isPlaying: boolean;

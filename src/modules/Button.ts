@@ -1,4 +1,4 @@
-import{icon} from "./icons";
+import {icon} from "./icons";
 
 export abstract class Button{
     icon: icon;

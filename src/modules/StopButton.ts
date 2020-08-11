@@ -1,5 +1,5 @@
 import {Button} from "./Button";
-import{icon} from "./icons";
+import {icon} from "./icons";
 
 export class StopButton extends Button{
     constructor(icon: icon, alt: string, id: string, title: string, classes?: string){

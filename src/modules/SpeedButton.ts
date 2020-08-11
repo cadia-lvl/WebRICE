@@ -1,5 +1,5 @@
 import {Button} from "./Button";
-import{icon} from "./icons";
+import {icon} from "./icons";
 
 export class SpeedButton extends Button{
     currentSpeed: number
