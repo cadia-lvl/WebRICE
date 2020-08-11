@@ -2,8 +2,9 @@ import {SettingsButton} from "./modules/SettingsButton";
 import {PlayPauseButton} from "./modules/PlayPauseButton";
 import {StopButton} from "./modules/StopButton";
 import {SpeedButton} from "./modules/SpeedButton";
-import{text} from "./lang/is";
-import {playIcon, stopIcon, pauseIcon, earIcon, settingsIcon, speedIcon, fastforwardIcon,closeIcon} from "./modules/icons";
+import {text} from "./lang/is";
+import {playIcon, stopIcon, pauseIcon, earIcon, settingsIcon, speedIcon, fastforwardIcon,closeIcon, volumeUpIcon} from "./modules/icons";
+import { Button } from "./modules/Button";
 
 class Reader{
     webText = "";
@@ -15,9 +16,9 @@ class Reader{
         //more things
     }
 
-    private addListeners(id: string, functionName: EventListenerOrEventListenerObject){
+    private addListeners(id: string, button: Button){
         const physicalButton = document.getElementById(id);
-        if(physicalButton) physicalButton.addEventListener("click", functionName);
+        if(physicalButton) physicalButton.addEventListener("click", button.handleClick);
     }
     
     private getWebText(): string{
@@ -33,37 +34,20 @@ class Reader{
     }
 
     private createWebrice(){
-        const container = document.getElementById(this.CONTAINER_ID);
-        if(!container) return;
+        const container = document.getElementById(this.CONTAINER_ID)!;
         //Player here at some point
-        const miscContainer = document.createElement("div");
-        miscContainer.setAttribute("id", "webriceDuoCont");
-
-        const mainEarIcon = new earIcon("webriceEarIcon");
-        miscContainer.appendChild(mainEarIcon.svg);
-
-        const mainSettingsIcon = new settingsIcon("webriceSettingsIcon", "mainWebriceIcon");
-        const mainSettingsButton = new SettingsButton(mainSettingsIcon,
-                                                        text.ButtonAlt.settings,
-                                                        "webriceSettingsButton",
-                                                        text.ButtonTitle.settings);
-        miscContainer.appendChild(mainSettingsButton.createHTML());
-
-        container.appendChild(miscContainer);
+        const earIconic = new earIcon("webriceEarIcon", "mainWebriceIcon");
 
         const mainPlayIcon = new playIcon("webricePlayIcon", "mainWebriceIcon");
-        const mainPlayPauseButton = new PlayPauseButton(mainPlayIcon, 
+        const mainPauseIcon = new pauseIcon("webricePauseIcon", "mainPauseIcon");
+        const mainPlayPauseButton = new PlayPauseButton(earIconic, 
+                                                    mainPlayIcon,
+                                                    mainPauseIcon,
                                                     text.ButtonAlt.play, 
                                                     "webricePlayButton", 
                                                     text.ButtonTitle.play,
                                                     "webriceMainButton");
         container.appendChild(mainPlayPauseButton.createHTML());
-
-        const mainFastforwardIcon = new fastforwardIcon("webriceFastforwardIcon", "mainWebriceIcon");
-        const mainFastforwardButton = document.createElement("div");
-        mainFastforwardButton.classList.add("webriceMainButton");
-        mainFastforwardButton.appendChild(mainFastforwardIcon.svg);
-        container.appendChild(mainFastforwardButton);
 
         const mainStopIcon = new stopIcon("webriceStopIcon","mainWebriceIcon");
         const mainStopButton = new StopButton(mainStopIcon, 
@@ -81,11 +65,19 @@ class Reader{
                                                 "webriceMainButton");
         container.appendChild(mainSpeedButton.createHTML());
 
+        const mainSettingsIcon = new settingsIcon("webriceSettingsIcon", "mainWebriceIcon");
+        const mainSettingsButton = new SettingsButton(mainSettingsIcon,
+                                                        text.ButtonAlt.settings,
+                                                        "webriceSettingsButton",
+                                                        text.ButtonTitle.settings,
+                                                        "webriceMainButton");
+        container.appendChild(mainSettingsButton.createHTML());
+
         //Eventlisteners added to buttons 
-        this.addListeners(mainPlayPauseButton.getButtonId(), mainPlayPauseButton.onClicked);
-        this.addListeners(mainStopButton.getButtonId(), mainStopButton.onClicked);
-        this.addListeners(mainSpeedButton.getButtonId(), mainSpeedButton.onClicked);
-        this.addListeners(mainSettingsButton.getButtonId(), mainSettingsButton.onClicked);
+        this.addListeners(mainPlayPauseButton.id, mainPlayPauseButton);
+        this.addListeners(mainStopButton.id, mainStopButton);
+        this.addListeners(mainSpeedButton.id, mainSpeedButton);
+        this.addListeners(mainSettingsButton.id, mainSettingsButton);
     }
 
 

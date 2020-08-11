@@ -3,39 +3,48 @@ import{icon} from "./icons";
 
 export class PlayPauseButton extends Button{
     isPlaying: boolean;
-    constructor(icon: icon, alt: string, id: string, title: string, classes?: string){
+    secondIcon: icon;
+    constructor(icon: icon, secondIcon:icon, toggleIcon: icon, alt: string, id: string, title: string, classes?: string){
         super(icon, alt, id, title, classes);
         this.isPlaying = false;
+        this.secondIcon = secondIcon;
     }
 
     onClicked(): void{
-        const thisButton = document.getElementById(this.buttonId);
-        if(!thisButton) return;
-
-        console.log()
-        //const currentSVG = thisButton.removeChild();
-        /*
-        const expanded = document.getElementById(varConf.base.containerId);
-        if(expanded){
-            expanded.classList.remove("hideExpanded");
-            expanded.classList.add("showExpanded");
-        }*/
-        /*const expanded = document.getElementById(varConf.base.containerId);
-        if(expanded){
-            expanded.classList.toggle("hideExpanded");
-            expanded.classList.toggle("showExpanded");
-        }*/
+        console.log("clicked!");
     }
 
     private toggleApperance(): void{
         //Changes play to pause and pause to play
     }
 
-    getIsPlaying(): boolean{
+    get secondButtonIcon(): icon{
+        return this.secondIcon;
+    }
+
+    set secondButtonIcon(icon: icon){
+        this.secondIcon = icon;
+    }
+
+    get IsPlaying(): boolean{
         return this.isPlaying;
     }
 
-    setIsPlaying(isPlaying: boolean): void{
+    set IsPlaying(isPlaying: boolean){
         this.isPlaying = isPlaying;
     }
+
+    createHTML(): HTMLDivElement{
+        const button = document.createElement("div");
+        button.id = this.id;
+        button.setAttribute("role", "button");
+        button.setAttribute("alt",this.alt);
+        button.setAttribute("title",this.title);
+        button.setAttribute("tabindex", "0");
+        if(this.classes !== "") button.classList.add(this.classes);
+        button.appendChild(this.buttonIcon.svg);
+        button.appendChild(this.secondButtonIcon.svg);
+        return button;
+    }
+
 }

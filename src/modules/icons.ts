@@ -3,17 +3,36 @@ import Color from 'color';
 export abstract class icon{
     readonly ID: string;
     svg: SVGSVGElement;
-    classlist = "";
+    classes = "";
     constructor(id: string, classlist?: string){
         this.ID = id;
-        if(classlist)this.classlist = classlist;
+        if(classlist)this.classes = classlist;
         this.svg = this.createSvg();
     }
+    get id(): string{
+        return this.ID;
+    }
+
+    get svgHtml(): SVGSVGElement{
+        return this.svg;
+    }
+
+    set svgHtml(svg: SVGSVGElement){
+        this.svg = svg;
+    }
+
+    get classList(): string{
+        return this.classes;
+    }
+
+    set classList(classes: string){
+        this.classes = classes;
+    }
+
     protected createBasics(pathValue: string): SVGSVGElement{
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttributeNS(null,"class", this.classlist);
-        svg.setAttributeNS(null, "id", this.ID);
-        svg.setAttributeNS(null, "class", this.classlist);
+        svg.setAttributeNS(null, "id", this.id);
+        svg.setAttributeNS(null, "class", this.classList);
         svg.setAttributeNS(null, "viewBox", "0 0 24 24");
         svg.setAttributeNS(null,"role","img");
         svg.setAttributeNS(null, "aria-hidden", "true");
@@ -73,44 +92,6 @@ export class earIcon extends icon{
     }
 }
 
-//settingsIcon class
-export class settingsIcon extends icon{
-    constructor(id: string, classlist?: string){
-        super(id, classlist);
-    }
-
-    createSvg(): SVGSVGElement{
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttributeNS(null, "id", this.ID);
-        svg.setAttributeNS(null, "enable-background", "new 0 0 24 24");
-        svg.setAttributeNS(null, "viewBox", "0 0 24 24");
-        svg.setAttributeNS(null, "class", this.classlist);
-
-        const firstG = document.createElementNS("http://www.w3.org/2000/svg","g");
-        const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect.setAttributeNS(null,"fill","none");
-        rect.setAttributeNS(null, "height", "24");
-        rect.setAttributeNS(null, "width", "24");
-
-        firstG.appendChild(rect);
-        svg.appendChild(firstG);
-
-        const secondG = document.createElementNS("http://www.w3.org/2000/svg","g");
-        const thirdG = document.createElementNS("http://www.w3.org/2000/svg","g");
-        const firstPath = document.createElementNS("http://www.w3.org/2000/svg","path");
-        firstPath.setAttributeNS(null, "d","M14.17,13.71l1.4-2.42c0.09-0.15,0.05-0.34-0.08-0.45l-1.48-1.16c0.03-0.22,0.05-0.45,0.05-0.68s-0.02-0.46-0.05-0.69 l1.48-1.16c0.13-0.11,0.17-0.3,0.08-0.45l-1.4-2.42c-0.09-0.15-0.27-0.21-0.43-0.15L12,4.83c-0.36-0.28-0.75-0.51-1.18-0.69 l-0.26-1.85C10.53,2.13,10.38,2,10.21,2h-2.8C7.24,2,7.09,2.13,7.06,2.3L6.8,4.15C6.38,4.33,5.98,4.56,5.62,4.84l-1.74-0.7 c-0.16-0.06-0.34,0-0.43,0.15l-1.4,2.42C1.96,6.86,2,7.05,2.13,7.16l1.48,1.16C3.58,8.54,3.56,8.77,3.56,9s0.02,0.46,0.05,0.69 l-1.48,1.16C2,10.96,1.96,11.15,2.05,11.3l1.4,2.42c0.09,0.15,0.27,0.21,0.43,0.15l1.74-0.7c0.36,0.28,0.75,0.51,1.18,0.69 l0.26,1.85C7.09,15.87,7.24,16,7.41,16h2.8c0.17,0,0.32-0.13,0.35-0.3l0.26-1.85c0.42-0.18,0.82-0.41,1.18-0.69l1.74,0.7 C13.9,13.92,14.08,13.86,14.17,13.71z M8.81,11c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2s2,0.9,2,2C10.81,10.1,9.91,11,8.81,11z");
-
-        const secondPath = document.createElementNS("http://www.w3.org/2000/svg","path");
-        secondPath.setAttributeNS(null, "d","M21.92,18.67l-0.96-0.74c0.02-0.14,0.04-0.29,0.04-0.44c0-0.15-0.01-0.3-0.04-0.44l0.95-0.74 c0.08-0.07,0.11-0.19,0.05-0.29l-0.9-1.55c-0.05-0.1-0.17-0.13-0.28-0.1l-1.11,0.45c-0.23-0.18-0.48-0.33-0.76-0.44l-0.17-1.18 C18.73,13.08,18.63,13,18.53,13h-1.79c-0.11,0-0.21,0.08-0.22,0.19l-0.17,1.18c-0.27,0.12-0.53,0.26-0.76,0.44l-1.11-0.45 c-0.1-0.04-0.22,0-0.28,0.1l-0.9,1.55c-0.05,0.1-0.04,0.22,0.05,0.29l0.95,0.74c-0.02,0.14-0.03,0.29-0.03,0.44 c0,0.15,0.01,0.3,0.03,0.44l-0.95,0.74c-0.08,0.07-0.11,0.19-0.05,0.29l0.9,1.55c0.05,0.1,0.17,0.13,0.28,0.1l1.11-0.45 c0.23,0.18,0.48,0.33,0.76,0.44l0.17,1.18c0.02,0.11,0.11,0.19,0.22,0.19h1.79c0.11,0,0.21-0.08,0.22-0.19l0.17-1.18 c0.27-0.12,0.53-0.26,0.75-0.44l1.12,0.45c0.1,0.04,0.22,0,0.28-0.1l0.9-1.55C22.03,18.86,22,18.74,21.92,18.67z M17.63,18.83 c-0.74,0-1.35-0.6-1.35-1.35s0.6-1.35,1.35-1.35s1.35,0.6,1.35,1.35S18.37,18.83,17.63,18.83z");
-        
-        thirdG.appendChild(firstPath);
-        thirdG.appendChild(secondPath);
-        secondG.appendChild(thirdG);
-        svg.appendChild(secondG);
-        return svg;
-    }
-}
-
 export class speedIcon extends icon{
     constructor(id: string, classlist?: string){
         super(id, classlist);
@@ -135,5 +116,41 @@ export class closeIcon extends icon{
     }
     createSvg(): SVGSVGElement{
         return this.createBasics("M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z");
+    }
+}
+
+export class settingsIcon extends icon{
+    constructor(id: string, classlist?: string){
+        super(id, classlist);
+    }
+    createSvg(): SVGSVGElement{
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttributeNS(null, "id", this.ID);
+        svg.setAttributeNS(null, "enable-background", "new 0 0 24 24");
+        svg.setAttributeNS(null, "viewBox", "0 0 24 24");
+        svg.setAttributeNS(null, "class", this.classList);
+
+        const firstG = document.createElementNS("http://www.w3.org/2000/svg","g");
+        const firstPath = document.createElementNS("http://www.w3.org/2000/svg","path");
+        firstPath.setAttributeNS(null, "d","M0,0h24v24H0V0z");
+        firstPath.setAttributeNS(null, "fill", "none");
+
+
+        const secondPath = document.createElementNS("http://www.w3.org/2000/svg","path");
+        secondPath.setAttributeNS(null, "d","M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z");
+        firstG.appendChild(firstPath);
+        firstG.appendChild(secondPath);
+        
+        svg.appendChild(firstG);
+        return svg;
+    }
+}
+
+export class volumeUpIcon extends icon{
+    constructor(id: string, classlist?: string){
+        super(id, classlist);
+    }
+    createSvg(): SVGSVGElement{
+        return this.createBasics("M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z");
     }
 }

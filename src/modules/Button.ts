@@ -3,9 +3,10 @@ import{icon} from "./icons";
 export abstract class Button{
     icon: icon;
     altText: string;
-    buttonId: string;
+    readonly buttonId: string;
     titleText: string;
     classes: string = "";
+    handleClick = this.onClicked.bind(this);
     constructor(icon: icon, alt: string, id: string, title: string, classes?: string){
         this.icon = icon;
         this.altText = alt;
@@ -14,49 +15,53 @@ export abstract class Button{
         if(classes) this.classes = classes;
     }
 
-    protected setIcon(newIcon: icon): void{
+    protected set buttonIcon(newIcon: icon){
         this.icon = newIcon;
     }
 
-    protected getIcon(): icon{
+    protected get buttonIcon(): icon{
         return this.icon;
     }
 
-    protected setAltText(alt: string): void{
+    protected set alt(alt: string){
         this.altText = alt;
     }
 
-    protected getAltText(): string{
+    protected get alt(): string{
         return this.altText;
     }
 
-    protected setButtonId(id: string): void{
-        this.buttonId = id;
-    }
-
-    public getButtonId(): string{
+    public get id(): string{
         return this.buttonId;
     }
 
-    protected setTitleText(title: string): void{
+    protected set title(title: string){
         this.titleText = title;
     }
 
-    protected getTitleText(): string{
+    protected get title(): string{
         return this.titleText;
     }
 
-    abstract onClicked(): void;
+    public get classList(): string{
+        return this.classes;
+    }
+
+    public set classList(classes: string){
+        this.classes = classes;
+    }
+
+    abstract onClicked(this: any): void;
     
     public createHTML(): HTMLDivElement{
         const button = document.createElement("div");
-        button.id = this.buttonId;
+        button.id = this.id;
         button.setAttribute("role", "button");
-        button.setAttribute("alt",this.altText);
-        button.setAttribute("title",this.titleText);
+        button.setAttribute("alt",this.alt);
+        button.setAttribute("title",this.title);
         button.setAttribute("tabindex", "0");
         if(this.classes !== "") button.classList.add(this.classes);
-        button.appendChild(this.icon.svg);
+        button.appendChild(this.buttonIcon.svg);
         return button;
     }
 

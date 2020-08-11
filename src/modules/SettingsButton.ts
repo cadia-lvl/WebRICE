@@ -6,6 +6,7 @@ export class SettingsButton extends Button{
         super(icon, alt, id, title, classes);
     }
     public onClicked(): void{
+        console.log(this.altText);
         console.log("clicked!");
     }
 
