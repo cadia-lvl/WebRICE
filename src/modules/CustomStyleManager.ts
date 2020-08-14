@@ -3,10 +3,10 @@ import Color from 'color';
 export interface stylingInterface {
     backgroundColor?: string,
     secondaryColor?:string,
-    borderColor?:string,
-    borderRad?:string,
-    borderWidth?:string,
-    iconSize?: string,
+    //borderColor?:string,
+    //borderRad?:string,
+    //borderWidth?:string,
+    //iconSize?: string,
     includeGradient?: boolean,
 }
 
@@ -14,6 +14,7 @@ export class customStyles{
     private readonly GRADIENT_CONTRAST = 1.3;
     private readonly ITEM_CONTRAST = 4.5;
     private container = document.getElementById("webrice")!;
+    //Stores the default values of css variables of webrice
     private readonly defaultStorage = {
         backgroundColors: {
             darkerColor: this.getWebriceVarVal("--main-color-one"),
@@ -31,16 +32,31 @@ export class customStyles{
             size: this.getWebriceVarVal("--icon-size"),
         }
     };
-    
+
+    /**
+     * get's the value of variable, given it's a css variable
+     * @param variable 
+     */
     private getWebriceVarVal(variable: string): string{
         return window.getComputedStyle(this.container).getPropertyValue(variable)!;
     }
 
+    /**
+     * Sets the css varianle webRVar to the custom value of customVal
+     * @param webRVar 
+     * @param customVal 
+     */
     private setWebriceCustomVal(webRVar: string, customVal: string): void{
         this.container.style.setProperty(webRVar, customVal);
     }
 
-
+    /**
+     * Takes in the user choices, their keys for convinience and wether to 
+     * include gradience of buttons or not
+     * @param choices 
+     * @param keys 
+     * @param isGradient 
+     */
     private applyChanges(choices: Map<string, any>, keys: Array<string>, isGradient: boolean): void{
         //Set main color 
         if(choices.has(keys[0]) && isGradient){
@@ -51,7 +67,7 @@ export class customStyles{
             this.setWebriceCustomVal("--main-background", choices.get(keys[0]).darkerColor);
             this.setWebriceCustomVal("--main-color-one", choices.get(keys[0]).darkerColor);
         }
-        console.log("secondaryColor");
+
         //Set secondary color
         if(choices.has(keys[1]) && isGradient){
             console.log(choices.get(keys[1]));
@@ -65,6 +81,11 @@ export class customStyles{
 
     }
 
+    /**
+     * Takes in a color an returns it and a lighter color as an object. 
+     * The color contrast is at least this.GRADIENT_CONTRAST.
+     * @param color 
+     */
     private darken(color: Color){
         let lighter = color.lighten(0.01);
         if(color.hex() === lighter.hex()) lighter = color.mix(Color("#fff"), 0.1); 
@@ -76,6 +97,11 @@ export class customStyles{
         return {darkerColor: color.hex(), lighterColor: lighter.hex() };
     }
 
+    /**
+     * Takes in a color and returns it and a darker color in an object. The colors contrast  
+     * is at least this.GRADIENT_CONTRAST.
+     * @param color 
+     */
     private lighten(color: Color){
         let darker = color.darken(0.01);
         let colorContrast = darker.contrast(color);
@@ -85,12 +111,21 @@ export class customStyles{
         }
         return {darkerColor: darker.hex(), lighterColor: color.hex()};
     }
-
+    /**
+     * returns an object of a darker and lighter color. One of the colors
+     * is the given one while the second is generated to be lighter or darker.
+     * The color contrast is at least this.GRADIENT_CONTRAST
+     * @param color 
+     */
     private getColors(color: Color){
         return color.isDark() ? this.darken(color) : this.lighten(color); 
     }
 
-    //Generates a complementary secondary color based on the background color
+    /**
+     * returns an object of one or two colors which complement the given color/s. 
+     * @param darkerColor 
+     * @param lighterColor 
+     */
     private handleNoGivenSecondaryColor(darkerColor: Color, lighterColor?: Color){
         //if()
     }
@@ -100,6 +135,13 @@ export class customStyles{
 
     }
 
+    /**
+     * Checks wether the darker and lighter colors have enough contrast with the given color.
+     * If not a warning is printed.
+     * @param darkerCompare 
+     * @param color 
+     * @param lighterCompare 
+     */
     private checkBadConstrast(darkerCompare: Color, color: Color, lighterCompare?: Color,){
         let contrast:number;
         if(lighterCompare){
@@ -111,16 +153,27 @@ export class customStyles{
         }
     }
 
-    private setBorderWidth(width: string): string{
+    /**
+     * checks weather the borderwidth is valid or not
+     * @param width 
+     */
+    private checkBorderWidth(width: string): boolean{
         //userChoices.set(keys[2], {width: options.borderWidth})
-        return "borderwidth";
+        return false;
     }
 
-    private setIconSize(size: string): string{
-        return "iconsize"
+    /**
+     * checks wether the icon size is valid or not
+     * @param size 
+     */
+    private checkIconSize(size: string): boolean{
+        return false;
     }
 
-
+    /**
+     * Accepts an object of user styles and applies them to webrice
+     * @param options 
+     */
     public changeStyles(options: stylingInterface): void{
         let userChoices = new Map<string, any>();
         const keys = ["backgroundColors", "SecondaryColors", "border", "icon"];
@@ -142,12 +195,15 @@ export class customStyles{
             const backgroundColors = userChoices.has(keys[0]) ? userChoices.get(keys[0]) : this.defaultStorage.backgroundColors;
             includeGradient ? this.handleNoGivenSecondaryColor(Color(backgroundColors.darkerColor), (backgroundColors.lighterColor)) : this.handleNoGivenSecondaryColor(Color(backgroundColors.darkerColor));
         }
-        //handle seinna meira betur
+
+        /*
+        Implement later
+
         if(options.borderColor) userChoices.set(keys[2], {color: options.borderColor});
         else this.handleNoGivenBorder(Color(options.backgroundColor));
 
-        if(options.borderWidth) this.setBorderWidth(options.borderWidth); //???
-        if(options.iconSize) this.setIconSize(options.iconSize); //???
+        if(options.borderWidth) this.checkBorderWidth(options.borderWidth);
+        if(options.iconSize) this.checkIconSize(options.iconSize);*/
 
         this.applyChanges(userChoices, keys, includeGradient);
     }

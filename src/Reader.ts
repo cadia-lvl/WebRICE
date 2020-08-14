@@ -34,9 +34,10 @@ class Reader{
     private loadThemes(): void{
         console.log("theme work");
     }
-
+    /**
+     * 
+     */
     private createWebrice(){
-        this.customStyles({backgroundColor: "#bafaaa", secondaryColor: "#454768", includeGradient: true});
         const container = document.getElementById(this.CONTAINER_ID)!;
         //Player here at some point
         const earIconic = new earIcon("webriceEarIcon", "mainWebriceIcon");
