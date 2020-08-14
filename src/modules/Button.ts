@@ -5,7 +5,7 @@ export abstract class Button{
     altText: string;
     readonly buttonId: string;
     titleText: string;
-    classes: string = "";
+    classes = "";
     handleClick = this.onClicked.bind(this);
     constructor(icon: icon, alt: string, id: string, title: string, classes?: string){
         this.icon = icon;
@@ -61,7 +61,7 @@ export abstract class Button{
         button.setAttribute("title",this.title);
         button.setAttribute("tabindex", "0");
         if(this.classes !== "") button.classList.add(this.classes);
-        button.appendChild(this.buttonIcon.svg);
+        button.appendChild(this.buttonIcon.svgHtml);
         return button;
     }
 

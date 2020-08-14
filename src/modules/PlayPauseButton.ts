@@ -42,8 +42,8 @@ export class PlayPauseButton extends Button{
         button.setAttribute("title",this.title);
         button.setAttribute("tabindex", "0");
         if(this.classes !== "") button.classList.add(this.classes);
-        button.appendChild(this.buttonIcon.svg);
-        button.appendChild(this.secondButtonIcon.svg);
+        button.appendChild(this.buttonIcon.svgHtml);
+        button.appendChild(this.secondButtonIcon.svgHtml);
         return button;
     }
 

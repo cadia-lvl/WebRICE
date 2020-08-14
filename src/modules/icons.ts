@@ -1,9 +1,7 @@
-import Color from 'color';
-
 export abstract class icon{
-    readonly ID: string;
-    svg: SVGSVGElement;
-    classes = "";
+    private readonly ID: string;
+    private svg: SVGSVGElement;
+    private classes = "";
     constructor(id: string, classlist?: string){
         this.ID = id;
         if(classlist)this.classes = classlist;
@@ -125,7 +123,7 @@ export class settingsIcon extends icon{
     }
     createSvg(): SVGSVGElement{
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttributeNS(null, "id", this.ID);
+        svg.setAttributeNS(null, "id", this.id);
         svg.setAttributeNS(null, "enable-background", "new 0 0 24 24");
         svg.setAttributeNS(null, "viewBox", "0 0 24 24");
         svg.setAttributeNS(null, "class", this.classList);

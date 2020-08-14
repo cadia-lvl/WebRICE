@@ -4,12 +4,14 @@ import {StopButton} from "./modules/StopButton";
 import {SpeedButton} from "./modules/SpeedButton";
 import {text} from "./lang/is";
 import {playIcon, stopIcon, pauseIcon, earIcon, settingsIcon, speedIcon, fastforwardIcon,closeIcon, volumeUpIcon} from "./modules/icons";
-import { Button } from "./modules/Button";
+import {Button} from "./modules/Button";
+import {stylingInterface, customStyles} from "./modules/CustomStyleManager";
 
 class Reader{
     webText = "";
     readonly CONTAINER_ID = "webrice";
     readonly TEXT_CONTENT_ID = "webRICE_text_container"
+    styles: customStyles | undefined;
 
     public init(): void{
         this.createWebrice();
@@ -34,6 +36,7 @@ class Reader{
     }
 
     private createWebrice(){
+        this.customStyles({backgroundColor: "#bafaaa", secondaryColor: "#454768", includeGradient: true});
         const container = document.getElementById(this.CONTAINER_ID)!;
         //Player here at some point
         const earIconic = new earIcon("webriceEarIcon", "mainWebriceIcon");
@@ -78,6 +81,12 @@ class Reader{
         this.addListeners(mainStopButton.id, mainStopButton);
         this.addListeners(mainSpeedButton.id, mainSpeedButton);
         this.addListeners(mainSettingsButton.id, mainSettingsButton);
+    }
+
+    customStyles(options: stylingInterface){
+        if(!this.styles) this.styles = new customStyles();
+        else console.warn("Custom styles already been called! Changing styles often my slow down your website");
+        this.styles.changeStyles(options);
     }
 
 }

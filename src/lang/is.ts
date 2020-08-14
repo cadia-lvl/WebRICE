@@ -7,8 +7,7 @@ export const text = {
         "settings": "stillinga hnappur",
     },
     "ButtonTitle": {
-        "ear": "Hlusta",
-        "play": "Spila",
+        "play": "Hlusta á lestur síðu",
         "pause": "Pása",
         "stop": "Stoppa",
         "speed": "Breyta hraða",
