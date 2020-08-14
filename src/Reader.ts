@@ -69,7 +69,13 @@ class Reader {
     const parent = document.getElementById(this.CONTAINER_ID)!;
     const container = document.createElement('div');
     container.setAttribute('id', 'webriceContainer');
-    // Player here at some point
+
+    // Add the audio player to the container
+    const player = document.createElement('audio');
+    player.id = 'player';
+    player.classList.add('webricePlayer');
+    container.appendChild(player);
+
     const earIconic = new EarIcon('webriceEarIcon', 'mainWebriceIcon');
 
     const mainPlayIcon = new PlayIcon('webricePlayIcon', 'mainWebriceIcon');
