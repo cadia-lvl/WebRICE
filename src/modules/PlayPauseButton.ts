@@ -1,25 +1,25 @@
 import {Button} from './Button';
-import {icon} from './icons';
+import {Icon} from './icons';
 
 /**
  * Button that plays and pauses reading of a web page section
  */
 export class PlayPauseButton extends Button {
   isPlaying: boolean;
-  secondIcon: icon;
+  secondIcon: Icon;
   /**
    *
-   * @param {icon} icon - The main icon of button
-   * @param {icon} secondIcon - The second icon of button
-   * @param {icon} toggleIcon - The toggleable icon of button
+   * @param {Icon} Icon - The main Icon of button
+   * @param {Icon} secondIcon - The second Icon of button
+   * @param {Icon} toggleIcon - The toggleable Icon of button
    * @param {string} alt - The alt text of button
    * @param {string} id - the id of button
    * @param {string} title - the title of button
    * @param {string} classes - the classes of button
    */
-  constructor(icon: icon, secondIcon:icon, toggleIcon: icon,
+  constructor(Icon: Icon, secondIcon:Icon, toggleIcon: Icon,
       alt: string, id: string, title: string, classes?: string) {
-    super(icon, alt, id, title, classes);
+    super(Icon, alt, id, title, classes);
     this.isPlaying = false;
     this.secondIcon = secondIcon;
   }
@@ -39,17 +39,17 @@ export class PlayPauseButton extends Button {
   }
 
   /**
-   * @return {icon} returns the second icon
+   * @return {Icon} returns the second Icon
    */
-  get secondButtonIcon(): icon {
+  get secondButtonIcon(): Icon {
     return this.secondIcon;
   }
 
   /**
-   * @param {icon} icon - the second button icon
+   * @param {Icon} Icon - the second button Icon
    */
-  set secondButtonIcon(icon: icon) {
-    this.secondIcon = icon;
+  set secondButtonIcon(Icon: Icon) {
+    this.secondIcon = Icon;
   }
 
   /**

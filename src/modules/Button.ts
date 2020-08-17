@@ -1,10 +1,10 @@
-import {icon} from './icons';
+import {Icon} from './icons';
 
 /**
  * An abstract button class that details what all buttons should have
  */
 export abstract class Button {
-  icon: icon;
+  Icon: Icon;
   altText: string;
   readonly buttonId: string;
   titleText: string;
@@ -13,15 +13,15 @@ export abstract class Button {
   handleClick = this.onClicked.bind(this);
   /**
    *
-   * @param {icon} icon - icon on button
+   * @param {Icon} Icon - Icon on button
    * @param {string} alt - alt of button
    * @param {string} id - id of button
    * @param {string} title - title of utton
    * @param {string} classes - string containing classes of button
    */
-  constructor(icon: icon, alt: string, id: string,
+  constructor(Icon: Icon, alt: string, id: string,
       title: string, classes?: string) {
-    this.icon = icon;
+    this.Icon = Icon;
     this.altText = alt;
     this.buttonId = id;
     this.titleText = title;
@@ -30,19 +30,19 @@ export abstract class Button {
   }
 
   /**
-   * Setter for icon
-   * @param {icon} newIcon - replace current icon with this icon
+   * Setter for Icon
+   * @param {Icon} newIcon - replace current Icon with this Icon
    */
-  protected set buttonIcon(newIcon: icon) {
-    this.icon = newIcon;
+  protected set buttonIcon(newIcon: Icon) {
+    this.Icon = newIcon;
   }
 
   /**
-   * Getter for icon
-   * @return {icon} - returns the button icon
+   * Getter for Icon
+   * @return {Icon} - returns the button Icon
    */
-  protected get buttonIcon(): icon {
-    return this.icon;
+  protected get buttonIcon(): Icon {
+    return this.Icon;
   }
 
   /**
