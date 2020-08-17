@@ -57,17 +57,16 @@ export class CustomStyles {
   /**
    * Applies changes to webrice
    * @param {Map<string, any>} choices - map of choices
-   * @param {Array<string>} keys - choice keys
    * @param {boolean} isGradient - wheather buttons should have gradiance or not
    */
   private applyChanges(choices: Map<string, any>, isGradient: boolean): void {
     // Set main color
-    let keys: Array<string> = [];
+    const keys: Array<string> = [];
 
     choices.forEach((value: boolean, key: string) => {
       keys.push(key);
     });
-    
+
     if (choices.has(keys[0]) && isGradient) {
       this.setWebriceCustomVal(this.CSS_VARS.backgroundColors.darkerColor,
           choices.get(keys[0]).darkerColor);
