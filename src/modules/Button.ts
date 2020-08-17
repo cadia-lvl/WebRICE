@@ -1,6 +1,7 @@
 import {Icon} from './icons';
 
- /* An abstract button class that details what all buttons should have
+/**
+ * An abstract button class that details what all buttons should have
  */
 export abstract class Button {
   Icon: Icon;

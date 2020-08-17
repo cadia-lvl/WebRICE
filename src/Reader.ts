@@ -7,7 +7,7 @@ import {text} from './lang/is';
 import {PlayIcon, StopIcon, PauseIcon, EarIcon,
   SettingsIcon, SpeedIcon} from './modules/icons';
 import {Button} from './modules/Button';
-import {stylingInterface, customStyles} from "./modules/CustomStyleManager";
+import {stylingInterface, CustomStyles} from './modules/CustomStyleManager';
 
 /**
  * The main class of webrice
@@ -17,7 +17,7 @@ class Reader {
   webText = '';
   readonly CONTAINER_ID = 'webrice';
   readonly TEXT_CONTENT_ID = 'webRICE_text_container';
-  styles: customStyles | undefined;
+  styles: CustomStyles | undefined;
 
   /**
    * initializes webrice
@@ -66,6 +66,7 @@ class Reader {
    * creates the html for webrice
    */
   private createWebrice(): void {
+    // this.customStyles({backgroundColor: "#111", secondaryColor: "#229BBB"});
     const container = document.getElementById(this.CONTAINER_ID)!;
     // Player here at some point
     const earIconic = new EarIcon('webriceEarIcon', 'mainWebriceIcon');
@@ -104,11 +105,17 @@ class Reader {
     this.addListeners(mainSettingsButton.id, mainSettingsButton);
   }
 
-  customStyles(options: stylingInterface){
-    if(!this.styles) this.styles = new customStyles();
-    else console.warn("Custom styles already been called! Changing styles often my slow down your website");
+  /**
+   * @param {stylingInterface} options
+   */
+  customStyles(options: stylingInterface) {
+    if (!this.styles) this.styles = new CustomStyles();
+    else {
+      console.warn('Custom styles already been called! '+
+      'Changing styles often my slow down website');
+    }
     this.styles.changeStyles(options);
-}
+  }
 }
 
 // change depending on exporting to npm or using the url from web

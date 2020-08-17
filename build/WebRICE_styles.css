@@ -1,13 +1,13 @@
 
 /* Main Container styles */
 #webrice {
-   --main-color-one: #242121;
-   --main-color-two: #484242;
+   --main-color-one:#242121;
+   --main-color-two:#484242;
    --main-background: radial-gradient(circle, var(--main-color-two) 0%, var(--main-color-one) 100%);
-   --secondary-color-one: #f3f2f2;
-   --secondary-color-two: #dbd6d6;
+   --secondary-color-one:#f3f2f2;
+   --secondary-color-two:#dbd6d6;
    --secondary-background: radial-gradient(circle, var(--secondary-color-one) 0%, var(--secondary-color-two) 100%);
-   --border-color: #040505;
+   --border-color:#040505;
    --icon-size: 1.5rem;
    --border-width: 0.05rem;
    --corner-curve: 0.2rem;
