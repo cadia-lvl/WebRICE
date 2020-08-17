@@ -32,9 +32,9 @@ export class PlayPauseButton extends Button {
   }
 
   /**
-   * toggles the main
+   * toggles icon and toggleIcon
    */
-  private toggleApperance(): void {
+  private toggleIcons(): void {
     // Changes play to pause and pause to play
   }
 
