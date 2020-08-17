@@ -4,7 +4,6 @@ export interface stylingInterface {
   backgroundColor?: string,
   secondaryColor?:string,
   // borderColor?:string,
-  // borderRad?:string,
   // borderWidth?:string,
   // iconSize?: string,
   includeGradient?: boolean,
@@ -17,7 +16,6 @@ export class CustomStyles {
   private readonly GRADIENT_CONTRAST = 1.3;
   private readonly ITEM_CONTRAST = 4.5;
   private container = document.getElementById('webrice')!;
-  // Stores the default values of css variables of webrice
   private readonly CSS_VARS = {
     backgroundColors: {
       darkerColor: '--main-color-one',
@@ -62,9 +60,14 @@ export class CustomStyles {
    * @param {Array<string>} keys - choice keys
    * @param {boolean} isGradient - wheather buttons should have gradiance or not
    */
-  private applyChanges(choices: Map<string, any>,
-      keys: Array<string>, isGradient: boolean): void {
+  private applyChanges(choices: Map<string, any>, isGradient: boolean): void {
     // Set main color
+    let keys: Array<string> = [];
+
+    choices.forEach((value: boolean, key: string) => {
+      keys.push(key);
+    });
+    
     if (choices.has(keys[0]) && isGradient) {
       this.setWebriceCustomVal(this.CSS_VARS.backgroundColors.darkerColor,
           choices.get(keys[0]).darkerColor);
@@ -89,6 +92,8 @@ export class CustomStyles {
       this.setWebriceCustomVal(this.CSS_VARS.secondaryColors.darkerColor,
           choices.get(keys[1]).darkerColor);
     }
+
+    // Add for border and icon later
   }
 
   /**
@@ -133,21 +138,6 @@ export class CustomStyles {
   private getColors(color: Color) {
     return color.isDark() ? this.darken(color) : this.lighten(color);
   }
-
-  /**
-   * returns an object of one or two colors which complement the given color/s.
-   * @param {Color} darkerColor
-   * @param {Color} lighterColor
-   */
-  /*
-  private handleNoGivenSecondaryColor(darkerColor: Color, lighterColor?: Color){
-    // if()
-  }
-
-  // Generates a complementary border color based on the background color
-  private handleNoGivenBorder(baseColor: Color){
-
-  }*/
 
   /**
    * Checks wether the darker and lighter colors have enough contrast.
@@ -266,32 +256,15 @@ export class CustomStyles {
             new Color(options.secondaryColor)));
     }
     /*
-    else {
-        const backgroundColors =
-        userChoices.has(keys[0]) ?
-        userChoices.get(keys[0]) :
-        this.defaultStorage.backgroundColors;
-        includeGradient ?
-        this.handleNoGivenSecondaryColor(
-          new Color(backgroundColors.darkerColor),
-          (backgroundColors.lighterColor)) :
-          this.handleNoGivenSecondaryColor(
-            new Color(backgroundColors.darkerColor));
-    }
-
     Implement later
 
-    if(options.borderColor)
-    userChoices.set(keys[2],
-      {color: options.borderColor});
-    else this.handleNoGivenBorder(
-      new Color(options.backgroundColor));
+    // border color
 
-    if(options.borderWidth){
-      this.checkBorderWidth(options.borderWidth);
-    }
-    if(options.iconSize) this.checkIconSize(options.iconSize);*/
+    // border width
 
-    this.applyChanges(userChoices, keys, includeGradient);
+    // icon size
+    */
+
+    this.applyChanges(userChoices, includeGradient);
   }
 }
