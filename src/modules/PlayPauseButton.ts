@@ -9,7 +9,7 @@ export class PlayPauseButton extends Button {
   secondIcon: Icon;
   /**
    *
-   * @param {Icon} Icon - The main Icon of button
+   * @param {Icon} icon - The main Icon of button
    * @param {Icon} secondIcon - The second Icon of button
    * @param {Icon} toggleIcon - The toggleable Icon of button
    * @param {string} alt - The alt text of button
@@ -32,9 +32,11 @@ export class PlayPauseButton extends Button {
   }
 
   /**
-   * toggles the main
+   * Sets the visible main icon of the play button to be toggleIcon and stores the other icon.
+   * For example: If the play icons is visible it changes to the pause icon and vice versa.
    */
-  private toggleAppearance(): void {
+
+  private toggleIcons(): void {
     // Changes play to pause and pause to play
   }
 
