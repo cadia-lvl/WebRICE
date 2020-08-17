@@ -1,30 +1,55 @@
-import {Button} from "./Button";
-import {icon} from "./icons";
+import {Button} from './Button';
+import {Icon} from './icons';
 
-export class SpeedButton extends Button{
+/**
+ * A Button controling the reading speed of webrice
+ */
+export class SpeedButton extends Button {
     currentSpeed: number
-    constructor(icon: icon, alt: string, id: string, title: string, classes?: string){
-        super(icon, alt, id, title, classes);
-        this.currentSpeed = 0;
+    /**
+     *
+     * @param {Icon} Icon - Icon on button
+     * @param {string} alt - alt of button
+     * @param {string} id - id of button
+     * @param {string} title - title of utton
+     * @param {string} classes - string containing classes of button
+     */
+    constructor(Icon: Icon, alt: string, id: string,
+        title: string, classes?: string) {
+      super(Icon, alt, id, title, classes);
+      this.currentSpeed = 0;
     }
-
-    onClicked(): void{
-        console.log("clicked!");
+    /**
+     * Enables user to change reading speed
+     */
+    onClicked(): void {
+      console.log('clicked!');
     }
-
-    speedUp(increase: number): void{
-        console.log("to be implemented");
+    /**
+     * Increases reading speed
+     * @param {number} increase how much to increase
+     */
+    speedUp(increase: number): void {
+      console.log('to be implemented');
     }
-
-    slowDown(decrease: number): void{
-        console.log("to be implemented");
+    /**
+     * Decrease reading speed
+     * @param {number} decrease how much to decrease
+     */
+    slowDown(decrease: number): void {
+      console.log('to be implemented');
     }
-
-    getCurrentSpeed(): number{
-        return this.currentSpeed;
+    /**
+     * @return {number} current reading speed
+     */
+    getCurrentSpeed(): number {
+      return this.currentSpeed;
     }
-
-    private setCurrentSpeed(speed: number): void{
-        this.currentSpeed = speed;
+    /**
+     * Sets current reading speed
+     * @param {number} speed what current speed will be
+     */
+    private setCurrentSpeed(speed: number): void {
+      this.currentSpeed = speed;
     }
 }
