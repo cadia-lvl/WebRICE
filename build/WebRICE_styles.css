@@ -1,54 +1,65 @@
-#WebRICE_manage {
-  background-color: #242121;
-  padding: 0.3rem;
+
+/* Main Container styles */
+#webrice {
+   --main-color:  #242121;/*#5C5A61;*/
+   --bacg-test: radial-gradient(circle, #4b4950 0%, #242121 100%);
+   --light-bacg-test: radial-gradient(circle,#e7e4e4 0%, #f3f2f2 0 100%);
+   --secondary-color: #f3f2f2;
+   --border-color: #040505;/*#1b1818;*/
+   --icon-size: 1.5rem;
+   --border-width: 0.05rem;
+   --corner-curve: 0.2rem;
+   --border-rad: var(--corner-curve) var(--corner-curve) var(--corner-curve) var(--corner-curve);
+   --main-border: var(--border-width) solid var(--border-color);
+   /**/
   display: inline-flex;
-  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; }
-  #WebRICE_manage > button {
-    background-color: #242121;
-    border: 0em;
-    padding: 0 0.4em 0 0.4em; }
-  #WebRICE_manage > div > button {
-    background-color: #242121;
-    border: 0em;
-    padding: 0 0.4em 0 0.4em; }
+  /*background-color:var(--main-color);*/
+  border-width: var(--border-width);
+  border-style: solid;
+  border-radius: var(--border-rad);
+  border-color: var(--border-color);
+}
 
-#PauseButton {
-  display: none; }
+/* Buttons*/
+.webriceMainButton {
+   background: var(--bacg-test);
+   height: 100%;
+   padding: 0 0.4rem;
+   cursor: pointer;
+   border-left: var(--main-border);
+ }
 
-.hide {
-  display: none; }
+.webriceMainButton:hover,
+.webriceMainButton:focus{
+   background: var(--light-bacg-test);
+}
 
-#settingsCont {
-  margin: 0.3rem 0 0 0;
-  position: absolute;
-  border-color: black;
-  border-style: inset;
-  background-color: black; }
-  #settingsCont > #settingsHeader {
-    background-color: #3E3E3E;
-    display: flex;
-    justify-content: end;
-    margin-bottom: 0.1rem; }
-    #settingsCont > #settingsHeader > button {
-      background-color: #3E3E3E;
-      padding: 0;
-      border-width: 0; }
-      #settingsCont > #settingsHeader > button > img {
-        max-width: 100%; }
-  #settingsCont > .settingsMenu {
-    padding: 0.2rem 0.2rem 0.2rem 0.2rem;
-    background-color: black;
-    color: white;
-    max-height: 30%;
-    overflow-y: scroll; }
-    #settingsCont > .settingsMenu > h2 {
-      margin: 0; }
-    #settingsCont > .settingsMenu > section {
-      padding: 0.2rem; }
-      #settingsCont > .settingsMenu > section > h3 {
-        margin: 0; }
-    #settingsCont > .settingsMenu > #submitSettings {
-      border: 0;
-      background-color: #3E3E3E;
-      border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
-      color: white; }
+.webriceMainButton:hover svg,
+.webriceMainButton:focus svg{
+   fill: var(--main-color);
+}
+
+.webriceMainButton:last-child{
+   border-radius: 0 0.15rem 0.15rem 0;
+}
+
+.webriceMainButton:first-child{
+   border-radius: 0.15rem 0 0 0.15rem;
+   border: 0;
+}
+
+/*  Icon styles */
+.mainWebriceIcon{
+   fill: var(--secondary-color);
+   height: var(--icon-size);
+   width: var(--icon-size);
+}
+
+#webricePlayButton{
+   border: 0;
+}
+
+
+#webriceleftArrow{
+   width: 2rem;
+}

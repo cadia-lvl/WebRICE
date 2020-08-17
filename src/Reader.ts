@@ -1,40 +1,111 @@
-export class Reader{
-    webText = "";
-    readonly CONTAINER_ID = "container_id";
-    readonly TEXT_CONTENT_ID = "webrice";
-    constructor(){
-        this.init();
-    }
-    public init(): void{
-        console.log("initialize the reader");
-    }
+import {SettingsButton} from './modules/SettingsButton';
+import {PlayPauseButton} from './modules/PlayPauseButton';
+import {StopButton} from './modules/StopButton';
+import {SpeedButton} from './modules/SpeedButton';
+import {text} from './lang/is';
+import {PlayIcon, StopIcon, PauseIcon, EarIcon,
+  SettingsIcon, SpeedIcon} from './modules/icons';
+import {Button} from './modules/Button';
 
-    private createInitialHTML(): void{
-        console.log("creates the initial html");
+/**
+ * The main class of webrice
+ * Is in chage of all aspects of the web reader
+ */
+class Reader {
+  webText = '';
+  readonly CONTAINER_ID = 'webrice';
+  readonly TEXT_CONTENT_ID = 'webRICE_text_container';
+
+  /**
+   * initializes webrice
+   */
+  public init(): void {
+    this.createWebrice();
+    // more things
+  }
+
+  /**
+   * adds an event listener to a button
+   * @param {string} id - button id
+   * @param {Button} button - button class
+   */
+  private addListeners(id: string, button: Button) {
+    const physicalButton = document.getElementById(id);
+    if (physicalButton) {
+      physicalButton.addEventListener('click', button.handleClick);
     }
+  }
 
-    public getWebText(): string{
-        return this.webText;
-    }
+  /**
+   * Getter for web text
+   * @return {string} - text of web section
+   */
+  private getWebText(): string {
+    return this.webText;
+  }
 
-    private setWebText(text: string): void{
-        this.webText = text;
-    }
+  /**
+   * Setter for web text
+   * @param {string} text - web text
+   */
+  private setWebText(text: string): void {
+    this.webText = text;
+  }
 
-    public getContainerId(): string{
-        return this.CONTAINER_ID;
-    }
+  /**
+   * loades the highlighting themes into storage
+   */
+  private loadThemes(): void {
+    console.log('theme work');
+  }
 
-    public getTextContentId(): string{
-        return this.TEXT_CONTENT_ID;
-    }
+  /**
+   * creates the html for webrice
+   */
+  private createWebrice(): void {
+    const container = document.getElementById(this.CONTAINER_ID)!;
+    // Player here at some point
+    const earIconic = new EarIcon('webriceEarIcon', 'mainWebriceIcon');
 
-    private loadThemes(): void{
-        console.log("theme work");
-    }
+    const mainPlayIcon = new PlayIcon('webricePlayIcon', 'mainWebriceIcon');
+    const mainPauseIcon = new PauseIcon('webricePauseIcon', 'mainPauseIcon');
+    const mainPlayPauseButton = new PlayPauseButton(mainPlayIcon,
+        earIconic, mainPauseIcon, text.ButtonAlt.play, 'webricePlayButton',
+        text.ButtonTitle.play, 'webriceMainButton');
+    container.appendChild(mainPlayPauseButton.createHTML());
 
+    const mainStopIcon = new StopIcon('webriceStopIcon', 'mainWebriceIcon');
+    const mainStopButton = new StopButton(
+        mainStopIcon, text.ButtonAlt.stop, 'webriceStopButton',
+        text.ButtonTitle.stop, 'webriceMainButton');
+    container.appendChild(mainStopButton.createHTML());
 
+    const mainSpeedIcon = new SpeedIcon('webriceSpeedIcon', 'mainWebriceIcon');
+    const mainSpeedButton = new SpeedButton(
+        mainSpeedIcon, text.ButtonAlt.speed, 'webriceSpeedButton',
+        text.ButtonTitle.speed, 'webriceMainButton');
+    container.appendChild(mainSpeedButton.createHTML());
+
+    const mainSettingsIcon = new SettingsIcon('webriceSettingsIcon',
+        'mainWebriceIcon');
+
+    const mainSettingsButton = new SettingsButton(mainSettingsIcon,
+        text.ButtonAlt.settings, 'webriceSettingsButton',
+        text.ButtonTitle.settings, 'webriceMainButton');
+    container.appendChild(mainSettingsButton.createHTML());
+
+    // Eventlisteners added to buttons
+    this.addListeners(mainPlayPauseButton.id, mainPlayPauseButton);
+    this.addListeners(mainStopButton.id, mainStopButton);
+    this.addListeners(mainSpeedButton.id, mainSpeedButton);
+    this.addListeners(mainSettingsButton.id, mainSettingsButton);
+  }
 }
+
+// change depending on exporting to npm or using the url from web
+
+// for testing purpouses
 window.addEventListener('DOMContentLoaded', () => {
-    new Reader();
+  const webreader = new Reader();
+  webreader.init();
 });
