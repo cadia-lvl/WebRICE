@@ -1,95 +1,94 @@
 
 /* Main Container styles */
 #webrice {
-   --main-color-one:#242121;
-   --main-color-two:#484242;
-   --main-background: radial-gradient(circle, var(--main-color-two) 0%, var(--main-color-one) 100%);
-   --secondary-color-one:#f3f2f2;
-   --secondary-color-two:#dbd6d6;
-   --secondary-background: radial-gradient(circle, var(--secondary-color-one) 0%, var(--secondary-color-two) 100%);
-   --border-color:#040505;
-   --icon-size: 1.5rem;
-   --border-width: 0.05rem;
-   --corner-curve: 0.2rem;
-   --inner-curve-corner: 0.15rem;
-   --removed: 0;
-   --border-rad: var(--corner-curve) var(--corner-curve) var(--corner-curve) var(--corner-curve);
-   --main-border: var(--border-width) solid var(--border-color);
-   display: inline-flex;
-   border-width: var(--border-width);
-   border-style: solid;
-   border-radius: var(--border-rad);
-   border-color: var(--border-color);
+  --main-color-one: #242121;
+  --main-color-two: #484242;
+  --main-background: radial-gradient(circle, var(--main-color-two) 0%, var(--main-color-one) 100%);
+  --secondary-color-one: #f3f2f2;
+  --secondary-color-two: #dbd6d6;
+  --secondary-background: radial-gradient(circle, var(--secondary-color-one) 0%, var(--secondary-color-two) 100%);
+  --border-color: #040505;
+  --icon-size: 1.5rem;
+  --border-width: 0.05rem;
+  --corner-curve: 0.2rem;
+  --inner-curve-corner: 0.15rem;
+  --removed: 0;
+  --border-rad: var(--corner-curve) var(--corner-curve) var(--corner-curve) var(--corner-curve);
+  --main-border: var(--border-width) solid var(--border-color);
+
+  display: inline-flex;
+  border-width: var(--border-width);
+  border-style: solid;
+  border-radius: var(--border-rad);
+  border-color: var(--border-color);
 }
 
-@media(max-width: 200px){
-   #webrice{
-      flex-direction: column;
-   }
-   .webriceMainButton{
-      border-top: var(--main-border);
-   }
+@media (max-width: 200px) {
+  #webrice {
+    flex-direction: column;
+  }
 
-   #webriceStopButton{
-      border-left: var(--removed);
-   }
+  .webriceMainButton {
+    border-top: var(--main-border);
+  }
 
-   #webriceSpeedButton{
-      border-left: var(--removed);
-   }
+  #webriceStopButton {
+    border-left: var(--removed);
+  }
 
-   #webriceSettingsButton{
-      border-left: var(--removed);
-   }
+  #webriceSpeedButton {
+    border-left: var(--removed);
+  }
 
-   #webriceEarIcon{
-      display:none;
-   }
+  #webriceSettingsButton {
+    border-left: var(--removed);
+    border-radius: 0 0 0.15rem 0.15rem;
+  }
 
-   #webricePlayButton{
-      border-radius: 0.15rem 0.15rem 0 0;
-   }
+  #webriceEarIcon {
+    display: none;
+  }
 
-   #webriceSettingsButton{
-      border-radius: 0 0 0.15rem 0.15rem;
-   }
+  #webricePlayButton {
+    border-radius: 0.15rem 0.15rem 0 0;
+  }
 }
 
-/* Buttons*/
+/* Buttons */
 .webriceMainButton {
-   background: var(--main-background);
-   height: 100%;
-   padding: 0 0.4rem;
-   cursor: pointer;
-   border-left: var(--main-border);
- }
+  background: var(--main-background);
+  height: 100%;
+  padding: 0 0.4rem;
+  cursor: pointer;
+  border-left: var(--main-border);
+}
 
 .webriceMainButton:hover,
-.webriceMainButton:focus{
-   background: var(--secondary-background);
+.webriceMainButton:focus {
+  background: var(--secondary-background);
 }
 
 .webriceMainButton:hover svg,
-.webriceMainButton:focus svg{
-   fill: var(--main-color-one);
+.webriceMainButton:focus svg {
+  fill: var(--main-color-one);
 }
 
-.webriceMainButton:last-child{
-   border-radius: 0 var(--inner-curve-corner) var(--inner-curve-corner) 0;
+.webriceMainButton:last-child {
+  border-radius: 0 var(--inner-curve-corner) var(--inner-curve-corner) 0;
 }
 
-.webriceMainButton:first-child{
-   border-radius: var(--inner-curve-corner) 0 0 var(--inner-curve-corner);
-   border: 0;
+.webriceMainButton:first-child {
+  border-radius: var(--inner-curve-corner) 0 0 var(--inner-curve-corner);
+  border: 0;
 }
 
 /*  Icon styles */
-.mainWebriceIcon{
-   fill: var(--secondary-color-one);
-   height: var(--icon-size);
-   width: var(--icon-size);
+.mainWebriceIcon {
+  fill: var(--secondary-color-one);
+  height: var(--icon-size);
+  width: var(--icon-size);
 }
 
-#webricePlayButton{
-   padding: 0 0.2rem;
+#webricePlayButton {
+  padding: 0 0.2rem;
 }

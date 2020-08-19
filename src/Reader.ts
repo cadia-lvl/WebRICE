@@ -66,7 +66,6 @@ class Reader {
    * creates the html for webrice
    */
   private createWebrice(): void {
-    // this.customStyles({backgroundColor: "#111", secondaryColor: "#229BBB"});
     const container = document.getElementById(this.CONTAINER_ID)!;
     // Player here at some point
     const earIconic = new EarIcon('webriceEarIcon', 'mainWebriceIcon');
@@ -124,4 +123,5 @@ class Reader {
 window.addEventListener('DOMContentLoaded', () => {
   const webreader = new Reader();
   webreader.init();
+  webreader.customStyles({secondaryColor: "#229BBB"});
 });
