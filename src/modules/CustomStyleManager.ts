@@ -101,7 +101,7 @@ export class CustomStyles {
    * @return {{darkerColor: string, lighterColor: string}}
    *    - color and generated color
    */
-  private darken(color: Color): {darkerColor: string, lighterColor: string} {
+  private lighten(color: Color): {darkerColor: string, lighterColor: string} {
     let lighter = color.lighten(0.01);
     const white = new Color('#fff');
     if (color.hex() === lighter.hex()) lighter = color.mix(white, 0.1);
@@ -119,7 +119,7 @@ export class CustomStyles {
    * @return {{darkerColor: string, lighterColor: string}}
    *    - color and generated color
    */
-  private lighten(color: Color): {darkerColor: string, lighterColor: string} {
+  private darken(color: Color): {darkerColor: string, lighterColor: string} {
     let darker = color.darken(0.01);
     let colorContrast = darker.contrast(color);
     while (colorContrast < this.GRADIENT_CONTRAST) {
@@ -135,7 +135,7 @@ export class CustomStyles {
    *    - returns darker and lighter color
    */
   private getColors(color: Color) {
-    return color.isDark() ? this.darken(color) : this.lighten(color);
+    return color.isDark() ? this.lighten(color) :this.darken(color);
   }
 
   /**
@@ -214,12 +214,12 @@ export class CustomStyles {
           options.backgroundColor);
     }
 
-    console.log(validBackgroundColor);
     let validSecondaryColor = false;
     if (options.secondaryColor) {
       validSecondaryColor = this.validColor(
           options.secondaryColor);
     }
+    console.log("secondary color valid: "+ validSecondaryColor);
 
     if (validBackgroundColor && includeGradient) {
       userChoices.set(keys[0],
@@ -237,10 +237,10 @@ export class CustomStyles {
               new Color(userChoices.get(keys[0]).lighterColor)) :
           this.checkBadConstrast(
               new Color(this.getWebriceVarVal(
-                  this.CSS_VARS.backgroundColors.darkerColor)),
+                  this.CSS_VARS.backgroundColors.darkerColor).replace(" ", "")),
               new Color(options.secondaryColor),
               new Color(this.getWebriceVarVal(
-                  this.CSS_VARS.backgroundColors.lighterColor)));
+                  this.CSS_VARS.backgroundColors.lighterColor).replace(" ", "")));
         userChoices.set(keys[1], this.getColors(
             new Color(options.secondaryColor)));
     } else if (validSecondaryColor) {
@@ -250,7 +250,7 @@ export class CustomStyles {
                 new Color(options.secondaryColor)) :
             this.checkBadConstrast(
                 new Color(this.getWebriceVarVal(
-                    this.CSS_VARS.backgroundColors.darkerColor)),
+                    this.CSS_VARS.backgroundColors.darkerColor).replace(" ", "")),
                 new Color(options.secondaryColor));
 
         userChoices.set(keys[1], this.getColors(
