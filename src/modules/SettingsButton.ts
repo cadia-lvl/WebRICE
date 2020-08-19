@@ -1,10 +1,16 @@
 import {Button} from './Button';
 import {Icon} from './icons';
+// Functionality for other languages is needed
+import {text} from './../lang/is';
+import {CloseIcon} from './icons';
+import {CloseButton} from './CloseButton';
 
 /**
  * Settings button
  */
 export class SettingsButton extends Button {
+  readonly helpText = text.settingsModuleText;
+  settingsModuleCreated = false;
   /**
    * @param {Icon} Icon - Icon on button
    * @param {string} alt - alt of button
@@ -17,6 +23,10 @@ export class SettingsButton extends Button {
     super(Icon, alt, id, title, classes);
   }
 
+  private get moduleText() {
+    return this.helpText;
+  }
+
   /**
    * Displays settings for user
    */
@@ -25,32 +35,21 @@ export class SettingsButton extends Button {
   }
 
   /**
-   * Creates the settings header of the settings module
-   * @return {HTMLElement} - html of settings header
-   */
-  private createSettingsHeader(): HTMLElement {
-    const headerCont = document.createElement('div');
-    headerCont.setAttribute('id', 'headerCont');
-
-    const exitButton = document.createElement('button');
-    exitButton.setAttribute('id', 'closeSettings');
-
-    // Add close button image
-
-    return headerCont;
-  }
-
-  /**
    * Creates settings module as child of parent
    * @param {HTMLElement} parent - parent element of module
    */
   public createSettingsModule(parent: HTMLElement): void {
-    const settingsCont = document.createElement('div');
-    settingsCont.setAttribute('id', 'settingsCont');
-    // settingsCont.appendChild(this.createSettingsHeader());
+    const settingsContainer = document.createElement('div');
+    settingsContainer.setAttribute('id', 'settingsContainer');
 
-    const settings = document.createElement('div');
-    settings.setAttribute('class', 'settingsMenu');
+    const settingsHeader = document.createElement('div');
+    settingsHeader.setAttribute('id', 'settingsHeader');
+    const closeIcon = new CloseIcon('webriceCloseSettingsIcon');
+    const closeButton = new CloseButton(closeIcon,
+        text.ButtonAlt.closeSettings, 'webriceSettingsCloseButton',
+        text.ButtonTitle.closeSettings);
+
+    const settingsMainContainer = document.createElement('div');
   }
 
   /**
@@ -72,5 +71,16 @@ export class SettingsButton extends Button {
    */
   public fetchUserSettings(): void {
     console.log('to be implemented');
+  }
+
+  /**
+   * 
+   */
+  public saveUserSettings(): void {
+
+  }
+
+  public download():void{
+
   }
 }

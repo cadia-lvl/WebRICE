@@ -201,6 +201,7 @@ export class CustomStyles {
    * @param {object} options - contains choices
    */
   public changeStyles(options: stylingInterface): void {
+    console.log(options);
     const userChoices = new Map<string, any>();
     const keys = ['backgroundColors', 'SecondaryColors', 'border', 'icon'];
 
@@ -213,6 +214,7 @@ export class CustomStyles {
           options.backgroundColor);
     }
 
+    console.log(validBackgroundColor);
     let validSecondaryColor = false;
     if (options.secondaryColor) {
       validSecondaryColor = this.validColor(

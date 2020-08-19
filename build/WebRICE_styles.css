@@ -15,6 +15,9 @@
    --removed: 0;
    --border-rad: var(--corner-curve) var(--corner-curve) var(--corner-curve) var(--corner-curve);
    --main-border: var(--border-width) solid var(--border-color);
+}
+
+#webriceContainer {
    display: inline-flex;
    border-width: var(--border-width);
    border-style: solid;
@@ -23,10 +26,10 @@
 }
 
 @media(max-width: 200px){
-   #webrice{
+   #webrice_container {
       flex-direction: column;
    }
-   .webriceMainButton{
+   .webriceMainButton {
       border-top: var(--main-border);
    }
 
