@@ -66,7 +66,9 @@ class Reader {
    * creates the html for webrice
    */
   private createWebrice(): void {
-    const container = document.getElementById(this.CONTAINER_ID)!;
+    const parent = document.getElementById(this.CONTAINER_ID)!;
+    const container = document.createElement('div');
+    container.setAttribute('id', 'webriceContainer');
     // Player here at some point
     const earIconic = new EarIcon('webriceEarIcon', 'mainWebriceIcon');
 
@@ -97,6 +99,8 @@ class Reader {
         text.ButtonTitle.settings, 'webriceMainButton');
     container.appendChild(mainSettingsButton.createHTML());
 
+    parent.appendChild(container);
+
     // Eventlisteners added to buttons
     this.addListeners(mainPlayPauseButton.id, mainPlayPauseButton);
     this.addListeners(mainStopButton.id, mainStopButton);
@@ -123,5 +127,6 @@ class Reader {
 window.addEventListener('DOMContentLoaded', () => {
   const webreader = new Reader();
   webreader.init();
-  webreader.customStyles({secondaryColor: "#229BBB"});
+  webreader.customStyles(
+      {backgroundColor: '#ffefdd', secondaryColor: '#229BBB'});
 });
