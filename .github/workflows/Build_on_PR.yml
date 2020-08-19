@@ -1,4 +1,4 @@
-name: Build TS on PR
+name: Lint and Build TS on PR
 
 on: 
   pull_request:
@@ -16,7 +16,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 10.x
-    - name: BUILD
+    - name: Configure github
       run: |
         git config user.email "action@github.com"
         git config user.name "GitHub Action"
@@ -24,5 +24,10 @@ jobs:
         git remote -v
         git remote set-url origin git@github.com:${GITHUB_REPOSITORY}.git
         git remote -v
-        npm install
-        npm run build
+    - name: Install node packages
+      run: npm install
+    - name: Lint
+      run: |
+        npm run elint
+    - name: BUILD
+      run: npm run build

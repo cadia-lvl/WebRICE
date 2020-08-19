@@ -1,3 +1,4 @@
+
 import {SettingsButton} from './modules/SettingsButton';
 import {PlayPauseButton} from './modules/PlayPauseButton';
 import {StopButton} from './modules/StopButton';
@@ -6,6 +7,7 @@ import {text} from './lang/is';
 import {PlayIcon, StopIcon, PauseIcon, EarIcon,
   SettingsIcon, SpeedIcon} from './modules/icons';
 import {Button} from './modules/Button';
+import {stylingInterface, CustomStyles} from './modules/CustomStyleManager';
 
 /**
  * The main class of webrice
@@ -15,6 +17,7 @@ class Reader {
   webText = '';
   readonly CONTAINER_ID = 'webrice';
   readonly TEXT_CONTENT_ID = 'webRICE_text_container';
+  styles: CustomStyles | undefined;
 
   /**
    * initializes webrice
@@ -63,7 +66,9 @@ class Reader {
    * creates the html for webrice
    */
   private createWebrice(): void {
-    const container = document.getElementById(this.CONTAINER_ID)!;
+    const parent = document.getElementById(this.CONTAINER_ID)!;
+    const container = document.createElement('div');
+    container.setAttribute('id', 'webriceContainer');
     // Player here at some point
     const earIconic = new EarIcon('webriceEarIcon', 'mainWebriceIcon');
 
@@ -94,11 +99,25 @@ class Reader {
         text.ButtonTitle.settings, 'webriceMainButton');
     container.appendChild(mainSettingsButton.createHTML());
 
+    parent.appendChild(container);
+
     // Eventlisteners added to buttons
     this.addListeners(mainPlayPauseButton.id, mainPlayPauseButton);
     this.addListeners(mainStopButton.id, mainStopButton);
     this.addListeners(mainSpeedButton.id, mainSpeedButton);
     this.addListeners(mainSettingsButton.id, mainSettingsButton);
+  }
+
+  /**
+   * @param {stylingInterface} options
+   */
+  customStyles(options: stylingInterface) {
+    if (!this.styles) this.styles = new CustomStyles();
+    else {
+      console.warn('Custom styles already been called! '+
+      'Changing styles often my slow down website');
+    }
+    this.styles.changeStyles(options);
   }
 }
 
@@ -108,4 +127,8 @@ class Reader {
 window.addEventListener('DOMContentLoaded', () => {
   const webreader = new Reader();
   webreader.init();
+  /*
+  webreader.customStyles(
+      {backgroundColor: '#ffefdd', secondaryColor: '#229BBB'});
+  */
 });

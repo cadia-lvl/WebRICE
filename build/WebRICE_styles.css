@@ -1,65 +1,96 @@
 
 /* Main Container styles */
 #webrice {
-   --main-color:  #242121;/*#5C5A61;*/
-   --bacg-test: radial-gradient(circle, #4b4950 0%, #242121 100%);
-   --light-bacg-test: radial-gradient(circle,#e7e4e4 0%, #f3f2f2 0 100%);
-   --secondary-color: #f3f2f2;
-   --border-color: #040505;/*#1b1818;*/
-   --icon-size: 1.5rem;
-   --border-width: 0.05rem;
-   --corner-curve: 0.2rem;
-   --border-rad: var(--corner-curve) var(--corner-curve) var(--corner-curve) var(--corner-curve);
-   --main-border: var(--border-width) solid var(--border-color);
-   /**/
+  --main-color-one: #242121;
+  --main-color-two: #484242;
+  --main-background: radial-gradient(circle, var(--main-color-two) 0%, var(--main-color-one) 100%);
+  --secondary-color-one: #f3f2f2;
+  --secondary-color-two: #dbd6d6;
+  --secondary-background: radial-gradient(circle, var(--secondary-color-one) 0%, var(--secondary-color-two) 100%);
+  --border-color: #040505;
+  --icon-size: 1.5rem;
+  --border-width: 0.05rem;
+  --corner-curve: 0.2rem;
+  --inner-curve-corner: 0.15rem;
+  --removed: 0;
+  --border-rad: var(--corner-curve) var(--corner-curve) var(--corner-curve) var(--corner-curve);
+  --main-border: var(--border-width) solid var(--border-color);
+}
+
+#webriceContainer {
   display: inline-flex;
-  /*background-color:var(--main-color);*/
   border-width: var(--border-width);
   border-style: solid;
   border-radius: var(--border-rad);
   border-color: var(--border-color);
 }
 
-/* Buttons*/
+@media (max-width: 200px) {
+  #webrice_container {
+    flex-direction: column;
+  }
+
+  .webriceMainButton {
+    border-top: var(--main-border);
+  }
+
+  #webriceStopButton {
+    border-left: var(--removed);
+  }
+
+  #webriceSpeedButton {
+    border-left: var(--removed);
+  }
+
+  #webriceSettingsButton {
+    border-left: var(--removed);
+    border-radius: 0 0 0.15rem 0.15rem;
+  }
+
+  #webriceEarIcon {
+    display: none;
+  }
+
+  #webricePlayButton {
+    border-radius: 0.15rem 0.15rem 0 0;
+  }
+}
+
+/* Buttons */
 .webriceMainButton {
-   background: var(--bacg-test);
-   height: 100%;
-   padding: 0 0.4rem;
-   cursor: pointer;
-   border-left: var(--main-border);
- }
+  background: var(--main-background);
+  height: 100%;
+  padding: 0 0.4rem;
+  cursor: pointer;
+  border-left: var(--main-border);
+}
 
 .webriceMainButton:hover,
-.webriceMainButton:focus{
-   background: var(--light-bacg-test);
+.webriceMainButton:focus {
+  background: var(--secondary-background);
 }
 
 .webriceMainButton:hover svg,
-.webriceMainButton:focus svg{
-   fill: var(--main-color);
+.webriceMainButton:focus svg {
+  fill: var(--main-color-one);
 }
 
-.webriceMainButton:last-child{
-   border-radius: 0 0.15rem 0.15rem 0;
+.webriceMainButton:last-child {
+  border-radius: 0 var(--inner-curve-corner) var(--inner-curve-corner) 0;
 }
 
-.webriceMainButton:first-child{
-   border-radius: 0.15rem 0 0 0.15rem;
-   border: 0;
+.webriceMainButton:first-child {
+  border-radius: var(--inner-curve-corner) 0 0 var(--inner-curve-corner);
+  border: 0;
 }
 
 /*  Icon styles */
-.mainWebriceIcon{
-   fill: var(--secondary-color);
-   height: var(--icon-size);
-   width: var(--icon-size);
+.mainWebriceIcon {
+  fill: var(--secondary-color-one);
+  height: var(--icon-size);
+  width: var(--icon-size);
 }
 
-#webricePlayButton{
-   border: 0;
-}
-
-
-#webriceleftArrow{
-   width: 2rem;
+#webricePlayButton {
+  padding: 0 0.2rem;
 }

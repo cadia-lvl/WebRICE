@@ -26,6 +26,7 @@ export abstract class Button {
     this.buttonId = id;
     this.titleText = title;
 
+
     if (classes) this.classes = classes;
   }
 

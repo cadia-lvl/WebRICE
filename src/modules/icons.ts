@@ -1,3 +1,4 @@
+
 /**
  * AN abstract Icon class containing the base of what every Icon should have
  */
