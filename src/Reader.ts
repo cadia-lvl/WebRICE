@@ -16,7 +16,7 @@ import {stylingInterface, CustomStyles} from './modules/CustomStyleManager';
 class Reader {
   webText = '';
   readonly CONTAINER_ID = 'webrice';
-  readonly TEXT_CONTENT_ID = 'webRICE_text_container';
+  readonly TEXT_CONTENT_ID = 'WebRICE_text_container';
   styles: CustomStyles | undefined;
 
   /**
@@ -24,6 +24,7 @@ class Reader {
    */
   public init(): void {
     this.createWebrice();
+    this.setWebText();
     // more things
   }
 
@@ -40,19 +41,40 @@ class Reader {
   }
 
   /**
-   * Getter for web text
+   * Getter for the complete web text
+   * This text should be ready to be submitted to a TTS api like Google,
+   * ReadSpeaker, or AWS Polly
    * @return {string} - text of web section
    */
-  private getWebText(): string {
+  public getWebText(): string {
     return this.webText;
   }
 
   /**
-   * Setter for web text
-   * @param {string} text - web text
+   * Get web text from TEXT_CONTENT_ID and stores it as a Reader variable to be
+   * accessed later.
    */
-  private setWebText(text: string): void {
-    this.webText = text;
+  private setWebText(): void {
+    const webriceTextNode = document.getElementById(this.TEXT_CONTENT_ID);
+    try {
+      if (webriceTextNode) {
+        let text = '';
+        // Go through content and extracts text content from html children nodes
+        for (let i = 0; i < webriceTextNode.children.length; i++) {
+          text += webriceTextNode.children[i].textContent + '. ';
+          // TODO: figure out how to indicate the text is from different
+          // nodes/tags to the TTS API so it doesn't read a header and a
+          // paragraph together. Currently using a period to indicate
+          // completion.
+        }
+        // TODO: extracts alt text for images and links
+        this.webText = text;
+      }
+    } catch (e) {
+      // Throw a warning because there's nothing to read
+      console.warn(this.TEXT_CONTENT_ID + ': Text container id defined.' +
+        'Therefore there is nothing to read');
+    }
   }
 
   /**
@@ -66,6 +88,7 @@ class Reader {
    * creates the html for webrice
    */
   private createWebrice(): void {
+    // TODO: check if there is any text before creating webrice
     const parent = document.getElementById(this.CONTAINER_ID)!;
     const container = document.createElement('div');
     container.setAttribute('id', 'webriceContainer');
