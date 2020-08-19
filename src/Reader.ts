@@ -127,6 +127,8 @@ class Reader {
 window.addEventListener('DOMContentLoaded', () => {
   const webreader = new Reader();
   webreader.init();
+  /*
   webreader.customStyles(
       {backgroundColor: '#ffefdd', secondaryColor: '#229BBB'});
+  */
 });
