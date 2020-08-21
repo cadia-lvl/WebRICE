@@ -16,7 +16,7 @@ import {stylingInterface, CustomStyles} from './modules/CustomStyleManager';
 export class Reader {
   webText = '';
   readonly CONTAINER_ID = 'webrice';
-  readonly TEXT_CONTENT_ID = 'WebRICE_text_container';
+  readonly TEXT_CONTENT_ID = 'webriceTextContainer';
   styles: CustomStyles | undefined;
   player = new Audio();
 
@@ -131,7 +131,7 @@ export class Reader {
 
     // Add the audio player to the container
     const player = new Audio();
-    player.id = 'WebRICEPlayer';
+    player.id = 'webricePlayer';
     container.appendChild(player);
 
     parent.appendChild(container);
@@ -165,8 +165,8 @@ window.addEventListener('DOMContentLoaded', () => {
   webreader.init();
 
   /*
-   * Example of using custom colors for the WebRICE toolbar
+   * Example of using custom colors for the webrice toolbar
   webreader.customStyles(
       {backgroundColor: '#ffefdd', secondaryColor: '#229BBB'});
-  */
+   */
 });

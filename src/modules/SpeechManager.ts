@@ -1,7 +1,7 @@
 import {Reader} from './../Reader';
 /**
  * The SpeechManager class deals with creating and organizing all the TTS API
- * input and output for WebRICE.
+ * input and output for webrice.
  */
 export class SpeechManager {
   /**

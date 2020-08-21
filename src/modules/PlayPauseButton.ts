@@ -14,7 +14,7 @@ export class PlayPauseButton extends Button {
   /**
    *
    * @param {Icon} icon - The play Icon of button
-   * @param {Icon} secondIcon - The WebRICE logo Icon of button
+   * @param {Icon} secondIcon - The webrice logo Icon of button
    * @param {Icon} toggleIcon - The pause Icon of button
    * @param {string} alt - The alt text of button
    * @param {string} id - the id of button
@@ -63,7 +63,7 @@ export class PlayPauseButton extends Button {
   }
 
   /**
-   * Checks whether WebRICE is playing
+   * Checks whether webrice is playing
    * @return {boolean} whether webrice is playing or not
    */
   get IsPlaying(): boolean {
@@ -109,7 +109,7 @@ export class PlayPauseButton extends Button {
     // TODO: consider using player.audioTracks. That might make it easy to work
     // with long texts.
     const player = document.querySelector('audio');
-    if (player && player.id === 'WebRICEPlayer') {
+    if (player && player.id === 'webricePlayer') {
       // fetch the audio from the speech manager
       const audioContent = (new SpeechManager()).fetchAudioAndMarks();
 
