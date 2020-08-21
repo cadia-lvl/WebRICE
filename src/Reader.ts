@@ -11,7 +11,7 @@ import {stylingInterface, CustomStyles} from './modules/CustomStyleManager';
 
 /**
  * The main class of webrice
- * Is in chage of all aspects of the web reader
+ * It is in charge of all aspects of the web reader
  */
 class Reader {
   webText = '';
@@ -36,7 +36,7 @@ class Reader {
   private addListeners(id: string, button: Button) {
     const physicalButton = document.getElementById(id);
     if (physicalButton) {
-      physicalButton.addEventListener('click', button.handleClick);
+      physicalButton.onclick = button.onClicked;
     }
   }
 
@@ -78,7 +78,7 @@ class Reader {
   }
 
   /**
-   * loades the highlighting themes into storage
+   * loads the highlighting themes into storage
    */
   private loadThemes(): void {
     console.log('theme work');
@@ -94,9 +94,8 @@ class Reader {
     container.setAttribute('id', 'webriceContainer');
 
     // Add the audio player to the container
-    const player = document.createElement('audio');
-    player.id = 'player';
-    player.classList.add('webricePlayer');
+    const player = new Audio();
+    player.id = 'WebRICEPlayer';
     container.appendChild(player);
 
     const earIconic = new EarIcon('webriceEarIcon', 'mainWebriceIcon');
@@ -152,11 +151,13 @@ class Reader {
 
 // change depending on exporting to npm or using the url from web
 
-// for testing purpouses
+// for testing purposes
 window.addEventListener('DOMContentLoaded', () => {
   const webreader = new Reader();
   webreader.init();
+
   /*
+   * Example of using custom colors for the WebRICE toolbar
   webreader.customStyles(
       {backgroundColor: '#ffefdd', secondaryColor: '#229BBB'});
   */
