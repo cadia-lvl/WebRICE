@@ -18,6 +18,7 @@ class Reader {
   readonly CONTAINER_ID = 'webrice';
   readonly TEXT_CONTENT_ID = 'WebRICE_text_container';
   styles: CustomStyles | undefined;
+  player = new Audio();
 
   /**
    * initializes webrice
@@ -36,7 +37,7 @@ class Reader {
   private addListeners(id: string, button: Button) {
     const physicalButton = document.getElementById(id);
     if (physicalButton) {
-      physicalButton.onclick = button.onClicked;
+      physicalButton.addEventListener('click', button.handleClick);
     }
   }
 
@@ -93,15 +94,10 @@ class Reader {
     const container = document.createElement('div');
     container.setAttribute('id', 'webriceContainer');
 
-    // Add the audio player to the container
-    const player = new Audio();
-    player.id = 'WebRICEPlayer';
-    container.appendChild(player);
-
     const earIconic = new EarIcon('webriceEarIcon', 'mainWebriceIcon');
 
     const mainPlayIcon = new PlayIcon('webricePlayIcon', 'mainWebriceIcon');
-    const mainPauseIcon = new PauseIcon('webricePauseIcon', 'mainPauseIcon');
+    const mainPauseIcon = new PauseIcon('webricePauseIcon', 'mainWebriceIcon');
     const mainPlayPauseButton = new PlayPauseButton(mainPlayIcon,
         earIconic, mainPauseIcon, text.ButtonAlt.play, 'webricePlayButton',
         text.ButtonTitle.play, 'webriceMainButton');
@@ -127,7 +123,13 @@ class Reader {
         text.ButtonTitle.settings, 'webriceMainButton');
     container.appendChild(mainSettingsButton.createHTML());
 
+    // Add the audio player to the container
+    const player = new Audio();
+    player.id = 'WebRICEPlayer';
+    container.appendChild(player);
+
     parent.appendChild(container);
+    this.player = document.getElementById(player.id) as HTMLAudioElement;
 
     // Eventlisteners added to buttons
     this.addListeners(mainPlayPauseButton.id, mainPlayPauseButton);

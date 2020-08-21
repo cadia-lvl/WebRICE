@@ -1,5 +1,6 @@
 import {Button} from './Button';
 import {Icon} from './icons';
+import {PlayerAttributes} from './PlayerAttributes';
 
 /**
  * Button that plays and pauses reading of a web page section
@@ -7,6 +8,8 @@ import {Icon} from './icons';
 export class PlayPauseButton extends Button {
   isPlaying: boolean;
   secondIcon: Icon;
+  toggleIcon: Icon;
+  webPlayerAttributes = new PlayerAttributes;
   /**
    *
    * @param {Icon} icon - The play Icon of button
@@ -22,6 +25,7 @@ export class PlayPauseButton extends Button {
     super(icon, alt, id, title, classes);
     this.isPlaying = false;
     this.secondIcon = secondIcon;
+    this.toggleIcon = toggleIcon;
   }
 
   /**
@@ -32,17 +36,15 @@ export class PlayPauseButton extends Button {
    */
   private toggleIcons(): void {
     const button = document.getElementById(this.id)!;
-    if (document.getElementById(this.Icon.ID)) {
+    if (document.getElementById(this.Icon.ID) !== null ) {
+      // Add the pause icon to button and remove play icon
       button.removeChild(document.getElementById(this.Icon.ID)!);
-      button.appendChild(this.secondIcon.svg);
-      console.log('added the pause icon to button');
+      button.appendChild(this.toggleIcon.svg);
     } else {
-      const removalNode = document.getElementById(this.secondIcon.ID)!;
-      button.removeChild(removalNode);
-      button.appendChild(this.Icon.svg);
-      console.log('swap the pause icon for the play icon');
+      // swap the pause icon for the play icon
+      button.removeChild(document.getElementById(this.toggleIcon.ID)!);
+      button.appendChild(this.buttonIcon.svg);
     }
-    // Changes play to pause and pause to play
   }
 
   /**
@@ -95,15 +97,19 @@ export class PlayPauseButton extends Button {
 
   /**
    * This function is triggered as a button event listener.
-   * It starts reading of a web section
-   * or continues reading after pausing
+   * It starts reading of a web section or pauses reading
+   *   or continues reading after pausing
    * @param {PlayPauseButton} this - the event
    */
   onClicked(this: PlayPauseButton): void {
+    // TODO: call fetchAudioAndMarks from the SpeechManager class
+    // TODO: calls autoStroll function if autostroll is set to true
+    // TODO: calls the startHighlighting function if highlighting is set to true
     // TODO: consider using player.audioTracks. That might make it easy to work
     // with long texts.
     const player = document.querySelector('audio');
     if (player && player.id === 'WebRICEPlayer') {
+      // TODO: fetch the audio from the speech manager
       const audioContent = [
         'resources/example_voice_files/content-1.mp3',
         'resources/example_voice_files/content-2.mp3',
@@ -118,15 +124,42 @@ export class PlayPauseButton extends Button {
         'resources/example_voice_files/content-11.mp3',
         'resources/example_voice_files/content-12.mp3'];
 
-      player.src = audioContent[0];
+      // if not paused then pause
+      if (!player.paused) {
+        player.pause();
+        this.toggleIcons();
+        this.webPlayerAttributes.setPaused(true);
+        return;
+      }
+      if (this.webPlayerAttributes.getStarted()) {
+        if (!player.ended) {
+          player.play();
+          this.webPlayerAttributes.setPaused(false);
+        }
+        return;
+      }
+
+      let i = 0;
+      player.src = audioContent[i];
+      player.onended = () => {
+        if (++i !== audioContent.length) {
+          // add the audio url to the audio player, given the audio player id
+          player.src = audioContent[i];
+          player.playbackRate = this.webPlayerAttributes.getPlaybackRate();
+          // if continuing from pause
+          if (!this.webPlayerAttributes.getPaused()) {
+            player.play();
+          }
+        } else {
+          this.webPlayerAttributes.init();
+          player.onended = null;
+          this.toggleIcons();
+        }
+      };
+      player.playbackRate = this.webPlayerAttributes.getPlaybackRate();
       player.play();
+      this.webPlayerAttributes.setPlaying();
       this.toggleIcons();
     }
-    // TODO: if it's a new start
-    // TODO: call fetchAudioAndMarks from the SpeechManager class
-    // TODO: add the audio url to the audio player, given the audio player id
-    // TODO: calls autoStroll function if autostrol is set to true
-    // TODO: calls the startHighlighting function if highlighting is set to true
-    // TODO: if continuing from pause
   }
 }
