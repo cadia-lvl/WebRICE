@@ -13,7 +13,7 @@ import {stylingInterface, CustomStyles} from './modules/CustomStyleManager';
  * The main class of webrice
  * It is in charge of all aspects of the web reader
  */
-class Reader {
+export class Reader {
   webText = '';
   readonly CONTAINER_ID = 'webrice';
   readonly TEXT_CONTENT_ID = 'WebRICE_text_container';
@@ -21,11 +21,17 @@ class Reader {
   player = new Audio();
 
   /**
+   * Constructor for the Reader class
+   */
+  constructor() {
+    this.setWebText();
+  }
+
+  /**
    * initializes webrice
    */
   public init(): void {
     this.createWebrice();
-    this.setWebText();
     // more things
   }
 

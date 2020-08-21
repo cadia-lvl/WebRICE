@@ -1,6 +1,7 @@
 import {Button} from './Button';
 import {Icon} from './icons';
 import {PlayerAttributes} from './PlayerAttributes';
+import {SpeechManager} from './SpeechManager';
 
 /**
  * Button that plays and pauses reading of a web page section
@@ -102,27 +103,15 @@ export class PlayPauseButton extends Button {
    * @param {PlayPauseButton} this - the event
    */
   onClicked(this: PlayPauseButton): void {
-    // TODO: call fetchAudioAndMarks from the SpeechManager class
+    // call fetchAudioAndMarks from the SpeechManager class
     // TODO: calls autoStroll function if autostroll is set to true
     // TODO: calls the startHighlighting function if highlighting is set to true
     // TODO: consider using player.audioTracks. That might make it easy to work
     // with long texts.
     const player = document.querySelector('audio');
     if (player && player.id === 'WebRICEPlayer') {
-      // TODO: fetch the audio from the speech manager
-      const audioContent = [
-        'resources/example_voice_files/content-1.mp3',
-        'resources/example_voice_files/content-2.mp3',
-        'resources/example_voice_files/content-3.mp3',
-        'resources/example_voice_files/content-4.mp3',
-        'resources/example_voice_files/content-5.mp3',
-        'resources/example_voice_files/content-6.mp3',
-        'resources/example_voice_files/content-7.mp3',
-        'resources/example_voice_files/content-8.mp3',
-        'resources/example_voice_files/content-9.mp3',
-        'resources/example_voice_files/content-10.mp3',
-        'resources/example_voice_files/content-11.mp3',
-        'resources/example_voice_files/content-12.mp3'];
+      // fetch the audio from the speech manager
+      const audioContent = (new SpeechManager()).fetchAudioAndMarks();
 
       // if not paused then pause
       if (!player.paused) {
