@@ -1,4 +1,4 @@
-
+import {PlayerAttributes} from './modules/PlayerAttributes';
 import {SettingsButton} from './modules/SettingsButton';
 import {PlayPauseButton} from './modules/PlayPauseButton';
 import {StopButton} from './modules/StopButton';
@@ -19,12 +19,14 @@ export class Reader {
   readonly TEXT_CONTENT_ID = 'webriceTextContainer';
   styles: CustomStyles | undefined;
   player = new Audio();
+  webPlayerAttributes: PlayerAttributes;
 
   /**
    * Constructor for the Reader class
    */
   constructor() {
     this.setWebText();
+    this.webPlayerAttributes = new PlayerAttributes();
   }
 
   /**
@@ -137,9 +139,30 @@ export class Reader {
     parent.appendChild(container);
     this.player = document.getElementById(player.id) as HTMLAudioElement;
 
+    const playPauseDiv = document.getElementById(mainPlayPauseButton.id) as
+      HTMLDivElement;
+    const stopDiv = document.getElementById(mainStopButton.id) as
+      HTMLDivElement;
+
+    this.player.addEventListener('play', () => {
+      mainPlayPauseButton.toggleIcons();
+    }, false);
+    this.player.addEventListener('pause', () => {
+      mainPlayPauseButton.toggleIcons();
+    }, false);
+    this.player.addEventListener('ratechange', () => {
+      this.webPlayerAttributes
+          .setPlaybackRate(this.player.playbackRate);
+    }, false);
+
     // Eventlisteners added to buttons
-    this.addListeners(mainPlayPauseButton.id, mainPlayPauseButton);
-    this.addListeners(mainStopButton.id, mainStopButton);
+    playPauseDiv.addEventListener('click', () => {
+      mainPlayPauseButton.playPause(this.player, this.webPlayerAttributes, this.getWebText());
+    }, false);
+    stopDiv.addEventListener('click', () => {
+      mainStopButton.stop(this.player, this.webPlayerAttributes);
+    }, false);
+
     this.addListeners(mainSpeedButton.id, mainSpeedButton);
     this.addListeners(mainSettingsButton.id, mainSettingsButton);
   }

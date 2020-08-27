@@ -10,7 +10,6 @@ export class PlayPauseButton extends Button {
   isPlaying: boolean;
   secondIcon: Icon;
   toggleIcon: Icon;
-  webPlayerAttributes = new PlayerAttributes;
   /**
    *
    * @param {Icon} icon - The play Icon of button
@@ -35,7 +34,7 @@ export class PlayPauseButton extends Button {
    * For example: If the play icon is visible it changes to the pause icon
    * and vice versa.
    */
-  private toggleIcons(): void {
+  public toggleIcons(): void {
     const button = document.getElementById(this.id)!;
     if (document.getElementById(this.Icon.ID) !== null ) {
       // Add the pause icon to button and remove play icon
@@ -97,58 +96,58 @@ export class PlayPauseButton extends Button {
   }
 
   /**
+   * Starts the reading of a web section
+   */
+  onClicked(): void {
+    console.log('clicked!');
+  }
+
+  /**
    * This function is triggered as a button event listener.
    * It starts reading of a web section or pauses reading
    *   or continues reading after pausing
-   * @param {PlayPauseButton} this - the event
+   * @param {HTMLAudioElement} player - the reference to the webrice audio
+   * @param {PlayerAttributes} webPlayerAttributes - the reference to the
+   *   webrice audio attributes
+   * @param {string} webText - the text withing the webrice text container
    */
-  onClicked(this: PlayPauseButton): void {
-    // call fetchAudioAndMarks from the SpeechManager class
+  playPause(player: HTMLAudioElement, webPlayerAttributes: PlayerAttributes, webText: string):
+    void {
     // TODO: calls autoStroll function if autostroll is set to true
     // TODO: calls the startHighlighting function if highlighting is set to true
     // TODO: consider using player.audioTracks. That might make it easy to work
     // with long texts.
-    const player = document.querySelector('audio');
-    if (player && player.id === 'webricePlayer') {
-      // fetch the audio from the speech manager
-      const audioContent = (new SpeechManager()).fetchAudioAndMarks();
-
-      // if not paused then pause
-      if (!player.paused) {
-        player.pause();
-        this.toggleIcons();
-        this.webPlayerAttributes.setPaused(true);
-        return;
-      }
-      if (this.webPlayerAttributes.getStarted()) {
-        if (!player.ended) {
-          player.play();
-          this.webPlayerAttributes.setPaused(false);
-        }
-        return;
-      }
-
-      let i = 0;
-      player.src = audioContent[i];
-      player.onended = () => {
-        if (++i !== audioContent.length) {
-          // add the audio url to the audio player, given the audio player id
-          player.src = audioContent[i];
-          player.playbackRate = this.webPlayerAttributes.getPlaybackRate();
-          // if continuing from pause
-          if (!this.webPlayerAttributes.getPaused()) {
-            player.play();
-          }
-        } else {
-          this.webPlayerAttributes.init();
-          player.onended = null;
-          this.toggleIcons();
-        }
-      };
-      player.playbackRate = this.webPlayerAttributes.getPlaybackRate();
-      player.play();
-      this.webPlayerAttributes.setPlaying();
-      this.toggleIcons();
+    if (!player.paused) {
+      player.pause();
+      webPlayerAttributes.setPaused(true);
+      return;
     }
+    if (webPlayerAttributes.getStarted()) {
+      if (!player.ended) {
+        player.play();
+        webPlayerAttributes.setPaused(false);
+      }
+      return;
+    }
+
+    // fetch the audio from the speech manager
+    const audioContent = (new SpeechManager()).fetchAudioAndMarks(webText);
+    let i = 0;
+    player.src = audioContent[i];
+    player.onended = () => {
+      if (++i !== audioContent.length) {
+        // add the audio url to the audio player, given the audio player id
+        player.src = audioContent[i];
+        player.playbackRate = webPlayerAttributes.getPlaybackRate();
+        if (!webPlayerAttributes.getPaused()) {
+          player.play();
+        }
+      } else {
+        webPlayerAttributes.init(player);
+      }
+    };
+    player.playbackRate = webPlayerAttributes.getPlaybackRate();
+    player.play();
+    webPlayerAttributes.setPlaying();
   }
 }

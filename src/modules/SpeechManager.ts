@@ -1,4 +1,3 @@
-import {Reader} from './../Reader';
 /**
  * The SpeechManager class deals with creating and organizing all the TTS API
  * input and output for webrice.
@@ -33,11 +32,11 @@ export class SpeechManager {
   /**
    * Public general function to handle fetching the audio from the given text
    * TODO: It also fetches the timestamps for each word and sentence.
+   * @param {string} webText - The webtext given and which needs to be turned
    * @return {string[]} - returns the audio urls to the calling function
    */
-  public fetchAudioAndMarks(): string[] {
-    const readerText = new Reader();
-    return this.getAudio(readerText.getWebText());
+  public fetchAudioAndMarks(webText: string): string[] {
+    return this.getAudio(webText);
     // TODO: call and return getSpeechMarks();
   }
 }

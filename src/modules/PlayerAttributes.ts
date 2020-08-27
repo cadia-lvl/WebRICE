@@ -10,10 +10,13 @@ export class PlayerAttributes {
 
   /**
    * Initialize player values
+   * @param {HTMLAudioElement} player - the reference to the webrice audio
+   *   player
    */
-  init(): void {
+  init(player: HTMLAudioElement): void {
     this.started = false;
     this.paused = true;
+    player.onended = null;
   }
 
   /**
