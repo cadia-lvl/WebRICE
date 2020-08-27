@@ -98,7 +98,7 @@ export class Reader {
    */
   private createWebrice(): void {
     // TODO: check if there is any text before creating webrice
-    const parent = document.getElementById(this.CONTAINER_ID)!;
+    const parent = document.getElementById(this.CONTAINER_ID) as HTMLElement;
     const container = document.createElement('div');
     container.setAttribute('id', 'webriceContainer');
 
@@ -157,7 +157,8 @@ export class Reader {
 
     // Eventlisteners added to buttons
     playPauseDiv.addEventListener('click', () => {
-      mainPlayPauseButton.playPause(this.player, this.webPlayerAttributes, this.getWebText());
+      mainPlayPauseButton.playPause(this.player, this.webPlayerAttributes,
+          this.getWebText());
     }, false);
     stopDiv.addEventListener('click', () => {
       mainStopButton.stop(this.player, this.webPlayerAttributes);
@@ -170,11 +171,11 @@ export class Reader {
   /**
    * @param {stylingInterface} options
    */
-  customStyles(options: stylingInterface) {
+  customStyles(options: stylingInterface): void {
     if (!this.styles) this.styles = new CustomStyles();
     else {
-      console.warn('Custom styles already been called! '+
-      'Changing styles often my slow down website');
+      console.warn('Custom styles has already been called! '+
+      'Changing styles often may slow down website');
     }
     this.styles.changeStyles(options);
   }

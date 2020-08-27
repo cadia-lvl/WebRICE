@@ -35,7 +35,7 @@ export class PlayPauseButton extends Button {
    * and vice versa.
    */
   public toggleIcons(): void {
-    const button = document.getElementById(this.id)!;
+    const button = document.getElementById(this.id) as HTMLDivElement;
     if (document.getElementById(this.Icon.ID) !== null ) {
       // Add the pause icon to button and remove play icon
       button.removeChild(document.getElementById(this.Icon.ID)!);
@@ -111,8 +111,8 @@ export class PlayPauseButton extends Button {
    *   webrice audio attributes
    * @param {string} webText - the text withing the webrice text container
    */
-  playPause(player: HTMLAudioElement, webPlayerAttributes: PlayerAttributes, webText: string):
-    void {
+  playPause(player: HTMLAudioElement, webPlayerAttributes: PlayerAttributes,
+      webText: string): void {
     // TODO: calls autoStroll function if autostroll is set to true
     // TODO: calls the startHighlighting function if highlighting is set to true
     // TODO: consider using player.audioTracks. That might make it easy to work

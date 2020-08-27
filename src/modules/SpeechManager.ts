@@ -7,8 +7,8 @@ export class SpeechManager {
    * Submit the text to be read to a TTS API. Currently we're working to support
    * AWS Polly.
    * @param {string} webText - The webtext given and which needs to be turned
-   * @return {string[]} - returns the audio urls to the calling function
    *   into audio
+   * @return {string[]} - returns the audio urls to the calling function
    */
   private getAudio(webText: string): string[] {
     // TODO: submit query to AWS polly
