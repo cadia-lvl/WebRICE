@@ -7,24 +7,45 @@
         <link rel='icon' href="resources/img/favicons/favicon.ico">
         <style>
           .webriceMainSpeed {
-            border-style: solid;
-            border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
+            position: absolute;
+            float: left;
             box-shadow: 0 1px 4px 0;
             min-width: 160px;
             box-sizing: border-box;
             left: 0;
-            float: left;
             background-color: #242121;
             color: #f3f2f2;
             margin-top: 0;
             list-style: none;
-            position: absolute;
+            visibility: hidden;
+            text-align: left;
+          }
+
+          /* TODO: border radius, change the createHTML for speed button to
+           * include a button group
+           * inherit the same theme properties as all webrice assets
+           */
+
+          .speedGroup {
+            position: relative;
+          }
+
+          .buttonsContainer {
+            display: flex;
+          }
+
+          .flex-child {
+            flex: 1;
           }
         </style>
     </head>
     <body>
         <div id="webrice">
-          <div>
+        </div>
+        <div class="buttonsContainer">
+          <button class="flex-child" type="button">TestButton</button>
+          <div class="flex-child speedGroup">
+            <button type="button" aria-expanded="true">PlaybackRate</button>
             <ul class="webriceMainSpeed">
               <li>0.5</li>
               <li>0.75</li>
