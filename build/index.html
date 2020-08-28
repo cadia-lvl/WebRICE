@@ -5,9 +5,37 @@
         <title>WebRICE demo</title>
         <link rel="stylesheet" href="WebRICE_styles.css">
         <link rel='icon' href="resources/img/favicons/favicon.ico">
+        <style>
+          .webriceMainSpeed {
+            border-style: solid;
+            border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
+            box-shadow: 0 1px 4px 0;
+            min-width: 160px;
+            box-sizing: border-box;
+            left: 0;
+            float: left;
+            background-color: #242121;
+            color: #f3f2f2;
+            margin-top: 0;
+            list-style: none;
+            position: absolute;
+          }
+        </style>
     </head>
     <body>
-        <div id="webrice"></div>
+        <div id="webrice">
+          <div>
+            <ul class="webriceMainSpeed">
+              <li>0.5</li>
+              <li>0.75</li>
+              <li>1</li>
+              <li>1.25</li>
+              <li>1.5</li>
+              <li>1.75</li>
+              <li>2</li>
+            </ul>
+          </div>
+        </div>
         <!--Sample text-->
         <div id="webriceTextContainer">
             <h1 id="content-1">Máltækni MSc</h1>
