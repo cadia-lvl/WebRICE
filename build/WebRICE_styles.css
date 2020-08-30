@@ -144,3 +144,36 @@
   width: 100%;
   fill: var(--secondary-color-one);
 }
+
+/**
+ * Experimental styles
+ * TODO: border radius,
+ * inherit the same theme properties as all webrice assets
+ */
+.speedButtonGroup {
+  position: relative;
+}
+
+.webriceMainSpeed {
+  position: absolute;
+  float: left;
+  box-shadow: 0 1px 4px 0;
+  min-width: 160px;
+  box-sizing: border-box;
+  left: 0;
+  background-color: #242121;
+  color: #f3f2f2;
+  margin-top: 0;
+  list-style: none;
+  visibility: visible;
+  text-align: left;
+}
+
+/**
+ * TODO: get this to work. it currently doesn't
+ */
+.webriceMainSpeed:hover ul,
+.webriceMainSpeed:focus ul {
+  background-color: #f3f2f2;
+  color: #242121;
+}
