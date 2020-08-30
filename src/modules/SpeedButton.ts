@@ -19,7 +19,7 @@ export class SpeedButton extends MainButton {
     constructor(icon: Icon, alt: string, id: string,
         title: string) {
       super(icon, alt, id, title);
-      this.currentSpeed = 0;
+      this.currentSpeed = 1;
     }
     /**
      * Increases reading speed
@@ -76,6 +76,15 @@ export class SpeedButton extends MainButton {
       this.speedSettings.forEach( (speed) => {
         const li = document.createElement('li');
         li.appendChild(document.createTextNode(speed.toString()));
+        li.setAttribute('role', 'option');
+        if (this.currentSpeed === speed) {
+          li.classList.add('active');
+          li.setAttribute('aria-checked', 'true');
+          li.setAttribute('aria-selected', 'true');
+        } else {
+          li.setAttribute('aria-checked', 'false');
+          li.setAttribute('aria-selected', 'false');
+        }
         speedOptions.appendChild(li);
       });
       speedButtonGroup.appendChild(speedOptions);

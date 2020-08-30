@@ -169,11 +169,12 @@
   text-align: left;
 }
 
-/**
- * TODO: get this to work. it currently doesn't
- */
-.webriceMainSpeed:hover ul,
-.webriceMainSpeed:focus ul {
+.webriceMainSpeed li:hover,
+.webriceMainSpeed li:focus {
   background-color: #f3f2f2;
   color: #242121;
+}
+
+.webriceMainSpeed .active {
+  font-weight: bold;
 }
