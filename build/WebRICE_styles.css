@@ -163,12 +163,18 @@
   border-color: var(--border-color);
   border-width: var(--border-width);
   border-style: solid;
+  padding-left: 0;
   margin-top: 0;
   list-style: none;
   visibility: visible;
   text-align: left;
 }
 
+.webriceMainSpeed li {
+  padding-left: 0.5rem;
+}
+
+.webriceMainSpeed .active,
 .webriceMainSpeed li:hover,
 .webriceMainSpeed li:focus {
   background-color: var(--secondary-color-one);
