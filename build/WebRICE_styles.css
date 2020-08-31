@@ -147,8 +147,6 @@
 
 /**
  * Experimental styles
- * TODO: border radius,
- * inherit the same theme properties as all webrice assets
  */
 .speedButtonGroup {
   position: relative;
@@ -157,12 +155,14 @@
 .webriceMainSpeed {
   position: absolute;
   float: left;
-  box-shadow: 0 1px 4px 0;
   min-width: 160px;
   box-sizing: border-box;
   left: 0;
-  background-color: #242121;
-  color: #f3f2f2;
+  background-color: var(--main-color-one);
+  color: var(--secondary-color-one);
+  border-color: var(--border-color);
+  border-width: var(--border-width);
+  border-style: solid;
   margin-top: 0;
   list-style: none;
   visibility: visible;
@@ -171,8 +171,8 @@
 
 .webriceMainSpeed li:hover,
 .webriceMainSpeed li:focus {
-  background-color: #f3f2f2;
-  color: #242121;
+  background-color: var(--secondary-color-one);
+  color: var(--main-color-one);
 }
 
 .webriceMainSpeed .active {

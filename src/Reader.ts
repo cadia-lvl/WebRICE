@@ -185,8 +185,14 @@ window.addEventListener('DOMContentLoaded', () => {
   webreader.init();
 
   /*
-   * Example of using custom colors for the webrice toolbar
+   * Examples of using custom colors for the webrice toolbar
+   * NOTE: The speed button theme is best viewed through the light or
+   * orange-blue theme. The dark theme doesn't show all the features well.
+  // orange blue theme
   webreader.customStyles(
       {backgroundColor: '#ffefdd', secondaryColor: '#229BBB'});
    */
+  // light theme
+  webreader.customStyles(
+      {backgroundColor: '#f3f2f2', secondaryColor: '#242121'});
 });
