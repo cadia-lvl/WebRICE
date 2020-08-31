@@ -8,6 +8,7 @@ export class SpeedButton extends MainButton {
     currentSpeed: number
     // TODO: use enumerator for speedSettings;
     speedSettings = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
+
     /**
      *
      * @param {Icon} icon - icon on button
@@ -21,6 +22,21 @@ export class SpeedButton extends MainButton {
       super(icon, alt, id, title);
       this.currentSpeed = 1;
     }
+
+    /**
+     * onClick listener for speed button
+     * Display the reading speed options
+     */
+    toggleReadingSpeeds(): void {
+      const readingSpeedsElement = document
+          .getElementById('webriceSelect') as HTMLDivElement;
+      if ( readingSpeedsElement.style.display === 'none') {
+        readingSpeedsElement.style.display = 'block';
+      } else {
+        readingSpeedsElement.style.display = 'none';
+      }
+    }
+
     /**
      * Increases reading speed
      * @param {number} increase how much to increase
@@ -28,6 +44,7 @@ export class SpeedButton extends MainButton {
     speedUp(increase: number): void {
       console.log('to be implemented' + increase);
     }
+
     /**
      * Decrease reading speed
      * @param {number} decrease how much to decrease
@@ -35,12 +52,14 @@ export class SpeedButton extends MainButton {
     slowDown(decrease: number): void {
       console.log('to be implemented' + decrease);
     }
+
     /**
      * @return {number} current reading speed
      */
     getCurrentSpeed(): number {
       return this.currentSpeed;
     }
+
     /**
      * Sets current reading speed
      * @param {number} speed what current speed will be
@@ -48,6 +67,7 @@ export class SpeedButton extends MainButton {
     private setCurrentSpeed(speed: number): void {
       this.currentSpeed = speed;
     }
+
     /**
      * Create the html for the speed button group
      * The button group consists of two parts.
@@ -57,9 +77,6 @@ export class SpeedButton extends MainButton {
      * @return {HTMLDivElement} - button html
      */
     public createHTML(): HTMLDivElement {
-      const speedButtonGroup = document.createElement('div');
-      speedButtonGroup.classList.add('speedButtonGroup');
-      if (this.classes !== '') speedButtonGroup.classList.add(this.classes);
       const button = document.createElement('div');
       button.id = this.id;
       button.setAttribute('role', 'button');
@@ -67,17 +84,21 @@ export class SpeedButton extends MainButton {
       button.setAttribute('title', this.title);
       button.setAttribute('tabindex', '0');
       button.setAttribute('aria-expanded', 'true');
-
+      button.classList.add('speedButtonGroup');
+      if (this.classes !== '') button.classList.add(this.classes);
 
       button.appendChild(this.buttonIcon.svg);
-      speedButtonGroup.appendChild(button);
+      // TODO: is webriceSelect really needed? can it be combined with
+      // webriceMainSpeed?
+      const customSelect = document.createElement('div');
+      customSelect.id = 'webriceSelect';
       const speedOptions = document.createElement('ul');
       speedOptions.classList.add('webriceMainSpeed');
       this.speedSettings.forEach( (speed) => {
         const li = document.createElement('li');
         li.appendChild(document.createTextNode(speed.toString()));
         li.setAttribute('role', 'option');
-        if (this.currentSpeed === speed) {
+        if (this.getCurrentSpeed() === speed) {
           li.classList.add('active');
           li.setAttribute('aria-checked', 'true');
           li.setAttribute('aria-selected', 'true');
@@ -87,7 +108,8 @@ export class SpeedButton extends MainButton {
         }
         speedOptions.appendChild(li);
       });
-      speedButtonGroup.appendChild(speedOptions);
-      return speedButtonGroup;
+      customSelect.appendChild(speedOptions);
+      button.appendChild(customSelect);
+      return button;
     }
 }

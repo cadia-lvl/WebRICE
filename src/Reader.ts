@@ -135,6 +135,8 @@ export class Reader {
       HTMLDivElement;
     const stopDiv = document.getElementById(mainStopButton.id) as
       HTMLDivElement;
+    const speedDiv = document.getElementById(mainSpeedButton.id) as
+      HTMLDivElement;
 
     this.player.addEventListener('play', () => {
       mainPlayPauseButton.toggleIcons();
@@ -191,8 +193,8 @@ window.addEventListener('DOMContentLoaded', () => {
   // orange blue theme
   webreader.customStyles(
       {backgroundColor: '#ffefdd', secondaryColor: '#229BBB'});
-   */
   // light theme
   webreader.customStyles(
       {backgroundColor: '#f3f2f2', secondaryColor: '#242121'});
+   */
 });
