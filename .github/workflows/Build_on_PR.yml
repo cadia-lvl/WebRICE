@@ -26,8 +26,11 @@ jobs:
         git remote -v
     - name: Install node packages
       run: npm install
-    - name: Lint
+    - name: eLint
       run: |
         npm run elint
+    - name: sLint
+      run: |
+        npm run slint
     - name: BUILD
       run: npm run build
