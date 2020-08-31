@@ -14,7 +14,8 @@ export interface stylingInterface {
  */
 export class CustomStyles {
   private readonly GRADIENT_CONTRAST = 1.3;
-  private readonly ITEM_CONTRAST = 4.5;
+  // Images fall under Graphical Objects and User Interface Components
+  private readonly MIN_CONTRAST = 3;
   private container = document.getElementById('webrice')!;
   private readonly CSS_VARS = {
     backgroundColors: {
@@ -57,39 +58,36 @@ export class CustomStyles {
   /**
    * Applies changes to webrice
    * @param {Map<string, any>} choices - map of choices
+   * @param {Array<string>} choiceKind - contains all possible choices types
    * @param {boolean} isGradient - wheather buttons should have gradiance or not
    */
-  private applyChanges(choices: Map<string, any>, isGradient: boolean): void {
+  private applyChanges(choices: Map<string, any>, choiceKind: Array<string>,
+      isGradient: boolean): void {
     // Set main color
-    const keys: Array<string> = [];
 
-    choices.forEach((value: boolean, key: string) => {
-      keys.push(key);
-    });
-
-    if (choices.has(keys[0]) && isGradient) {
+    if (choices.has(choiceKind[0]) && isGradient) {
       this.setWebriceCustomVal(this.CSS_VARS.backgroundColors.darkerColor,
-          choices.get(keys[0]).darkerColor);
+          choices.get(choiceKind[0]).darkerColor);
       this.setWebriceCustomVal(this.CSS_VARS.backgroundColors.lighterColor,
-          choices.get(keys[0]).lighterColor);
-    } else if (choices.has(keys[0])) {
+          choices.get(choiceKind[0]).lighterColor);
+    } else if (choices.has(choiceKind[0])) {
       this.setWebriceCustomVal(this.CSS_VARS.backgroundColors.main,
-          choices.get(keys[0]).darkerColor);
+          choices.get(choiceKind[0]).darkerColor);
       this.setWebriceCustomVal(this.CSS_VARS.backgroundColors.darkerColor,
-          choices.get(keys[0]).darkerColor);
+          choices.get(choiceKind[0]).darkerColor);
     }
 
     // Set secondary color
-    if (choices.has(keys[1]) && isGradient) {
+    if (choices.has(choiceKind[1]) && isGradient) {
       this.setWebriceCustomVal(this.CSS_VARS.secondaryColors.lighterColor,
-          choices.get(keys[1]).lighterColor);
+          choices.get(choiceKind[1]).lighterColor);
       this.setWebriceCustomVal(this.CSS_VARS.secondaryColors.darkerColor,
-          choices.get(keys[1]).darkerColor);
-    } else if (choices.has(keys[1])) {
+          choices.get(choiceKind[1]).darkerColor);
+    } else if (choices.has(choiceKind[1])) {
       this.setWebriceCustomVal(this.CSS_VARS.secondaryColors.main,
-          choices.get(keys[1]).darkerColor);
+          choices.get(choiceKind[1]).darkerColor);
       this.setWebriceCustomVal(this.CSS_VARS.secondaryColors.darkerColor,
-          choices.get(keys[1]).darkerColor);
+          choices.get(choiceKind[1]).darkerColor);
     }
 
     // Add for border and icon later
@@ -110,6 +108,7 @@ export class CustomStyles {
       lighter = lighter.lighten(0.05);
       colorContrast = color.contrast(lighter);
     }
+    console.log({darkerColor: color.hex(), lighterColor: lighter.hex()});
     return {darkerColor: color.hex(), lighterColor: lighter.hex()};
   }
 
@@ -126,6 +125,7 @@ export class CustomStyles {
       darker = darker.darken(0.01);
       colorContrast = darker.contrast(color);
     }
+    console.log({darkerColor: darker.hex(), lighterColor: color.hex()});
     return {darkerColor: darker.hex(), lighterColor: color.hex()};
   }
   /**
@@ -154,11 +154,11 @@ export class CustomStyles {
           color.contrast(lighterCompare);
     } else contrast = color.contrast(darkerCompare);
 
-    if (contrast < this.ITEM_CONTRAST) {
+    if (contrast < this.MIN_CONTRAST) {
       console.warn(
           `Contrast between main and secondary colors of web reader`+
-          ` is ${contrast.toFixed(2)} but should be at least 4.5 to`+
-          ` meet accessibility standards!`);
+          ` is ${contrast.toFixed(2)} but should be at least`+
+          ` ${this.MIN_CONTRAST} to meet accessibility standards!`);
     }
   }
 
@@ -203,7 +203,7 @@ export class CustomStyles {
   public changeStyles(options: stylingInterface): void {
     console.log(options);
     const userChoices = new Map<string, any>();
-    const keys = ['backgroundColors', 'SecondaryColors', 'border', 'icon'];
+    const keys = ['backgroundColors', 'secondaryColors', 'border', 'icon'];
 
     let includeGradient = true;
     if (options.includeGradient === false) includeGradient = false;
@@ -219,7 +219,10 @@ export class CustomStyles {
       validSecondaryColor = this.validColor(
           options.secondaryColor);
     }
-    console.log("secondary color valid: "+ validSecondaryColor);
+
+    if (!validSecondaryColor && !validBackgroundColor && includeGradient) {
+      console.warn('Included gradient but no colors given');
+    }
 
     if (validBackgroundColor && includeGradient) {
       userChoices.set(keys[0],
@@ -237,10 +240,11 @@ export class CustomStyles {
               new Color(userChoices.get(keys[0]).lighterColor)) :
           this.checkBadConstrast(
               new Color(this.getWebriceVarVal(
-                  this.CSS_VARS.backgroundColors.darkerColor).replace(" ", "")),
+                  this.CSS_VARS.backgroundColors.darkerColor).replace(' ', '')),
               new Color(options.secondaryColor),
               new Color(this.getWebriceVarVal(
-                  this.CSS_VARS.backgroundColors.lighterColor).replace(" ", "")));
+                  this.CSS_VARS.backgroundColors.lighterColor)
+                  .replace(' ', '')));
         userChoices.set(keys[1], this.getColors(
             new Color(options.secondaryColor)));
     } else if (validSecondaryColor) {
@@ -250,7 +254,8 @@ export class CustomStyles {
                 new Color(options.secondaryColor)) :
             this.checkBadConstrast(
                 new Color(this.getWebriceVarVal(
-                    this.CSS_VARS.backgroundColors.darkerColor).replace(" ", "")),
+                    this.CSS_VARS.backgroundColors.darkerColor)
+                    .replace(' ', '')),
                 new Color(options.secondaryColor));
 
         userChoices.set(keys[1], this.getColors(
@@ -266,6 +271,6 @@ export class CustomStyles {
     // icon size
     */
 
-    this.applyChanges(userChoices, includeGradient);
+    this.applyChanges(userChoices, keys, includeGradient);
   }
 }

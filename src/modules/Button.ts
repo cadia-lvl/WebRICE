@@ -1,49 +1,21 @@
-import {Icon} from './icons';
-
 /**
  * An abstract button class that details what all buttons should have
  */
 export abstract class Button {
-  Icon: Icon;
   altText: string;
   readonly buttonId: string;
   titleText: string;
-  classes = '';
-  // eslint-disable-next-line no-invalid-this
-  handleClick = this.onClicked.bind(this);
+
   /**
-   *
-   * @param {Icon} Icon - Icon on button
    * @param {string} alt - alt of button
    * @param {string} id - id of button
    * @param {string} title - title of utton
    * @param {string} classes - string containing classes of button
    */
-  constructor(Icon: Icon, alt: string, id: string,
-      title: string, classes?: string) {
-    this.Icon = Icon;
+  constructor(alt: string, id: string, title: string) {
     this.altText = alt;
     this.buttonId = id;
     this.titleText = title;
-
-
-    if (classes) this.classes = classes;
-  }
-
-  /**
-   * Setter for Icon
-   * @param {Icon} newIcon - replace current Icon with this Icon
-   */
-  protected set buttonIcon(newIcon: Icon) {
-    this.Icon = newIcon;
-  }
-
-  /**
-   * Getter for Icon
-   * @return {Icon} - returns the button Icon
-   */
-  protected get buttonIcon(): Icon {
-    return this.Icon;
   }
 
   /**
@@ -87,25 +59,12 @@ export abstract class Button {
   }
 
   /**
-   * Getter for classlist
-   * @return {string} - button class list
+   * Adds to the button html
+   * without the neccisary base being affected.
+   * Examples of what to add could be Icons, classes or text.
+   * @param {HTMLDivElement} button
    */
-  public get classList(): string {
-    return this.classes;
-  }
-
-  /**
-   * Setter for classlist
-   * @param {string} classes - class list
-   */
-  public set classList(classes: string) {
-    this.classes = classes;
-  }
-
-  /**
-   * Handles onCLick() event of buttons
-   */
-  abstract onClicked(): void;
+  protected abstract additionalHTML(button: HTMLDivElement): void;
 
   /**
    * Creates the button html
@@ -118,10 +77,7 @@ export abstract class Button {
     button.setAttribute('alt', this.alt);
     button.setAttribute('title', this.title);
     button.setAttribute('tabindex', '0');
-
-    if (this.classes !== '') button.classList.add(this.classes);
-
-    button.appendChild(this.buttonIcon.svg);
+    this.additionalHTML(button);
     return button;
   }
 }

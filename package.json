@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack-dev-server",
-    "slint": "stylelint \"**/*.css\"|| echo \"lint faild for the above file(s)",
+    "slint": "stylelint \"**/*.css\"|| echo \"lint faild for the above file(s)\"",
     "elint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "author": "Sunneva Þorsteinsdóttir and Judy Fong",

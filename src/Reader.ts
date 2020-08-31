@@ -6,7 +6,7 @@ import {SpeedButton} from './modules/SpeedButton';
 import {text} from './lang/is';
 import {PlayIcon, StopIcon, PauseIcon, EarIcon,
   SettingsIcon, SpeedIcon} from './modules/icons';
-import {Button} from './modules/Button';
+import {MainButton} from './modules/MainButton';
 import {stylingInterface, CustomStyles} from './modules/CustomStyleManager';
 
 /**
@@ -25,18 +25,6 @@ class Reader {
   public init(): void {
     this.createWebrice();
     // more things
-  }
-
-  /**
-   * adds an event listener to a button
-   * @param {string} id - button id
-   * @param {Button} button - button class
-   */
-  private addListeners(id: string, button: Button) {
-    const physicalButton = document.getElementById(id);
-    if (physicalButton) {
-      physicalButton.addEventListener('click', button.handleClick);
-    }
   }
 
   /**
@@ -68,7 +56,7 @@ class Reader {
   private createWebrice(): void {
     const parent = document.getElementById(this.CONTAINER_ID)!;
     const container = document.createElement('div');
-    container.setAttribute('id','webriceContainer');
+    container.setAttribute('id', 'webriceContainer');
     // Player here at some point
     const earIconic = new EarIcon('webriceEarIcon', 'mainWebriceIcon');
 
@@ -76,19 +64,19 @@ class Reader {
     const mainPauseIcon = new PauseIcon('webricePauseIcon', 'mainPauseIcon');
     const mainPlayPauseButton = new PlayPauseButton(mainPlayIcon,
         earIconic, mainPauseIcon, text.ButtonAlt.play, 'webricePlayButton',
-        text.ButtonTitle.play, 'webriceMainButton');
+        text.ButtonTitle.play);
     container.appendChild(mainPlayPauseButton.createHTML());
 
     const mainStopIcon = new StopIcon('webriceStopIcon', 'mainWebriceIcon');
     const mainStopButton = new StopButton(
         mainStopIcon, text.ButtonAlt.stop, 'webriceStopButton',
-        text.ButtonTitle.stop, 'webriceMainButton');
+        text.ButtonTitle.stop);
     container.appendChild(mainStopButton.createHTML());
 
     const mainSpeedIcon = new SpeedIcon('webriceSpeedIcon', 'mainWebriceIcon');
     const mainSpeedButton = new SpeedButton(
         mainSpeedIcon, text.ButtonAlt.speed, 'webriceSpeedButton',
-        text.ButtonTitle.speed, 'webriceMainButton');
+        text.ButtonTitle.speed);
     container.appendChild(mainSpeedButton.createHTML());
 
     const mainSettingsIcon = new SettingsIcon('webriceSettingsIcon',
@@ -96,16 +84,17 @@ class Reader {
 
     const mainSettingsButton = new SettingsButton(mainSettingsIcon,
         text.ButtonAlt.settings, 'webriceSettingsButton',
-        text.ButtonTitle.settings, 'webriceMainButton');
+        text.ButtonTitle.settings);
     container.appendChild(mainSettingsButton.createHTML());
 
     parent.appendChild(container);
 
-    // Eventlisteners added to buttons
-    this.addListeners(mainPlayPauseButton.id, mainPlayPauseButton);
-    this.addListeners(mainStopButton.id, mainStopButton);
-    this.addListeners(mainSpeedButton.id, mainSpeedButton);
-    this.addListeners(mainSettingsButton.id, mainSettingsButton);
+    const physicalSpeedButton = document.getElementById(mainSettingsButton.id)!;
+
+    if (physicalSpeedButton) {
+      physicalSpeedButton.addEventListener(
+          'click', mainSettingsButton.handleClick);
+    }
   }
 
   /**
@@ -127,5 +116,9 @@ class Reader {
 window.addEventListener('DOMContentLoaded', () => {
   const webreader = new Reader();
   webreader.init();
-  webreader.customStyles({secondaryColor: "#229BBB"});
+
+  /*
+  webreader.customStyles(
+      {backgroundColor: '#ab2015', secondaryColor: '#fff'});
+  */
 });

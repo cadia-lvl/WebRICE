@@ -1,15 +1,15 @@
-import {Button} from './Button';
+import {MainButton} from './MainButton';
 import {Icon} from './icons';
 
 /**
  * Button that plays and pauses reading of a web page section
  */
-export class PlayPauseButton extends Button {
+export class PlayPauseButton extends MainButton {
   isPlaying: boolean;
   secondIcon: Icon;
   /**
    *
-   * @param {Icon} icon - The main Icon of button
+   * @param {Icon} Icon - The main Icon of button
    * @param {Icon} secondIcon - The second Icon of button
    * @param {Icon} toggleIcon - The toggleable Icon of button
    * @param {string} alt - The alt text of button
@@ -18,8 +18,8 @@ export class PlayPauseButton extends Button {
    * @param {string} classes - the classes of button
    */
   constructor(Icon: Icon, secondIcon:Icon, toggleIcon: Icon,
-      alt: string, id: string, title: string, classes?: string) {
-    super(Icon, alt, id, title, classes);
+      alt: string, id: string, title: string) {
+    super(Icon, alt, id, title);
     this.isPlaying = false;
     this.secondIcon = secondIcon;
   }
@@ -32,10 +32,11 @@ export class PlayPauseButton extends Button {
   }
 
   /**
-   * Sets the visible main icon of the play button to be toggleIcon and stores the other icon.
-   * For example: If the play icons is visible it changes to the pause icon and vice versa.
+   * Sets the visible main icon of the play button to be toggleIcon and
+   * stores the other icon.
+   * For example: If the play icons is visible it changes to the pause icon
+   * and vice versa.
    */
-
   private toggleIcons(): void {
     // Changes play to pause and pause to play
   }
@@ -69,20 +70,14 @@ export class PlayPauseButton extends Button {
   }
 
   /**
-   * @return {HTMLDivElement} returns the html for the button
+   * Adds to the button html
+   * without the neccisary base being affected.
+   * Examples of what to add could be Icons, classes or text.
+   * @param {HTMLDivElement} button
    */
-  createHTML(): HTMLDivElement {
-    const button = document.createElement('div');
-    button.id = this.id;
-    button.setAttribute('role', 'button');
-    button.setAttribute('alt', this.alt);
-    button.setAttribute('title', this.title);
-    button.setAttribute('tabindex', '0');
-
-    if (this.classes !== '') button.classList.add(this.classes);
-
+  protected additionalHTML(button: HTMLDivElement): void{
+    button.classList.add('webriceMainButton');
     button.appendChild(this.secondButtonIcon.svg);
     button.appendChild(this.buttonIcon.svg);
-    return button;
   }
 }

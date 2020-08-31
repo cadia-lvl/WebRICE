@@ -1,10 +1,10 @@
-import {Button} from './Button';
+import {MainButton} from './MainButton';
 import {Icon} from './icons';
 
 /**
  * A Button controling the reading speed of webrice
  */
-export class SpeedButton extends Button {
+export class SpeedButton extends MainButton {
     currentSpeed: number
     /**
      *
@@ -15,8 +15,8 @@ export class SpeedButton extends Button {
      * @param {string} classes - string containing classes of button
      */
     constructor(Icon: Icon, alt: string, id: string,
-        title: string, classes?: string) {
-      super(Icon, alt, id, title, classes);
+        title: string) {
+      super(Icon, alt, id, title);
       this.currentSpeed = 0;
     }
     /**
