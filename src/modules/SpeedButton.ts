@@ -59,6 +59,7 @@ export class SpeedButton extends MainButton {
     public createHTML(): HTMLDivElement {
       const speedButtonGroup = document.createElement('div');
       speedButtonGroup.classList.add('speedButtonGroup');
+      if (this.classes !== '') speedButtonGroup.classList.add(this.classes);
       const button = document.createElement('div');
       button.id = this.id;
       button.setAttribute('role', 'button');
@@ -67,7 +68,6 @@ export class SpeedButton extends MainButton {
       button.setAttribute('tabindex', '0');
       button.setAttribute('aria-expanded', 'true');
 
-      if (this.classes !== '') button.classList.add(this.classes);
 
       button.appendChild(this.buttonIcon.svg);
       speedButtonGroup.appendChild(button);
