@@ -1,5 +1,6 @@
 import {Button} from './Button';
 import {Icon} from './icons';
+import {PlayerAttributes} from './PlayerAttributes';
 
 /**
  * A button enabling users to reset webrice web reader
@@ -7,16 +8,29 @@ import {Icon} from './icons';
 export class StopButton extends Button {
   /**
      *
-     * @param {Icon} Icon - Icon on button
+     * @param {Icon} icon - Icon on button
      * @param {string} alt - alt of button
      * @param {string} id - id of button
      * @param {string} title - title of utton
      * @param {string} classes - string containing classes of button
      */
-  constructor(Icon: Icon, alt: string, id: string,
+  constructor(icon: Icon, alt: string, id: string,
       title: string, classes?: string) {
-    super(Icon, alt, id, title, classes);
+    super(icon, alt, id, title, classes);
   }
+
+  /**
+   * Stop workflow
+   * @param {HTMLAudioElement} player - the reference to the webrice audio
+   *   player
+   * @param {PlayerAttributes} webPlayerAttributes - the reference to the
+   *   webrice audio attributes
+   */
+  stop(player: HTMLAudioElement, webPlayerAttributes: PlayerAttributes): void {
+    player.pause();
+    webPlayerAttributes.init(player);
+  }
+
   /**
    * Resets webrice
    */
