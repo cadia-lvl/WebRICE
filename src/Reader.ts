@@ -152,11 +152,11 @@ export class Reader {
     const physicalSettingsButton =
         document.getElementById(mainSettingsButton.id) as HTMLDivElement;
 
+    // Eventlisteners added to buttons
     if (physicalSettingsButton) {
       physicalSettingsButton.addEventListener(
           'click', mainSettingsButton.handleClick);
     }
-    // Eventlisteners added to buttons
     playPauseDiv.addEventListener('click', () => {
       mainPlayPauseButton.playPause(this.player, this.webPlayerAttributes,
           this.getWebText());
@@ -164,6 +164,12 @@ export class Reader {
     stopDiv.addEventListener('click', () => {
       mainStopButton.stop(this.player, this.webPlayerAttributes);
     }, false);
+    speedDiv.addEventListener('click', () => {
+      mainSpeedButton.toggleReadingSpeeds();
+    }, false);
+
+    // TODO: add document.eventListener for hiding the speedoptions if anywhere
+    // other than the speed stuff is clicked
   }
 
   /**

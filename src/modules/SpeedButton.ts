@@ -33,8 +33,17 @@ export class SpeedButton extends MainButton {
       if ( readingSpeedsElement.style.display === 'none') {
         readingSpeedsElement.style.display = 'block';
       } else {
-        readingSpeedsElement.style.display = 'none';
+        this.hideReadingSpeeds();
       }
+    }
+
+    /**
+     * Hide the speed options element
+     */
+    hideReadingSpeeds(): void {
+      const readingSpeedsElement = document
+          .getElementById('webriceSelect') as HTMLDivElement;
+      readingSpeedsElement.style.display = 'none';
     }
 
     /**
