@@ -29,5 +29,6 @@ jobs:
     - name: Lint
       run: |
         npm run elint
+        npm run slint
     - name: BUILD
       run: npm run build
