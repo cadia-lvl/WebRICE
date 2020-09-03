@@ -8,6 +8,7 @@ export class SpeedButton extends MainButton {
     currentSpeed: number
     // TODO: use enumerator for speedSettings;
     speedSettings = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
+    speedSelectId = 'webriceSelect';
 
     /**
      *
@@ -29,11 +30,11 @@ export class SpeedButton extends MainButton {
      */
     toggleReadingSpeeds(): void {
       const readingSpeedsElement = document
-          .getElementById('webriceSelect') as HTMLDivElement;
-      if ( readingSpeedsElement.style.display === 'none') {
-        readingSpeedsElement.style.display = 'block';
-      } else {
+          .getElementById(this.speedSelectId) as HTMLUListElement;
+      if ( readingSpeedsElement.style.display === 'block') {
         this.hideReadingSpeeds();
+      } else {
+        readingSpeedsElement.style.display = 'block';
       }
     }
 
@@ -42,7 +43,7 @@ export class SpeedButton extends MainButton {
      */
     hideReadingSpeeds(): void {
       const readingSpeedsElement = document
-          .getElementById('webriceSelect') as HTMLDivElement;
+          .getElementById(this.speedSelectId) as HTMLUListElement;
       readingSpeedsElement.style.display = 'none';
     }
 
@@ -97,12 +98,13 @@ export class SpeedButton extends MainButton {
       if (this.classes !== '') button.classList.add(this.classes);
 
       button.appendChild(this.buttonIcon.svg);
-      // TODO: is webriceSelect really needed? can it be combined with
+
+      // TODO: is webriceSelectId really needed? can it be combined with
       // webriceMainSpeed?
-      const customSelect = document.createElement('div');
-      customSelect.id = 'webriceSelect';
+      // Create the playbackRate options popup
       const speedOptions = document.createElement('ul');
       speedOptions.classList.add('webriceMainSpeed');
+      speedOptions.id = this.speedSelectId;
       this.speedSettings.forEach( (speed) => {
         const li = document.createElement('li');
         li.appendChild(document.createTextNode(speed.toString()));
@@ -117,8 +119,8 @@ export class SpeedButton extends MainButton {
         }
         speedOptions.appendChild(li);
       });
-      customSelect.appendChild(speedOptions);
-      button.appendChild(customSelect);
+      button.appendChild(speedOptions);
+
       return button;
     }
 }
