@@ -55,7 +55,7 @@ export class PlayPauseButton extends MainButton {
   }
 
   /**
-   * @param {Icon} Icon - the second button icon
+   * @param {Icon} icon - the second button icon
    */
   set secondButtonIcon(icon: Icon) {
     this.secondIcon = icon;
