@@ -61,7 +61,7 @@ export abstract class Button {
   /**
    * Adds to the button html
    * without the neccisary base being affected.
-   * Examples of what to add could be Icons, classes or text.
+   * Examples of what to add could be icons, classes or text.
    * @param {HTMLDivElement} button
    */
   protected abstract additionalHTML(button: HTMLDivElement): void;

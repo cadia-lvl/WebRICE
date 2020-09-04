@@ -12,9 +12,9 @@ export class PlayPauseButton extends MainButton {
   toggleIcon: Icon;
   /**
    *
-   * @param {Icon} icon - The play Icon of button
-   * @param {Icon} secondIcon - The webrice logo Icon of button
-   * @param {Icon} toggleIcon - The pause Icon of button
+   * @param {Icon} icon - The play icon of button
+   * @param {Icon} secondIcon - The webrice logo icon of button
+   * @param {Icon} toggleIcon - The pause icon of button
    * @param {string} alt - The alt text of button
    * @param {string} id - the id of button
    * @param {string} title - the title of button
@@ -36,9 +36,9 @@ export class PlayPauseButton extends MainButton {
    */
   public toggleIcons(): void {
     const button = document.getElementById(this.id) as HTMLDivElement;
-    if (document.getElementById(this.Icon.ID) !== null ) {
+    if (document.getElementById(this.icon.ID) !== null ) {
       // Add the pause icon to button and remove play icon
-      button.removeChild(document.getElementById(this.Icon.ID)!);
+      button.removeChild(document.getElementById(this.icon.ID)!);
       button.appendChild(this.toggleIcon.svg);
     } else {
       // swap the pause icon for the play icon
@@ -48,17 +48,17 @@ export class PlayPauseButton extends MainButton {
   }
 
   /**
-   * @return {Icon} returns the second Icon
+   * @return {Icon} returns the second icon
    */
   get secondButtonIcon(): Icon {
     return this.secondIcon;
   }
 
   /**
-   * @param {Icon} Icon - the second button Icon
+   * @param {Icon} Icon - the second button icon
    */
-  set secondButtonIcon(Icon: Icon) {
-    this.secondIcon = Icon;
+  set secondButtonIcon(icon: Icon) {
+    this.secondIcon = icon;
   }
 
   /**
@@ -79,7 +79,7 @@ export class PlayPauseButton extends MainButton {
   /**
    * Adds to the button html
    * without the neccisary base being affected.
-   * Examples of what to add could be Icons, classes or text.
+   * Examples of what to add could be icons, classes or text.
    * @param {HTMLDivElement} button
    */
   protected additionalHTML(button: HTMLDivElement): void{

@@ -8,22 +8,16 @@ export class SpeedButton extends MainButton {
     currentSpeed: number
     /**
      *
-     * @param {Icon} Icon - Icon on button
+     * @param {Icon} icon - icon on button
      * @param {string} alt - alt of button
      * @param {string} id - id of button
      * @param {string} title - title of utton
      * @param {string} classes - string containing classes of button
      */
-    constructor(Icon: Icon, alt: string, id: string,
+    constructor(icon: Icon, alt: string, id: string,
         title: string) {
-      super(Icon, alt, id, title);
+      super(icon, alt, id, title);
       this.currentSpeed = 0;
-    }
-    /**
-     * Enables user to change reading speed
-     */
-    onClicked(): void {
-      console.log('clicked!');
     }
     /**
      * Increases reading speed

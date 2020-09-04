@@ -8,7 +8,7 @@ import {PlayerAttributes} from './PlayerAttributes';
 export class StopButton extends MainButton {
   /**
      *
-     * @param {Icon} icon - Icon on button
+     * @param {Icon} icon - icon on button
      * @param {string} alt - alt of button
      * @param {string} id - id of button
      * @param {string} title - title of utton
@@ -29,12 +29,5 @@ export class StopButton extends MainButton {
   stop(player: HTMLAudioElement, webPlayerAttributes: PlayerAttributes): void {
     player.pause();
     webPlayerAttributes.init(player);
-  }
-
-  /**
-   * Resets webrice
-   */
-  onClicked(): void {
-    console.log('clicked!');
   }
 }

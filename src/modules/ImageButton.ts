@@ -5,39 +5,39 @@ import {Icon} from './icons';
  * Closes a module
  */
 export class ImageButton extends Button {
-  Icon: Icon;
+  icon: Icon;
   /**
-     * @param {Icon} Icon - Icon on button
+     * @param {Icon} icon - icon on button
      * @param {string} alt - alt of button
      * @param {string} id - id of button
      * @param {string} title - title of utton
      */
-  constructor(Icon: Icon, alt: string, id: string,
+  constructor(icon: Icon, alt: string, id: string,
       title: string) {
     super(alt, id, title);
-    this.Icon = Icon;
+    this.icon = icon;
   }
 
   /**
-   * Setter for Icon
-   * @param {Icon} newIcon - replace current Icon with this Icon
+   * Setter for icon
+   * @param {Icon} newIcon - replace current icon with this icon
    */
   protected set buttonIcon(newIcon: Icon) {
-    this.Icon = newIcon;
+    this.icon = newIcon;
   }
 
   /**
-   * Getter for Icon
-   * @return {Icon} - returns the button Icon
+   * Getter for icon
+   * @return {Icon} - returns the button icon
    */
   protected get buttonIcon(): Icon {
-    return this.Icon;
+    return this.icon;
   }
 
   /**
    * Adds to the button html
    * without the neccisary base being affected.
-   * Examples of what to add could be Icons, classes or text.
+   * Examples of what to add could be icons, classes or text.
    * @param {HTMLDivElement} button
    */
   protected additionalHTML(button: HTMLDivElement): void{

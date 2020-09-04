@@ -15,15 +15,15 @@ export class SettingsButton extends MainButton {
   moduleCreated = false;
   moduleVisible = false;
   /**
-   * @param {Icon} Icon - Icon on button
+   * @param {Icon} icon - icon on button
    * @param {string} alt - alt of button
    * @param {string} id - id of button
    * @param {string} title - title of utton
    * @param {string} classes - string containing classes of button
    */
-  constructor(Icon: Icon, alt: string, id: string,
+  constructor(icon: Icon, alt: string, id: string,
       title: string) {
-    super(Icon, alt, id, title);
+    super(icon, alt, id, title);
   }
 
   /**
