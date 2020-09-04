@@ -148,11 +148,11 @@
 /**
  * Experimental styles
  */
-.speedButtonGroup {
+.webriceSpeedButtonGroup {
   position: relative;
 }
 
-.webriceMainSpeed {
+.webriceMainSpeedOptions {
   position: absolute;
   float: left;
   min-width: 160px;
@@ -173,17 +173,17 @@
   display: none;
 }
 
-.webriceMainSpeed li {
+.webriceMainSpeedOptions > li {
   padding-left: 0.5rem;
 }
 
-.webriceMainSpeed .active,
-.webriceMainSpeed li:hover,
-.webriceMainSpeed li:focus {
+.webriceMainSpeedOptions .active,
+.webriceMainSpeedOptions > li:hover,
+.webriceMainSpeedOptions > li:focus {
   background-color: var(--secondary-color-one);
   color: var(--main-color-one);
 }
 
-.webriceMainSpeed .active {
+.webriceMainSpeedOptions .active {
   font-weight: bold;
 }

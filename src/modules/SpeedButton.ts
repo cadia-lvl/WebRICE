@@ -6,7 +6,7 @@ import {Icon} from './icons';
  */
 export class SpeedButton extends MainButton {
     currentSpeed: number
-    // TODO: use enumerator for speedSettings;
+    // NOTE: consider using enumerator for speedSettings;
     speedSettings = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
     speedSelectId = 'webriceSelect';
 
@@ -147,14 +147,14 @@ export class SpeedButton extends MainButton {
       button.setAttribute('title', this.title);
       button.setAttribute('tabindex', '0');
       button.setAttribute('aria-expanded', 'false');
-      button.classList.add('speedButtonGroup');
+      button.classList.add('webriceSpeedButtonGroup');
       if (this.classes !== '') button.classList.add(this.classes);
 
       button.appendChild(this.buttonIcon.svg);
 
       // Create the playbackRate options popup
       const speedOptions = document.createElement('ul');
-      speedOptions.classList.add('webriceMainSpeed');
+      speedOptions.classList.add('webriceMainSpeedOptions');
       speedOptions.id = this.speedSelectId;
       this.speedSettings.forEach( (speed) => {
         const li = document.createElement('li');

@@ -171,7 +171,7 @@ export class Reader {
       mainStopButton.stop(this.player, this.webPlayerAttributes);
     }, false);
     speedDiv.addEventListener('click', () => {
-      mainSpeedButton.toggleReadingSpeeds();
+      mainSpeedButton.toggleReadingSpeedsMenu();
     }, false);
 
     // TODO: add document.eventListener for hiding the speedoptions if anywhere
