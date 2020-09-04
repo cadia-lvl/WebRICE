@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
     devtool: 'eval-source-map',
     mode: 'development',
-    entry: "./src/Reader.ts",//relative entrypoint path 
+    entry: "./src/Reader.ts", //relative entrypoint path
     resolve: {
         extensions: [".ts", ".js"]
     },
@@ -22,6 +22,7 @@ module.exports = {
         path: path.resolve(__dirname, "build"), //Absolute path from this file to build
     },
     devServer: {
+        contentBase: path.join(__dirname, 'build'),
         compress: true,
         port: 3000,
         open: true,

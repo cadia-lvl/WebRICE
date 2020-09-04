@@ -11,7 +11,7 @@
   --icon-size: 1.5rem;
   --border-width: 0.05rem;
   --corner-curve: 0.2rem;
-  --inner-curve-corner: 0.15rem;
+  --inner-curve-corner: 0.11rem;
   --removed: 0;
   --border-rad: var(--corner-curve) var(--corner-curve) var(--corner-curve) var(--corner-curve);
   --main-border: var(--border-width) solid var(--border-color);
@@ -76,7 +76,7 @@
   fill: var(--main-color-one);
 }
 
-.webriceMainButton:last-child {
+#webriceSettingsButton {
   border-radius: 0 var(--inner-curve-corner) var(--inner-curve-corner) 0;
 }
 
@@ -120,11 +120,11 @@
 }
 
 #settingsContainer > h3 {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.6rem;
 }
 
 #settingsContainer > p {
-  margin: 0.2rem;
+  margin-bottom: 0.4rem;
 }
 
 #settingsHeader {
