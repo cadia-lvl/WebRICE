@@ -132,24 +132,16 @@ export class SpeedButton extends MainButton {
     }
 
     /**
-     * Create the html for the speed button group
+     * Adds the additional html for the speed button group
      * The button group consists of two parts.
      * The first part is the button and the icon.
      * The second part is the list of speed options.
-     * Creates the button html
-     * @return {HTMLDivElement} - button html
+     * @param {HTMLDivElement} button -
      */
-    public createHTML(): HTMLDivElement {
-      const button = document.createElement('div');
-      button.id = this.id;
-      button.setAttribute('role', 'button');
-      button.setAttribute('alt', this.alt);
-      button.setAttribute('title', this.title);
-      button.setAttribute('tabindex', '0');
+    public additionalHTML(button: HTMLDivElement): void {
       button.setAttribute('aria-expanded', 'false');
       button.classList.add('webriceSpeedButtonGroup');
-      if (this.classes !== '') button.classList.add(this.classes);
-
+      button.classList.add('webriceMainButton');
       button.appendChild(this.buttonIcon.svg);
 
       // Create the playbackRate options popup
@@ -172,7 +164,5 @@ export class SpeedButton extends MainButton {
         speedOptions.appendChild(li);
       });
       button.appendChild(speedOptions);
-
-      return button;
     }
 }

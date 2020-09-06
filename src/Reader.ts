@@ -176,6 +176,7 @@ export class Reader {
 
     // TODO: add document.eventListener for hiding the speedoptions if anywhere
     // other than the speed stuff is clicked
+    // same with the settings module
   }
 
   /**
