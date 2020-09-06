@@ -9,6 +9,7 @@ export class SpeedButton extends MainButton {
     // NOTE: consider using enumerator for speedSettings;
     speedSettings = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
     speedSelectId = 'webriceSelect';
+    speedElementClass = 'webriceSpeedElement';
 
     /**
      *
@@ -25,6 +26,38 @@ export class SpeedButton extends MainButton {
     }
 
     /**
+     * onClick event listerned to close any open speed menus when another
+     * element is clicked while the menu is on display
+       * @param {MouseEvent} event - the click that triggered this function
+       * @listens
+     */
+    private closeUnusedComponents(event: MouseEvent): void {
+      const temp = event.target as HTMLElement | SVGElement;
+      let isSpeedElement = false;
+
+      // Check if one of the svg paths were clicked since it wasn't possible to
+      // add the class to the paths themselves
+      const speedPaths = (document.getElementById(this.buttonIcon.svg.id)!)
+          .querySelectorAll('path');
+      for (let i = 0; i < speedPaths.length; i++) {
+        if (temp && temp === speedPaths[i]) {
+          isSpeedElement = true;
+          return;
+        }
+      }
+      // Then check if any of the speed HTML elements with the class were
+      // clicked
+      if (temp && temp.classList.contains(this.speedElementClass)) {
+        isSpeedElement = true;
+        return;
+      }
+      // Couldn't identify element so now need to close speed components
+      if (!isSpeedElement) {
+        this.hideReadingSpeeds();
+      }
+    }
+
+    /**
      * Display or hide the reading speed options depending on the current
      * display option
      */
@@ -37,6 +70,9 @@ export class SpeedButton extends MainButton {
         (document.getElementById(this.id) as HTMLDivElement)
             .setAttribute('aria-expanded', 'true');
         readingSpeedsElement.style.display = 'block';
+        document.addEventListener('click', (event) => {
+          this.closeUnusedComponents(event);
+        }, false);
       }
     }
 
@@ -49,6 +85,11 @@ export class SpeedButton extends MainButton {
       readingSpeedsElement.style.display = 'none';
       (document.getElementById(this.id) as HTMLDivElement)
           .setAttribute('aria-expanded', 'false');
+      // Remove document.eventListener for hiding the speedoptions if anywhere
+      // other than the speed stuff is clicked
+      document.removeEventListener('click', (event) => {
+        this.closeUnusedComponents(event);
+      }, false);
     }
 
     /**
@@ -142,17 +183,21 @@ export class SpeedButton extends MainButton {
       button.setAttribute('aria-expanded', 'false');
       button.classList.add('webriceSpeedButtonGroup');
       button.classList.add('webriceMainButton');
+      button.classList.add(this.speedElementClass);
+      this.buttonIcon.svg.classList.add(this.speedElementClass);
       button.appendChild(this.buttonIcon.svg);
 
       // Create the playbackRate options popup
       const speedOptions = document.createElement('ul');
       speedOptions.classList.add('webriceMainSpeedOptions');
+      speedOptions.classList.add(this.speedElementClass);
       speedOptions.id = this.speedSelectId;
       this.speedSettings.forEach( (speed) => {
         const li = document.createElement('li');
         li.appendChild(document.createTextNode(speed.toString()));
         li.title = speed.toString();
         li.setAttribute('role', 'option');
+        li.classList.add(this.speedElementClass);
         if (this.getCurrentSpeed() === speed) {
           this.setActiveSpeedAttributes(li);
         } else {

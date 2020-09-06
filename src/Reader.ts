@@ -173,10 +173,6 @@ export class Reader {
     speedDiv.addEventListener('click', () => {
       mainSpeedButton.toggleReadingSpeedsMenu();
     }, false);
-
-    // TODO: add document.eventListener for hiding the speedoptions if anywhere
-    // other than the speed stuff is clicked
-    // same with the settings module
   }
 
   /**
