@@ -147,10 +147,11 @@ export class Reader {
           .setPlaybackRate(this.player.playbackRate);
     }, false);
 
-    const physicalSpeedButton = document.getElementById(mainSettingsButton.id)!;
+    const physicalSettingsButton =
+        document.getElementById(mainSettingsButton.id) as HTMLDivElement;
 
-    if (physicalSpeedButton) {
-      physicalSpeedButton.addEventListener(
+    if (physicalSettingsButton) {
+      physicalSettingsButton.addEventListener(
           'click', mainSettingsButton.handleClick);
     }
     // Eventlisteners added to buttons
