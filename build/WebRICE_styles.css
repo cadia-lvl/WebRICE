@@ -11,10 +11,11 @@
   --icon-size: 1.5rem;
   --border-width: 0.05rem;
   --corner-curve: 0.2rem;
-  --inner-curve-corner: 0.15rem;
+  --inner-curve-corner: 0.11rem;
   --removed: 0;
   --border-rad: var(--corner-curve) var(--corner-curve) var(--corner-curve) var(--corner-curve);
   --main-border: var(--border-width) solid var(--border-color);
+  --module-visibility: none;
 }
 
 #webriceContainer {
@@ -25,8 +26,8 @@
   border-color: var(--border-color);
 }
 
-@media (max-width: 200px) {
-  #webrice_container {
+@media (max-width: 210px) {
+  #webriceContainer {
     flex-direction: column;
   }
 
@@ -75,7 +76,7 @@
   fill: var(--main-color-one);
 }
 
-.webriceMainButton:last-child {
+#webriceSettingsButton {
   border-radius: 0 var(--inner-curve-corner) var(--inner-curve-corner) 0;
 }
 
@@ -93,4 +94,53 @@
 
 #webricePlayButton {
   padding: 0 0.2rem;
+}
+
+/* Settings module styles */
+#webriceMainSettingsContainer {
+  border-color: var(--main-color-one);
+  border-radius: 0.1rem;
+  display: var(--module-visibility);
+  flex-direction: column;
+  margin: 0.15rem 0 0 0;
+  position: absolute;
+  background-color: var(--main-color-two);
+  max-width: 13rem;
+}
+
+#settingsContainer {
+  overflow-y: scroll;
+  color: var(--secondary-color-one);
+  margin: 0.2rem 0.2rem 0 0.2rem;
+  max-height: 10rem;
+}
+
+#settingsContainer > h2 {
+  margin: 0.5rem 0 0.2rem 0;
+}
+
+#settingsContainer > h3 {
+  margin-bottom: 0.6rem;
+}
+
+#settingsContainer > p {
+  margin-bottom: 0.4rem;
+}
+
+#settingsHeader {
+  border-radius: 0.1rem 0.1rem 0 0;
+  color: var(--secondary-color-one);
+  display: inline-flex;
+  justify-content: flex-end;
+  background-color: var(--main-color-one);
+}
+
+#webriceSettingsCloseButton {
+  max-width: 1rem;
+  cursor: pointer;
+}
+
+#webriceCloseSettingsIcon {
+  width: 100%;
+  fill: var(--secondary-color-one);
 }

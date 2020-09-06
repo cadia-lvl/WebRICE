@@ -15,7 +15,7 @@ export interface stylingInterface {
 export class CustomStyles {
   private readonly GRADIENT_CONTRAST = 1.3;
   // Images fall under Graphical Objects and User Interface Components
-  private readonly ITEM_CONTRAST = 3;
+  private readonly MIN_CONTRAST = 3;
   private container = document.getElementById('webrice')!;
   private readonly CSS_VARS = {
     backgroundColors: {
@@ -100,7 +100,6 @@ export class CustomStyles {
    *    - color and generated color
    */
   private lighten(color: Color): {darkerColor: string, lighterColor: string} {
-    console.log('lighten');
     let lighter = color.lighten(0.01);
     const white = new Color('#fff');
     if (color.hex() === lighter.hex()) lighter = color.mix(white, 0.1);
@@ -120,7 +119,6 @@ export class CustomStyles {
    *    - color and generated color
    */
   private darken(color: Color): {darkerColor: string, lighterColor: string} {
-    console.log('darken');
     let darker = color.darken(0.01);
     let colorContrast = darker.contrast(color);
     while (colorContrast < this.GRADIENT_CONTRAST) {
@@ -137,9 +135,7 @@ export class CustomStyles {
    *    - returns darker and lighter color
    */
   private getColors(color: Color) {
-    console.log('what is finally returned: ');
-    console.log(color.isDark() ? this.lighten(color) : this.darken(color));
-    return color.isDark() ? this.lighten(color) : this.darken(color);
+    return color.isDark() ? this.lighten(color) :this.darken(color);
   }
 
   /**
@@ -158,11 +154,11 @@ export class CustomStyles {
           color.contrast(lighterCompare);
     } else contrast = color.contrast(darkerCompare);
 
-    if (contrast < this.ITEM_CONTRAST) {
+    if (contrast < this.MIN_CONTRAST) {
       console.warn(
           `Contrast between main and secondary colors of web reader`+
           ` is ${contrast.toFixed(2)} but should be at least`+
-          ` ${this.ITEM_CONTRAST} to meet accessibility standards!`);
+          ` ${this.MIN_CONTRAST} to meet accessibility standards!`);
     }
   }
 
@@ -205,6 +201,7 @@ export class CustomStyles {
    * @param {object} options - contains choices
    */
   public changeStyles(options: stylingInterface): void {
+    console.log(options);
     const userChoices = new Map<string, any>();
     const keys = ['backgroundColors', 'secondaryColors', 'border', 'icon'];
 
@@ -222,6 +219,7 @@ export class CustomStyles {
       validSecondaryColor = this.validColor(
           options.secondaryColor);
     }
+
     if (!validSecondaryColor && !validBackgroundColor && includeGradient) {
       console.warn('Included gradient but no colors given');
     }

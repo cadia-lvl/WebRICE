@@ -1,4 +1,4 @@
-import {Button} from './Button';
+import {MainButton} from './MainButton';
 import {Icon} from './icons';
 import {PlayerAttributes} from './PlayerAttributes';
 import {SpeechManager} from './SpeechManager';
@@ -6,23 +6,23 @@ import {SpeechManager} from './SpeechManager';
 /**
  * Button that plays and pauses reading of a web page section
  */
-export class PlayPauseButton extends Button {
+export class PlayPauseButton extends MainButton {
   isPlaying: boolean;
   secondIcon: Icon;
   toggleIcon: Icon;
   /**
    *
-   * @param {Icon} icon - The play Icon of button
-   * @param {Icon} secondIcon - The webrice logo Icon of button
-   * @param {Icon} toggleIcon - The pause Icon of button
+   * @param {Icon} icon - The play icon of button
+   * @param {Icon} secondIcon - The webrice logo icon of button
+   * @param {Icon} toggleIcon - The pause icon of button
    * @param {string} alt - The alt text of button
    * @param {string} id - the id of button
    * @param {string} title - the title of button
    * @param {string} classes - the classes of button
    */
   constructor(icon: Icon, secondIcon:Icon, toggleIcon: Icon,
-      alt: string, id: string, title: string, classes?: string) {
-    super(icon, alt, id, title, classes);
+      alt: string, id: string, title: string) {
+    super(icon, alt, id, title);
     this.isPlaying = false;
     this.secondIcon = secondIcon;
     this.toggleIcon = toggleIcon;
@@ -36,9 +36,9 @@ export class PlayPauseButton extends Button {
    */
   public toggleIcons(): void {
     const button = document.getElementById(this.id) as HTMLDivElement;
-    if (document.getElementById(this.Icon.ID) !== null ) {
+    if (document.getElementById(this.icon.ID) !== null ) {
       // Add the pause icon to button and remove play icon
-      button.removeChild(document.getElementById(this.Icon.ID)!);
+      button.removeChild(document.getElementById(this.icon.ID)!);
       button.appendChild(this.toggleIcon.svg);
     } else {
       // swap the pause icon for the play icon
@@ -48,17 +48,17 @@ export class PlayPauseButton extends Button {
   }
 
   /**
-   * @return {Icon} returns the second Icon
+   * @return {Icon} returns the second icon
    */
   get secondButtonIcon(): Icon {
     return this.secondIcon;
   }
 
   /**
-   * @param {Icon} Icon - the second button Icon
+   * @param {Icon} icon - the second button icon
    */
-  set secondButtonIcon(Icon: Icon) {
-    this.secondIcon = Icon;
+  set secondButtonIcon(icon: Icon) {
+    this.secondIcon = icon;
   }
 
   /**
@@ -77,29 +77,15 @@ export class PlayPauseButton extends Button {
   }
 
   /**
-   * Create button html
-   * @return {HTMLDivElement} returns the html for the button
+   * Adds to the button html
+   * without the neccisary base being affected.
+   * Examples of what to add could be icons, classes or text.
+   * @param {HTMLDivElement} button
    */
-  createHTML(): HTMLDivElement {
-    const button = document.createElement('div');
-    button.id = this.id;
-    button.setAttribute('role', 'button');
-    button.setAttribute('alt', this.alt);
-    button.setAttribute('title', this.title);
-    button.setAttribute('tabindex', '0');
-
-    if (this.classes !== '') button.classList.add(this.classes);
-
+  protected additionalHTML(button: HTMLDivElement): void{
+    button.classList.add('webriceMainButton');
     button.appendChild(this.secondButtonIcon.svg);
     button.appendChild(this.buttonIcon.svg);
-    return button;
-  }
-
-  /**
-   * Starts the reading of a web section
-   */
-  onClicked(): void {
-    console.log('clicked!');
   }
 
   /**

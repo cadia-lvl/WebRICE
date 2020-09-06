@@ -6,7 +6,7 @@ import {SpeedButton} from './modules/SpeedButton';
 import {text} from './lang/is';
 import {PlayIcon, StopIcon, PauseIcon, EarIcon,
   SettingsIcon, SpeedIcon} from './modules/icons';
-import {Button} from './modules/Button';
+import {MainButton} from './modules/MainButton';
 import {stylingInterface, CustomStyles} from './modules/CustomStyleManager';
 
 /**
@@ -16,6 +16,10 @@ import {stylingInterface, CustomStyles} from './modules/CustomStyleManager';
 export class Reader {
   webText = '';
   readonly CONTAINER_ID = 'webrice';
+  playPauseButton: PlayPauseButton | undefined;
+  stopButton: StopButton | undefined;
+  speedButton: SpeedButton | undefined;
+  settingsButton: SettingsButton | undefined;
   readonly TEXT_CONTENT_ID = 'webriceTextContainer';
   styles: CustomStyles | undefined;
   player = new Audio();
@@ -35,18 +39,6 @@ export class Reader {
   public init(): void {
     this.createWebrice();
     // more things
-  }
-
-  /**
-   * adds an event listener to a button
-   * @param {string} id - button id
-   * @param {Button} button - button class
-   */
-  private addListeners(id: string, button: Button) {
-    const physicalButton = document.getElementById(id);
-    if (physicalButton) {
-      physicalButton.addEventListener('click', button.handleClick);
-    }
   }
 
   /**
@@ -108,19 +100,19 @@ export class Reader {
     const mainPauseIcon = new PauseIcon('webricePauseIcon', 'mainWebriceIcon');
     const mainPlayPauseButton = new PlayPauseButton(mainPlayIcon,
         earIconic, mainPauseIcon, text.ButtonAlt.play, 'webricePlayButton',
-        text.ButtonTitle.play, 'webriceMainButton');
+        text.ButtonTitle.play);
     container.appendChild(mainPlayPauseButton.createHTML());
 
     const mainStopIcon = new StopIcon('webriceStopIcon', 'mainWebriceIcon');
     const mainStopButton = new StopButton(
         mainStopIcon, text.ButtonAlt.stop, 'webriceStopButton',
-        text.ButtonTitle.stop, 'webriceMainButton');
+        text.ButtonTitle.stop);
     container.appendChild(mainStopButton.createHTML());
 
     const mainSpeedIcon = new SpeedIcon('webriceSpeedIcon', 'mainWebriceIcon');
     const mainSpeedButton = new SpeedButton(
         mainSpeedIcon, text.ButtonAlt.speed, 'webriceSpeedButton',
-        text.ButtonTitle.speed, 'webriceMainButton');
+        text.ButtonTitle.speed);
     container.appendChild(mainSpeedButton.createHTML());
 
     const mainSettingsIcon = new SettingsIcon('webriceSettingsIcon',
@@ -128,7 +120,7 @@ export class Reader {
 
     const mainSettingsButton = new SettingsButton(mainSettingsIcon,
         text.ButtonAlt.settings, 'webriceSettingsButton',
-        text.ButtonTitle.settings, 'webriceMainButton');
+        text.ButtonTitle.settings);
     container.appendChild(mainSettingsButton.createHTML());
 
     // Add the audio player to the container
@@ -155,6 +147,13 @@ export class Reader {
           .setPlaybackRate(this.player.playbackRate);
     }, false);
 
+    const physicalSettingsButton =
+        document.getElementById(mainSettingsButton.id) as HTMLDivElement;
+
+    if (physicalSettingsButton) {
+      physicalSettingsButton.addEventListener(
+          'click', mainSettingsButton.handleClick);
+    }
     // Eventlisteners added to buttons
     playPauseDiv.addEventListener('click', () => {
       mainPlayPauseButton.playPause(this.player, this.webPlayerAttributes,
@@ -163,9 +162,6 @@ export class Reader {
     stopDiv.addEventListener('click', () => {
       mainStopButton.stop(this.player, this.webPlayerAttributes);
     }, false);
-
-    this.addListeners(mainSpeedButton.id, mainSpeedButton);
-    this.addListeners(mainSettingsButton.id, mainSettingsButton);
   }
 
   /**

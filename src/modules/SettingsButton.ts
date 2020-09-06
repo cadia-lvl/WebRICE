@@ -1,43 +1,110 @@
-import {Button} from './Button';
+import {MainButton} from './MainButton';
 import {Icon} from './icons';
+// Functionality for other languages is needed
+import {text} from './../lang/is';
+import {CloseIcon} from './icons';
+import {ImageButton} from './ImageButton';
 
 /**
  * Settings button
  */
-export class SettingsButton extends Button {
+export class SettingsButton extends MainButton {
+  readonly helpText = text.settingsModuleText;
+  // eslint-disable-next-line no-invalid-this
+  handleClick = this.toggleModule.bind(this);
+  moduleCreated = false;
+  moduleVisible = false;
   /**
-   * @param {Icon} Icon - Icon on button
+   * @param {Icon} icon - icon on button
    * @param {string} alt - alt of button
    * @param {string} id - id of button
    * @param {string} title - title of utton
    * @param {string} classes - string containing classes of button
    */
-  constructor(Icon: Icon, alt: string, id: string,
-      title: string, classes?: string) {
-    super(Icon, alt, id, title, classes);
+  constructor(icon: Icon, alt: string, id: string,
+      title: string) {
+    super(icon, alt, id, title);
   }
 
   /**
-   * Displays settings for user
+   * @return {object} object of settings module text
    */
-  public onClicked(): void {
-    console.log('clicked!');
+  private get moduleText() {
+    return this.helpText;
   }
 
   /**
-   * Creates the settings header of the settings module
-   * @return {HTMLElement} - html of settings header
+   * @return {boolean} false if settings module
+   * not created, else true.
    */
-  private createSettingsHeader(): HTMLElement {
-    const headerCont = document.createElement('div');
-    headerCont.setAttribute('id', 'headerCont');
+  private get isModuleCreated() {
+    return this.moduleCreated;
+  }
 
-    const exitButton = document.createElement('button');
-    exitButton.setAttribute('id', 'closeSettings');
+  /**
+   * @param {created} created contains
+   * wheather the module has been created or not
+   */
+  private set isModuleCreated(created: boolean) {
+    this.moduleCreated = created;
+  }
 
-    // Add close button image
+  /**
+   * @return {boolean} true if settings module
+   * visible, else false.
+   */
+  private get isModuleVisible() {
+    return this.moduleVisible;
+  }
 
-    return headerCont;
+  /**
+   * @param {boolean} visible indicates wheather
+   * settings module is visible or not.
+   */
+  private set isModuleVisible(visible: boolean) {
+    this.moduleVisible = visible;
+  }
+
+  /**
+   * Toggles the display of the settings module
+   */
+  public toggleModule(): void {
+    if (!this.isModuleCreated) {
+      const parent = document.getElementById('webrice')!;
+      this.createSettingsModule(parent);
+    } else if (!this.isModuleVisible) {
+      this.showSettingsModule();
+    } else {
+      this.hideSettingsModule();
+    }
+  }
+
+  /**
+   * Creates the about section.
+   * @param {HTMLElement} parent the parent element of the about section
+   */
+  private addAboutWEBRICE(parent: HTMLElement) {
+    const settingsMainHeading = document.createElement('h2');
+    settingsMainHeading.appendChild(
+        document.createTextNode(this.helpText.userText.mainHead));
+    parent.appendChild(settingsMainHeading);
+
+    const aboutHead = document.createElement('h3');
+    const headingText = document.createTextNode(
+        this.helpText.userText.whatIsHead);
+    aboutHead.appendChild(headingText);
+    parent.appendChild(aboutHead);
+
+    let paragraph = document.createElement('p');
+    let aboutNode = document.createTextNode(
+        this.helpText.userText.whatIsPhara1);
+    paragraph.appendChild(aboutNode);
+    parent.appendChild(paragraph);
+
+    paragraph = document.createElement('p');
+    aboutNode = document.createTextNode(this.helpText.userText.whatIsPhara2);
+    paragraph.appendChild(aboutNode);
+    parent.appendChild(paragraph);
   }
 
   /**
@@ -45,32 +112,75 @@ export class SettingsButton extends Button {
    * @param {HTMLElement} parent - parent element of module
    */
   public createSettingsModule(parent: HTMLElement): void {
-    const settingsCont = document.createElement('div');
-    settingsCont.setAttribute('id', 'settingsCont');
-    // settingsCont.appendChild(this.createSettingsHeader());
+    const settingsContainer = document.createElement('div');
+    settingsContainer.setAttribute('id', 'settingsContainer');
 
-    const settings = document.createElement('div');
-    settings.setAttribute('class', 'settingsMenu');
+    const settingsHeader = document.createElement('div');
+    settingsHeader.setAttribute('id', 'settingsHeader');
+    const closeIcon = new CloseIcon('webriceCloseSettingsIcon');
+    const closeButton = new ImageButton(closeIcon,
+        text.ButtonAlt.closeSettings, 'webriceSettingsCloseButton',
+        text.ButtonTitle.closeSettings);
+
+    settingsHeader.appendChild(closeButton.createHTML());
+
+    const settingsMainContainer = document.createElement('div');
+    settingsMainContainer.setAttribute('id', 'webriceMainSettingsContainer');
+
+    this.addAboutWEBRICE(settingsContainer);
+    settingsMainContainer.appendChild(settingsHeader);
+    settingsMainContainer.appendChild(settingsContainer);
+
+    parent.appendChild(settingsMainContainer);
+
+    const physicalCloseButton = document.getElementById(
+        'webriceSettingsCloseButton');
+    if (physicalCloseButton) {
+      physicalCloseButton.addEventListener('click',
+          this.hideSettingsModule.bind(this));
+    }
+
+
+    this.isModuleCreated = true;
+    this.showSettingsModule();
   }
 
   /**
    * hides the settings module
    */
   public hideSettingsModule(): void {
-    console.log('to be implemented');
+    const container = document.getElementById('webrice')!;
+    container.style.setProperty('--module-visibility', 'none');
+    this.isModuleVisible = false;
   }
 
   /**
    * Shows the settings module
    */
   public showSettingsModule(): void {
-    console.log('to be implemented');
+    const container = document.getElementById('webrice')!;
+    container.style.setProperty('--module-visibility', 'flex');
+    this.isModuleVisible = true;
   }
 
   /**
    * Fetches the user settings and stores them
    */
   public fetchUserSettings(): void {
+    console.log('to be implemented');
+  }
+
+  /**
+   * saves user settings to client storage
+   */
+  public saveUserSettings(): void {
+    console.log('to be implemented');
+  }
+
+  /**
+   * Downloads the voice file
+   */
+  public download():void{
     console.log('to be implemented');
   }
 }
