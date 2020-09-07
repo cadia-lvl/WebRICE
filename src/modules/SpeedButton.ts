@@ -93,22 +93,6 @@ export class SpeedButton extends MainButton {
     }
 
     /**
-     * Increases reading speed
-     * @param {number} increase how much to increase
-     */
-    speedUp(increase: number): void {
-      console.log('to be implemented' + increase);
-    }
-
-    /**
-     * Decrease reading speed
-     * @param {number} decrease how much to decrease
-     */
-    slowDown(decrease: number): void {
-      console.log('to be implemented' + decrease);
-    }
-
-    /**
      * @return {number} current reading speed
      */
     getCurrentSpeed(): number {
