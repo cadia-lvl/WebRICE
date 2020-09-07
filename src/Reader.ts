@@ -37,8 +37,13 @@ export class Reader {
    * initializes webrice
    */
   public init(): void {
-    this.createWebrice();
+    if (this.getWebText() !== '') {
+      this.createWebrice();
     // more things
+    } else {
+      console.warn(this.TEXT_CONTENT_ID + ': Text container id undefined or ' +
+        'there is nothing to read');
+    }
   }
 
   /**
@@ -68,12 +73,13 @@ export class Reader {
           // paragraph together. Currently using a period to indicate
           // completion.
         }
+        text += webriceTextNode.textContent + '. ';
         // TODO: extracts alt text for images and links
         this.webText = text;
       }
     } catch (e) {
       // Throw a warning because there's nothing to read
-      console.warn(this.TEXT_CONTENT_ID + ': Text container id defined.' +
+      console.warn(this.TEXT_CONTENT_ID + ': Text container id undefined.' +
         'Therefore there is nothing to read');
     }
   }
@@ -135,6 +141,8 @@ export class Reader {
       HTMLDivElement;
     const stopDiv = document.getElementById(mainStopButton.id) as
       HTMLDivElement;
+    const speedDiv = document.getElementById(mainSpeedButton.id) as
+      HTMLDivElement;
 
     this.player.addEventListener('play', () => {
       mainPlayPauseButton.toggleIcons();
@@ -150,17 +158,20 @@ export class Reader {
     const physicalSettingsButton =
         document.getElementById(mainSettingsButton.id) as HTMLDivElement;
 
+    // Eventlisteners added to buttons
     if (physicalSettingsButton) {
       physicalSettingsButton.addEventListener(
           'click', mainSettingsButton.handleClick);
     }
-    // Eventlisteners added to buttons
     playPauseDiv.addEventListener('click', () => {
       mainPlayPauseButton.playPause(this.player, this.webPlayerAttributes,
           this.getWebText());
     }, false);
     stopDiv.addEventListener('click', () => {
       mainStopButton.stop(this.player, this.webPlayerAttributes);
+    }, false);
+    speedDiv.addEventListener('click', () => {
+      mainSpeedButton.toggleReadingSpeedsMenu();
     }, false);
   }
 
@@ -185,8 +196,12 @@ window.addEventListener('DOMContentLoaded', () => {
   webreader.init();
 
   /*
-   * Example of using custom colors for the webrice toolbar
+   * Examples of using custom colors for the webrice toolbar
+  // orange blue theme
   webreader.customStyles(
       {backgroundColor: '#ffefdd', secondaryColor: '#229BBB'});
+  // light theme
+  webreader.customStyles(
+      {backgroundColor: '#f3f2f2', secondaryColor: '#242121'});
    */
 });
