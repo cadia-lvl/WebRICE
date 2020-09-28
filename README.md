@@ -13,11 +13,12 @@ instead of reading it.
 ## Usage
 TODO: write usage when we have an npm package and plugins
 
-A demo of WebRICE can be found [here](https://cadia-lvl.github.io/WebRICE/) once this repo is public.
+A demo of WebRICE can be found at [https://cadia-lvl.github.io/WebRICE](https://cadia-lvl.github.io/WebRICE/) once this repo is public.
 
 ## Contributing
-Use the following linters: eslint and stylelint.
-Make sure your JavaScript follows the [Google JavaScript style
+Use the following linters: eslint and stylelint. They will be run on every pull request.
+This project is mainly written in TypeScript. 
+Make sure your TypeScript follows the [Google JavaScript style
 guide](https://google.github.io/styleguide/jsguide.html), and the [MDN HTML
 reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference).
 Also, validate the generated HTML5 with: https://validator.w3.org/
