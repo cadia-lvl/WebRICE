@@ -4,6 +4,8 @@ Reykjavik University. We hope that Icelandic developers will add this free
 software to their websites to enable Icelandic audiences to listen to the web
 instead of reading it.
 
+<img src="build/resources/img/WebRICE_logo.png" alt="WebRICE logo" title="WebRICE grains of rice logo" align="center"/>
+
 ## Installation
 1.  Install packages with: `npm install`
 2.  Run with: `npm run dev`
