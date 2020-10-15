@@ -16,10 +16,10 @@ import {stylingInterface, CustomStyles} from './modules/CustomStyleManager';
 export class Reader {
   webText = '';
   readonly CONTAINER_ID = 'webrice';
-  playPauseButton: PlayPauseButton | undefined;
-  stopButton: StopButton | undefined;
-  speedButton: SpeedButton | undefined;
-  settingsButton: SettingsButton | undefined;
+  playPauseButton: HTMLElement | undefined;
+  stopButton: HTMLElement | undefined;
+  speedButton: HTMLElement | undefined;
+  settingsButton: HTMLElement | undefined;
   readonly TEXT_CONTENT_ID = 'webriceTextContainer';
   styles: CustomStyles | undefined;
   player = new Audio();
@@ -107,19 +107,22 @@ export class Reader {
     const mainPlayPauseButton = new PlayPauseButton(mainPlayIcon,
         earIconic, mainPauseIcon, text.ButtonAlt.play, 'webricePlayButton',
         text.ButtonTitle.play);
-    container.appendChild(mainPlayPauseButton.createHTML());
+    this.playPauseButton =
+        container.appendChild(mainPlayPauseButton.createHTML());
 
     const mainStopIcon = new StopIcon('webriceStopIcon', 'mainWebriceIcon');
     const mainStopButton = new StopButton(
         mainStopIcon, text.ButtonAlt.stop, 'webriceStopButton',
         text.ButtonTitle.stop);
-    container.appendChild(mainStopButton.createHTML());
+    this.stopButton =
+        container.appendChild(mainStopButton.createHTML());
 
     const mainSpeedIcon = new SpeedIcon('webriceSpeedIcon', 'mainWebriceIcon');
     const mainSpeedButton = new SpeedButton(
         mainSpeedIcon, text.ButtonAlt.speed, 'webriceSpeedButton',
         text.ButtonTitle.speed);
-    container.appendChild(mainSpeedButton.createHTML());
+    this.speedButton =
+        container.appendChild(mainSpeedButton.createHTML());
 
     const mainSettingsIcon = new SettingsIcon('webriceSettingsIcon',
         'mainWebriceIcon');
@@ -127,7 +130,8 @@ export class Reader {
     const mainSettingsButton = new SettingsButton(mainSettingsIcon,
         text.ButtonAlt.settings, 'webriceSettingsButton',
         text.ButtonTitle.settings);
-    container.appendChild(mainSettingsButton.createHTML());
+    this.settingsButton =
+        container.appendChild(mainSettingsButton.createHTML());
 
     // Add the audio player to the container
     const player = new Audio();
@@ -136,11 +140,6 @@ export class Reader {
 
     parent.appendChild(container);
     this.player = document.getElementById(player.id) as HTMLAudioElement;
-
-    const playPauseDiv = document.getElementById(mainPlayPauseButton.id) as
-      HTMLDivElement;
-    const stopDiv = document.getElementById(mainStopButton.id) as
-      HTMLDivElement;
     const speedDiv = document.getElementById(mainSpeedButton.id) as
       HTMLDivElement;
 
@@ -155,22 +154,17 @@ export class Reader {
           .setPlaybackRate(this.player.playbackRate);
     }, false);
 
-    const physicalSettingsButton =
-        document.getElementById(mainSettingsButton.id) as HTMLDivElement;
+    this.settingsButton.addEventListener(
+        'click', mainSettingsButton.handleClick);
 
-    // Eventlisteners added to buttons
-    if (physicalSettingsButton) {
-      physicalSettingsButton.addEventListener(
-          'click', mainSettingsButton.handleClick);
-    }
-    playPauseDiv.addEventListener('click', () => {
+    this.playPauseButton.addEventListener('click', () => {
       mainPlayPauseButton.playPause(this.player, this.webPlayerAttributes,
           this.getWebText());
     }, false);
-    stopDiv.addEventListener('click', () => {
+    this.stopButton.addEventListener('click', () => {
       mainStopButton.stop(this.player, this.webPlayerAttributes);
     }, false);
-    speedDiv.addEventListener('click', () => {
+    this.speedButton.addEventListener('click', () => {
       mainSpeedButton.toggleReadingSpeedsMenu();
     }, false);
   }
