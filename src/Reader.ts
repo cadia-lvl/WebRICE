@@ -140,8 +140,6 @@ export class Reader {
 
     parent.appendChild(container);
     this.player = document.getElementById(player.id) as HTMLAudioElement;
-    const speedDiv = document.getElementById(mainSpeedButton.id) as
-      HTMLDivElement;
 
     this.player.addEventListener('play', () => {
       mainPlayPauseButton.toggleIcons();
