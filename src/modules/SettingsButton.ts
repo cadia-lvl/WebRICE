@@ -14,6 +14,11 @@ export class SettingsButton extends MainButton {
   handleClick = this.toggleModule.bind(this);
   moduleCreated = false;
   moduleVisible = false;
+  moduleIds = {
+    header: 'settingsHeader',
+    maincontainer: 'webriceMainSettingsContainer',
+    container: 'settingsContainer',
+  }
   /**
    * @param {Icon} icon - icon on button
    * @param {string} alt - alt of button
@@ -24,6 +29,7 @@ export class SettingsButton extends MainButton {
   constructor(icon: Icon, alt: string, id: string,
       title: string) {
     super(icon, alt, id, title);
+    document.addEventListener('click', this.closeOnClickAway.bind(this));
   }
 
   /**
@@ -113,10 +119,10 @@ export class SettingsButton extends MainButton {
    */
   public createSettingsModule(parent: HTMLElement): void {
     const settingsContainer = document.createElement('div');
-    settingsContainer.setAttribute('id', 'settingsContainer');
+    settingsContainer.setAttribute('id', this.moduleIds.container);
 
     const settingsHeader = document.createElement('div');
-    settingsHeader.setAttribute('id', 'settingsHeader');
+    settingsHeader.setAttribute('id', this.moduleIds.header);
     const closeIcon = new CloseIcon('webriceCloseSettingsIcon');
     const closeButton = new ImageButton(closeIcon,
         text.ButtonAlt.closeSettings, 'webriceSettingsCloseButton',
@@ -125,7 +131,7 @@ export class SettingsButton extends MainButton {
     settingsHeader.appendChild(closeButton.createHTML());
 
     const settingsMainContainer = document.createElement('div');
-    settingsMainContainer.setAttribute('id', 'webriceMainSettingsContainer');
+    settingsMainContainer.setAttribute('id', this.moduleIds.maincontainer);
 
     this.addAboutWEBRICE(settingsContainer);
     settingsMainContainer.appendChild(settingsHeader);
@@ -140,7 +146,6 @@ export class SettingsButton extends MainButton {
           this.hideSettingsModule.bind(this));
     }
 
-
     this.isModuleCreated = true;
     this.showSettingsModule();
   }
@@ -152,6 +157,39 @@ export class SettingsButton extends MainButton {
     const container = document.getElementById('webrice')!;
     container.style.setProperty('--module-visibility', 'none');
     this.isModuleVisible = false;
+  }
+
+  /**
+   * @param {any} element
+   * If element is desendant of main settings module container
+   * or the settings button.
+   * @return {boolean} true if the element is a desendant and false if not.
+   */
+  public isDesendant(element: any) {
+    const parentId = this.moduleIds.maincontainer;
+
+    if (element.id === parentId || element.id === this.id) {
+      return true;
+    }
+
+    while (element = element.parentElement) {
+      if (element.id == parentId || element.id == this.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * @param {any} event, click event.
+   * Checks if user is clicking away from settings module.
+   */
+  public closeOnClickAway(event: any) {
+    if (this.isModuleVisible) {
+      if (!this.isDesendant(event.target)) {
+        this.hideSettingsModule();
+      }
+    }
   }
 
   /**
