@@ -10,6 +10,8 @@ export class SpeedButton extends MainButton {
     speedSettings = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
     speedSelectId = 'webriceSelect';
     speedElementClass = 'webriceSpeedElement';
+    // eslint-disable-next-line no-invalid-this
+    hideSpeedModule = this.closeUnusedSpeedComponents.bind(this);
 
     /**
      *
@@ -26,12 +28,12 @@ export class SpeedButton extends MainButton {
     }
 
     /**
-     * onClick event listerned to close any open speed menus when another
+     * onClick eventlistener to close any open speed menus when another
      * element is clicked while the menu is on display
        * @param {MouseEvent} event - the click that triggered this function
        * @listens
      */
-    private closeUnusedComponents(event: MouseEvent): void {
+    private closeUnusedSpeedComponents(event: MouseEvent): void {
       const temp = event.target as HTMLElement | SVGElement;
       let isSpeedElement = false;
 
@@ -70,9 +72,7 @@ export class SpeedButton extends MainButton {
         (document.getElementById(this.id) as HTMLDivElement)
             .setAttribute('aria-expanded', 'true');
         readingSpeedsElement.style.display = 'block';
-        document.addEventListener('click', (event) => {
-          this.closeUnusedComponents(event);
-        }, false);
+        document.addEventListener('click', this.hideSpeedModule);
       }
     }
 
@@ -87,9 +87,7 @@ export class SpeedButton extends MainButton {
           .setAttribute('aria-expanded', 'false');
       // Remove document.eventListener for hiding the speedoptions if anywhere
       // other than the speed stuff is clicked
-      document.removeEventListener('click', (event) => {
-        this.closeUnusedComponents(event);
-      }, false);
+      document.removeEventListener('click', this.hideSpeedModule);
     }
 
     /**
