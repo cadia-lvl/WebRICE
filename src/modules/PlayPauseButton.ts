@@ -82,7 +82,7 @@ export class PlayPauseButton extends MainButton {
    * Examples of what to add could be icons, classes or text.
    * @param {HTMLDivElement} button
    */
-  protected additionalHTML(button: HTMLDivElement): void{
+  protected additionalHTML(button: HTMLDivElement): void {
     button.classList.add('webriceMainButton');
     button.appendChild(this.secondButtonIcon.svg);
     button.appendChild(this.buttonIcon.svg);
