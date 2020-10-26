@@ -1,4 +1,4 @@
-name: Lint, Build TS, and Deploy on PR
+name: Lint and Build TS on PR
 
 on: 
   pull_request:
@@ -34,15 +34,3 @@ jobs:
         npm run slint
     - name: BUILD
       run: npm run build
-    - name: DEPLOY
-      env:
-        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-      run: |
-        SSH_DIR="${HOME}/.ssh"
-        mkdir "${SSH_DIR}"
-        ssh-keyscan -t rsa github.com > "${SSH_DIR}/known_hosts"
-        echo "${ACTIONS_DEPLOY_KEY}" > "${SSH_DIR}/id_rsa"
-        chmod 400 "${SSH_DIR}/id_rsa"
-        git commit -am "Built latest version as a GH action"
-        git subtree split --prefix public -b gh-pages
-        git push -f origin gh-pages:gh-pages
