@@ -13,7 +13,7 @@ instead of reading it.
 ## Usage
 TODO: write usage when we have an npm package and plugins
 
-A demo of WebRICE can be found at [https://cadia-lvl.github.io/WebRICE](https://cadia-lvl.github.io/WebRICE/) once this repo is public.
+A demo of WebRICE can be found at [https://cadia-lvl.github.io/WebRICE](https://cadia-lvl.github.io/WebRICE/).
 
 ## Contributing
 Use the following linters: eslint and stylelint. They will be run on every pull request.
