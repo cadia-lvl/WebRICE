@@ -1,4 +1,4 @@
-name: Deploy on PR
+name: Deploy on GH-pages
 
 on: 
   push:
