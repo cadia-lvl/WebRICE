@@ -45,6 +45,8 @@ jobs:
         ssh-keyscan -t rsa github.com > "${SSH_DIR}/known_hosts"
         echo "${ACTIONS_DEPLOY_KEY}" > "${SSH_DIR}/id_rsa"
         chmod 400 "${SSH_DIR}/id_rsa"
+        npm run build
+        git add build/.
         git commit -am "Built latest version as a GH action"
         git subtree split --prefix build -b gh-pages
         git push -f origin gh-pages:gh-pages
