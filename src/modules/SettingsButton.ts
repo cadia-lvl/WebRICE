@@ -165,7 +165,7 @@ export class SettingsButton extends MainButton {
    * or the settings button.
    * @return {boolean} true if the element is a desendant and false if not.
    */
-  public isDesendant(element: any) {
+  public isDescendant(element: any) {
     const parentId = this.moduleIds.maincontainer;
 
     if (element.id === parentId || element.id === this.id) {
@@ -186,7 +186,7 @@ export class SettingsButton extends MainButton {
    */
   public closeOnClickAway(event: any) {
     if (this.isModuleVisible) {
-      if (!this.isDesendant(event.target)) {
+      if (!this.isDescendant(event.target)) {
         this.hideSettingsModule();
       }
     }

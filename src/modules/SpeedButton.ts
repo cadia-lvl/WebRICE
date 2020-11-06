@@ -1,5 +1,6 @@
 import {MainButton} from './MainButton';
 import {Icon} from './icons';
+import {cli} from './ClientStoreManager';
 
 /**
  * A Button controling the reading speed of webrice
@@ -24,7 +25,9 @@ export class SpeedButton extends MainButton {
     constructor(icon: Icon, alt: string, id: string,
         title: string) {
       super(icon, alt, id, title);
-      this.currentSpeed = 1;
+
+      this.currentSpeed = cli.getSpeedVal();
+      console.log(this.currentSpeed);
     }
 
     /**
@@ -150,6 +153,8 @@ export class SpeedButton extends MainButton {
               '#' + this.speedSelectId + ' > li.active') as HTMLLIElement);
           // then put it on the new current speed
           this.setActiveSpeedAttributes(selectSpeed);
+          // insert newPlaybackRate to client db
+          cli.setSpeedVal(newPlaybackRate);
         }
       }
     }
