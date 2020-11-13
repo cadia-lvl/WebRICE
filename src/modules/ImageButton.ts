@@ -40,7 +40,7 @@ export class ImageButton extends Button {
    * Examples of what to add could be icons, classes or text.
    * @param {HTMLDivElement} button
    */
-  protected additionalHTML(button: HTMLDivElement): void{
+  protected additionalHTML(button: HTMLDivElement): void {
     button.appendChild(this.buttonIcon.svg);
   }
 }

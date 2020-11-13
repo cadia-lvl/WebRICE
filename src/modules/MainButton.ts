@@ -60,7 +60,7 @@ export abstract class MainButton extends Button {
    * Examples of what to add could be icons, classes or text.
    * @param {HTMLDivElement} button
    */
-  protected additionalHTML(button: HTMLDivElement): void{
+  protected additionalHTML(button: HTMLDivElement): void {
     button.classList.add('webriceMainButton');
     button.appendChild(this.buttonIcon.svg);
   }

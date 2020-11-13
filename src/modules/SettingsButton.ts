@@ -218,7 +218,7 @@ export class SettingsButton extends MainButton {
   /**
    * Downloads the voice file
    */
-  public download():void{
+  public download(): void {
     console.log('to be implemented');
   }
 }
