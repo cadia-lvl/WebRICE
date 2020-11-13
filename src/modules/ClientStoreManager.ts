@@ -1,67 +1,94 @@
 import * as idb from 'idb-keyval';
-import { validate } from 'json-schema';
 
+/**
+ * An async class that communicates with the indexed
+ * database to retrive and store values
+ */
 class ClientStoreManager {
     supported: boolean;
-    keys = {
-        speedVal: 'speedValue',
+    readonly keys = {
+      speedVal: 'speedValue',
     }
-
-    constructor(){
-        this.supported = this.isSupported();
-    }
-
-    get support(){
-        return this.supported;
-    }
-
-    private isSupported(): boolean{
-        if(!window.indexedDB){
-            console.warn("Indexed Database not supported, client side storage disabled");
-            return false;
-        }
-        return true;
+    store: idb.Store;
+    /**
+     * No parameters but initialize this.supported.
+     */
+    constructor() {
+      this.supported = this.isSupported();
+      this.store = new idb.Store('ClientStorage', 'UserSettings');
     }
 
     /**
-     * 
-     * @param speed 
+     * returns the value of this.supported
+     * @return {boolean} supported
      */
-    public setSpeedVal(speed: number): void{
-        if(this.support) {
-            idb.set(this.keys.speedVal, speed).then(()=> console.log('speed value written'));
-        }
+    get support(): boolean {
+      return this.supported;
     }
 
     /**
-     * 
-     * @return 
+     * @return {idb.Store} Client store
      */
-    
-    public getSpeedVal(): number {
-        if(!this.support) {
-            return 1;
-        }
-
-        idb.get(this.keys.speedVal)
-        .then(val => {
-            console.log(typeof(val));
-            console.log(val);
-            return val;
-        }, reason => {
-            console.log(reason);
-            return 1;
-        });
+    get clientStore(): idb.Store {
+      return this.store;
     }
 
     /**
-     * 
+     * @return {boolean} is Indexed DB supported?
      */
-    public compareText(){
+    private isSupported(): boolean {
+      if (!window.indexedDB) {
+        console.warn('IndexedDB not supported.'+
+        ' Client side storage disabled.');
+        return false;
+      }
+      return true;
+    }
 
+    /**
+     * Stores the playback rate in an IndexedDB
+     * @param {number} speed playback rate value
+     */
+    public setPlayback(speed: number): void {
+      if (this.support) {
+        idb.set(this.keys.speedVal, speed, this.clientStore).then(
+            () => console.log('speed value stored'));
+      }
+    }
+
+    /**
+     * Returns the stored playback rate from the IndexedDB
+     * @return {Promise<number>} playbackrate
+     */
+    public async getPlayback(): Promise<number> {
+      if (!this.support) {
+        return 1;
+      }
+      try {
+        let speed: number|undefined =await idb.get(
+            this.keys.speedVal, this.clientStore);
+        if (!speed) {
+          speed = 1;
+        }
+        return speed;
+      } catch (e) {
+        console.warn('No speed value saved in indexedDB');
+        return 1;
+      }
+    }
+
+
+    /**
+     * <NOT FINISHED YET>
+     * @param {string} text
+     * Compears the sums of the texts to see whether we need to fetch a new
+     * recording or not.
+     */
+    public compareText(text: string): void {
+      console.log('This hasn\'t been implemented yet');
     }
 }
 
-var cli = new ClientStoreManager;
+const cli = new ClientStoreManager;
 
-export{cli}; 
+export {cli};
