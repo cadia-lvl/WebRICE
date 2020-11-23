@@ -34,7 +34,7 @@ export class SpeedButton extends MainButton {
     private async initializePlayback(): Promise<void> {
       const value: number|undefined = await cli.getPlayback();
       if (value) {
-        this.currentSpeed = value;
+        this.setCurrentSpeed(value);
       }
     }
 
