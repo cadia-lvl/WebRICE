@@ -113,7 +113,11 @@ export class SpeedButton extends MainButton {
      * @param {number} speed - what current speed will be
      */
     private setCurrentSpeed(speed: number): void {
+      cli.setPlayback(speed);
       this.currentSpeed = speed;
+      const player = document.getElementById('webricePlayer') as
+              HTMLAudioElement;
+      player.playbackRate = this.getCurrentSpeed();
     }
 
     /**
@@ -152,10 +156,7 @@ export class SpeedButton extends MainButton {
         const newPlaybackRate = Number(selectSpeed.innerText);
         if (newPlaybackRate >= this.speedSettings[0] &&
            newPlaybackRate <= this.speedSettings[this.speedSettings.length-1]) {
-          const player = document.getElementById('webricePlayer') as
-              HTMLAudioElement;
           this.setCurrentSpeed(Number(selectSpeed.innerText));
-          player.playbackRate = this.getCurrentSpeed();
           // remove the active class on the former speed
           this.setNonActiveSpeedAttributes(document.querySelector(
               '#' + this.speedSelectId + ' > li.active') as HTMLLIElement);
