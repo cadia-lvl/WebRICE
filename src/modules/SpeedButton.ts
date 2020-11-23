@@ -161,8 +161,6 @@ export class SpeedButton extends MainButton {
               '#' + this.speedSelectId + ' > li.active') as HTMLLIElement);
           // then put it on the new current speed
           this.setActiveSpeedAttributes(selectSpeed);
-          // insert newPlaybackRate to client db
-          cli.setPlayback(newPlaybackRate);
         }
       }
     }
