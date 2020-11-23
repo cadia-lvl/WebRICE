@@ -1,11 +1,12 @@
 import {MainButton} from './MainButton';
 import {Icon} from './icons';
+import {cli} from './ClientStoreManager';
 
 /**
  * A Button controling the reading speed of webrice
  */
 export class SpeedButton extends MainButton {
-    currentSpeed: number
+    currentSpeed = 1;
     // NOTE: consider using enumerator for speedSettings;
     speedSettings = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
     speedSelectId = 'webriceSelect';
@@ -24,7 +25,17 @@ export class SpeedButton extends MainButton {
     constructor(icon: Icon, alt: string, id: string,
         title: string) {
       super(icon, alt, id, title);
-      this.currentSpeed = 1;
+    }
+
+    /**
+     * Replaces the default playback rate with the one in the storage.
+     * @return {Promise<void>} change the currentSpeed value
+     */
+    private async initializePlayback(): Promise<void> {
+      const value: number|undefined = await cli.getPlayback();
+      if (value) {
+        this.setCurrentSpeed(value);
+      }
     }
 
     /**
@@ -102,7 +113,11 @@ export class SpeedButton extends MainButton {
      * @param {number} speed - what current speed will be
      */
     private setCurrentSpeed(speed: number): void {
+      cli.setPlayback(speed);
       this.currentSpeed = speed;
+      const player = document.getElementById('webricePlayer') as
+              HTMLAudioElement;
+      player.playbackRate = this.getCurrentSpeed();
     }
 
     /**
@@ -141,10 +156,7 @@ export class SpeedButton extends MainButton {
         const newPlaybackRate = Number(selectSpeed.innerText);
         if (newPlaybackRate >= this.speedSettings[0] &&
            newPlaybackRate <= this.speedSettings[this.speedSettings.length-1]) {
-          const player = document.getElementById('webricePlayer') as
-              HTMLAudioElement;
           this.setCurrentSpeed(Number(selectSpeed.innerText));
-          player.playbackRate = this.getCurrentSpeed();
           // remove the active class on the former speed
           this.setNonActiveSpeedAttributes(document.querySelector(
               '#' + this.speedSelectId + ' > li.active') as HTMLLIElement);
@@ -155,41 +167,46 @@ export class SpeedButton extends MainButton {
     }
 
     /**
-     * Adds the additional html for the speed button group
+     * Initializes the playback rate and
+     * adds the additional html for the speed button group
      * The button group consists of two parts.
      * The first part is the button and the icon.
      * The second part is the list of speed options.
      * @param {HTMLDivElement} button -
      */
     public additionalHTML(button: HTMLDivElement): void {
-      button.setAttribute('aria-expanded', 'false');
-      button.classList.add('webriceSpeedButtonGroup');
-      button.classList.add('webriceMainButton');
-      button.classList.add(this.speedElementClass);
-      this.buttonIcon.svg.classList.add(this.speedElementClass);
-      button.appendChild(this.buttonIcon.svg);
+      // Initializes the playbackrate so it matches what the user chose last
+      this.initializePlayback().then(() => {
+        // Then we create the HTML
+        button.setAttribute('aria-expanded', 'false');
+        button.classList.add('webriceSpeedButtonGroup');
+        button.classList.add('webriceMainButton');
+        button.classList.add(this.speedElementClass);
+        this.buttonIcon.svg.classList.add(this.speedElementClass);
+        button.appendChild(this.buttonIcon.svg);
 
-      // Create the playbackRate options popup
-      const speedOptions = document.createElement('ul');
-      speedOptions.classList.add('webriceMainSpeedOptions');
-      speedOptions.classList.add(this.speedElementClass);
-      speedOptions.id = this.speedSelectId;
-      this.speedSettings.forEach( (speed) => {
-        const li = document.createElement('li');
-        li.appendChild(document.createTextNode(speed.toString()));
-        li.title = speed.toString();
-        li.setAttribute('role', 'option');
-        li.classList.add(this.speedElementClass);
-        if (this.getCurrentSpeed() === speed) {
-          this.setActiveSpeedAttributes(li);
-        } else {
-          this.setNonActiveSpeedAttributes(li);
-        }
-        li.addEventListener('click', (e) => {
-          this.changePlaybackRate(e);
+        // Create the playbackRate options popup
+        const speedOptions = document.createElement('ul');
+        speedOptions.classList.add('webriceMainSpeedOptions');
+        speedOptions.classList.add(this.speedElementClass);
+        speedOptions.id = this.speedSelectId;
+        this.speedSettings.forEach( (speed) => {
+          const li = document.createElement('li');
+          li.appendChild(document.createTextNode(speed.toString()));
+          li.title = speed.toString();
+          li.setAttribute('role', 'option');
+          li.classList.add(this.speedElementClass);
+          if (this.getCurrentSpeed() === speed) {
+            this.setActiveSpeedAttributes(li);
+          } else {
+            this.setNonActiveSpeedAttributes(li);
+          }
+          li.addEventListener('click', (e) => {
+            this.changePlaybackRate(e);
+          });
+          speedOptions.appendChild(li);
         });
-        speedOptions.appendChild(li);
+        button.appendChild(speedOptions);
       });
-      button.appendChild(speedOptions);
     }
 }

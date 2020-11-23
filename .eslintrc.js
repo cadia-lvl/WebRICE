@@ -7,7 +7,8 @@ module.exports = {
     "rules": {
       //We want to be able to have incompleate classes and such for now
       "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "warn"
+      "@typescript-eslint/no-unused-vars": "warn",
+      "linebreak-style": "off"
     },
     extends: [
       'eslint:recommended',
