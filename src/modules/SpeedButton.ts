@@ -1,6 +1,7 @@
 import {MainButton} from './MainButton';
 import {Icon} from './icons';
 import {cli} from './ClientStoreManager';
+import { keys } from 'idb-keyval';
 
 /**
  * A Button controling the reading speed of webrice
@@ -11,8 +12,6 @@ export class SpeedButton extends MainButton {
     speedSettings = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
     speedSelectId = 'webriceSelect';
     speedElementClass = 'webriceSpeedElement';
-    // eslint-disable-next-line no-invalid-this
-    hideSpeedModule = this.closeUnusedSpeedComponents.bind(this);
 
     /**
      *
@@ -83,7 +82,21 @@ export class SpeedButton extends MainButton {
         (document.getElementById(this.id) as HTMLDivElement)
             .setAttribute('aria-expanded', 'true');
         readingSpeedsElement.style.display = 'block';
-        document.addEventListener('click', this.hideSpeedModule);
+        document.addEventListener('click', this.closeUnusedSpeedComponents.bind(this));
+        document.addEventListener('keydown', (e) => {
+          this.handleKeyBoardEvent(e);
+        });
+      }
+    }
+
+    /**
+     * 
+     * @param {KeyboardEvent} event
+     */
+    handleKeyBoardEvent(event: KeyboardEvent): void {
+      const target = event.target as HTMLElement;
+      if(!target.classList.contains('webriceSpeedElement')){
+        this.hideReadingSpeeds();
       }
     }
 
@@ -99,6 +112,9 @@ export class SpeedButton extends MainButton {
       // Remove document.eventListener for hiding the speedoptions if anywhere
       // other than the speed stuff is clicked
       document.removeEventListener('click', this.hideSpeedModule);
+      document.addEventListener('keydown', (e) => {
+        this.handleKeyBoardEvent(e);
+      });
     }
 
     /**
@@ -150,7 +166,7 @@ export class SpeedButton extends MainButton {
      * @param {MouseEvent} event - the click that triggered this function
      * @listens
      */
-    public changePlaybackRate(event: MouseEvent): void {
+    public changePlaybackRate(event: MouseEvent|KeyboardEvent): void {
       const selectSpeed = event.target as HTMLLIElement;
       if (selectSpeed && selectSpeed.matches('li')) {
         const newPlaybackRate = Number(selectSpeed.innerText);
@@ -193,6 +209,7 @@ export class SpeedButton extends MainButton {
         this.speedSettings.forEach( (speed) => {
           const li = document.createElement('li');
           li.appendChild(document.createTextNode(speed.toString()));
+          li.setAttribute('tabindex', '0');
           li.title = speed.toString();
           li.setAttribute('role', 'option');
           li.classList.add(this.speedElementClass);
@@ -203,6 +220,9 @@ export class SpeedButton extends MainButton {
           }
           li.addEventListener('click', (e) => {
             this.changePlaybackRate(e);
+          });
+          li.addEventListener('keydown', (e) => {
+            if(e.key === 'Enter') this.changePlaybackRate(e);
           });
           speedOptions.appendChild(li);
         });

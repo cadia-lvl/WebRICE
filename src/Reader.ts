@@ -152,6 +152,7 @@ export class Reader {
           .setPlaybackRate(this.player.playbackRate);
     }, false);
 
+    // click listeners
     this.settingsButton.addEventListener(
         'click', mainSettingsButton.handleClick);
 
@@ -164,6 +165,30 @@ export class Reader {
     }, false);
     this.speedButton.addEventListener('click', () => {
       mainSpeedButton.toggleReadingSpeedsMenu();
+    }, false);
+
+    // keyboard listeners
+    this.settingsButton.addEventListener(
+      'keypress', (e) =>{
+        if (e.key === "Enter") {
+          mainSettingsButton.handleClick();
+        }
+      });
+    this.playPauseButton.addEventListener('keypress', (e) => {
+      if (e.key === "Enter") {
+        mainPlayPauseButton.playPause(this.player, this.webPlayerAttributes,
+          this.getWebText());
+      }
+    }, false);
+    this.stopButton.addEventListener('keypress', (e) => {
+      if (e.key === "Enter") {
+        mainStopButton.stop(this.player, this.webPlayerAttributes);
+      }
+    }, false);
+    this.speedButton.addEventListener('keypress', (e) => {
+      if (e.key === "Enter") {
+        mainSpeedButton.toggleReadingSpeedsMenu();
+      }
     }, false);
   }
 
