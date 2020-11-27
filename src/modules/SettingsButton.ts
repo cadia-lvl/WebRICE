@@ -34,6 +34,18 @@ export class SettingsButton extends MainButton {
   }
 
   /**
+   * Adds to the button html
+   * without the neccesary base being affected.
+   * Add an access key - 1
+   * @param {HTMLDivElement} button
+   */
+  protected additionalHTML(button: HTMLDivElement): void {
+    button.classList.add('webriceMainButton');
+    button.setAttribute('accesskey', '1');
+    button.appendChild(this.buttonIcon.svg);
+  }
+
+  /**
    * @return {object} object of settings module text
    */
   private get moduleText() {
