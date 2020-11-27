@@ -20,7 +20,7 @@ export const text = {
     userText: {
       mainHead: 'Stillingar',
       whatIsHead: 'Hvað er veflesari?',
-      whatIsPhara1: 'Veflesarar tól sem les upp texta á vefsíðu fyrir notanda.'+
+      whatIsPhara1: 'Veflesari er tól sem les upp texta á vefsíðu.'+
       ' Nóg er að ýta á spilunar takkann og lesturinn hefst!',
       whatIsPhara2: ' Þessi veflesari var þróaður af Háskólanum í Reykjavík'+
       ' sem hluti af máltækni áætlun.',
