@@ -30,6 +30,7 @@ export class SettingsButton extends MainButton {
       title: string) {
     super(icon, alt, id, title);
     document.addEventListener('click', this.closeOnClickAway.bind(this));
+    document.addEventListener('keypress', this.closeOnClickAway.bind(this));
   }
 
   /**
@@ -144,6 +145,9 @@ export class SettingsButton extends MainButton {
     if (physicalCloseButton) {
       physicalCloseButton.addEventListener('click',
           this.hideSettingsModule.bind(this));
+      physicalCloseButton.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') this.hideSettingsModule();
+      });
     }
 
     this.isModuleCreated = true;
@@ -181,10 +185,10 @@ export class SettingsButton extends MainButton {
   }
 
   /**
-   * @param {any} event, click event.
+   * @param {MouseEvent|KeyboardEvent} event, click event.
    * Checks if user is clicking away from settings module.
    */
-  public closeOnClickAway(event: any) {
+  public closeOnClickAway(event: MouseEvent|KeyboardEvent) {
     if (this.isModuleVisible) {
       if (!this.isDescendant(event.target)) {
         this.hideSettingsModule();

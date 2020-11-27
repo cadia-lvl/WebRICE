@@ -168,25 +168,24 @@ export class Reader {
     }, false);
 
     // keyboard listeners
-    this.settingsButton.addEventListener(
-      'keypress', (e) =>{
-        if (e.key === "Enter") {
-          mainSettingsButton.handleClick();
-        }
-      });
-    this.playPauseButton.addEventListener('keypress', (e) => {
-      if (e.key === "Enter") {
+    this.settingsButton.addEventListener('keydown', (e) =>{
+      if (e.key === 'Enter') {
+        mainSettingsButton.handleClick();
+      }
+    });
+    this.playPauseButton.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
         mainPlayPauseButton.playPause(this.player, this.webPlayerAttributes,
-          this.getWebText());
+            this.getWebText());
       }
     }, false);
-    this.stopButton.addEventListener('keypress', (e) => {
-      if (e.key === "Enter") {
+    this.stopButton.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
         mainStopButton.stop(this.player, this.webPlayerAttributes);
       }
     }, false);
-    this.speedButton.addEventListener('keypress', (e) => {
-      if (e.key === "Enter") {
+    this.speedButton.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
         mainSpeedButton.toggleReadingSpeedsMenu();
       }
     }, false);

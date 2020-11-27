@@ -1,7 +1,6 @@
 import {MainButton} from './MainButton';
 import {Icon} from './icons';
 import {cli} from './ClientStoreManager';
-import { keys } from 'idb-keyval';
 
 /**
  * A Button controling the reading speed of webrice
@@ -82,20 +81,21 @@ export class SpeedButton extends MainButton {
         (document.getElementById(this.id) as HTMLDivElement)
             .setAttribute('aria-expanded', 'true');
         readingSpeedsElement.style.display = 'block';
-        document.addEventListener('click', this.closeUnusedSpeedComponents.bind(this));
+        document.addEventListener('click',
+            this.closeUnusedSpeedComponents.bind(this));
         document.addEventListener('keydown', (e) => {
-          this.handleKeyBoardEvent(e);
+          this.keyboardCloseUnused(e);
         });
       }
     }
 
     /**
-     * 
+     *
      * @param {KeyboardEvent} event
      */
-    handleKeyBoardEvent(event: KeyboardEvent): void {
+    keyboardCloseUnused(event: KeyboardEvent): void {
       const target = event.target as HTMLElement;
-      if(!target.classList.contains('webriceSpeedElement')){
+      if (!target.classList.contains('webriceSpeedElement')) {
         this.hideReadingSpeeds();
       }
     }
@@ -111,9 +111,10 @@ export class SpeedButton extends MainButton {
           .setAttribute('aria-expanded', 'false');
       // Remove document.eventListener for hiding the speedoptions if anywhere
       // other than the speed stuff is clicked
-      document.removeEventListener('click', this.hideSpeedModule);
-      document.addEventListener('keydown', (e) => {
-        this.handleKeyBoardEvent(e);
+      document.removeEventListener('click',
+          this.closeUnusedSpeedComponents.bind(this));
+      document.removeEventListener('keydown', (e) => {
+        this.keyboardCloseUnused(e);
       });
     }
 
@@ -222,7 +223,7 @@ export class SpeedButton extends MainButton {
             this.changePlaybackRate(e);
           });
           li.addEventListener('keydown', (e) => {
-            if(e.key === 'Enter') this.changePlaybackRate(e);
+            if (e.key === 'Enter') this.changePlaybackRate(e);
           });
           speedOptions.appendChild(li);
         });
