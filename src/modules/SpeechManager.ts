@@ -14,28 +14,29 @@ export class SpeechManager {
     // TODO: submit query to AWS polly
     console.log(webText);
     let audioContent : string[];
+    let voice = "talromur/c";
     // string.includes only works on ECMAScript 6+
     if (webText.includes('máltækni')) {
       audioContent = [
-        'resources/example_voice_files/content-1.mp3',
-        'resources/example_voice_files/content-2.mp3',
-        'resources/example_voice_files/content-3.mp3',
-        'resources/example_voice_files/content-4.mp3',
-        'resources/example_voice_files/content-5.mp3',
-        'resources/example_voice_files/content-6.mp3',
-        'resources/example_voice_files/content-7.mp3',
-        'resources/example_voice_files/content-8.mp3',
-        'resources/example_voice_files/content-9.mp3',
-        'resources/example_voice_files/content-10.mp3',
-        'resources/example_voice_files/content-11.mp3',
-        'resources/example_voice_files/content-12.mp3'];
+        `resources/example_voice_files/${voice}/content-1.mp3`,
+        `resources/example_voice_files/${voice}/content-2.mp3`,
+        `resources/example_voice_files/${voice}/content-3.mp3`,
+        `resources/example_voice_files/${voice}/content-4.mp3`,
+        `resources/example_voice_files/${voice}/content-5.mp3`,
+        `resources/example_voice_files/${voice}/content-6.mp3`,
+        `resources/example_voice_files/${voice}/content-7.mp3`,
+        `resources/example_voice_files/${voice}/content-8.mp3`,
+        `resources/example_voice_files/${voice}/content-9.mp3`,
+        `resources/example_voice_files/${voice}/content-10.mp3`,
+        `resources/example_voice_files/${voice}/content-11.mp3`,
+        `resources/example_voice_files/${voice}/content-12.mp3`];
     } else {
       audioContent = [
-        'resources/example_voice_files/older-clips/content-1.mp3',
-        'resources/example_voice_files/older-clips/content-2.mp3',
-        'resources/example_voice_files/older-clips/content-3.mp3',
-        'resources/example_voice_files/older-clips/content-4.mp3',
-        'resources/example_voice_files/older-clips/content-5.mp3'];
+        `resources/example_voice_files/${voice}/older-clips/content-1.mp3`,
+        `resources/example_voice_files/${voice}/older-clips/content-2.mp3`,
+        `resources/example_voice_files/${voice}/older-clips/content-3.mp3`,
+        `resources/example_voice_files/${voice}/older-clips/content-4.mp3`,
+        `resources/example_voice_files/${voice}/older-clips/content-5.mp3`];
     }
     return audioContent;
   }
