@@ -11,6 +11,8 @@ export class SpeedButton extends MainButton {
     speedSettings = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
     speedSelectId = 'webriceSelect';
     speedElementClass = 'webriceSpeedElement';
+    // eslint-disable-next-line no-invalid-this
+    hideSpeedModule = this.closeUnusedSpeedComponents.bind(this);
 
     /**
      *
@@ -82,7 +84,7 @@ export class SpeedButton extends MainButton {
             .setAttribute('aria-expanded', 'true');
         readingSpeedsElement.style.display = 'block';
         document.addEventListener('click',
-            this.closeUnusedSpeedComponents.bind(this));
+            this.closeUnusedSpeedComponents.bind(this.hideSpeedModule));
         document.addEventListener('keydown', (e) => {
           this.keyboardCloseUnused(e);
         });
