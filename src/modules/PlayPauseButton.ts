@@ -84,6 +84,7 @@ export class PlayPauseButton extends MainButton {
    */
   protected additionalHTML(button: HTMLDivElement): void {
     button.classList.add('webriceMainButton');
+    button.setAttribute('accesskey', 'L');
     button.appendChild(this.secondButtonIcon.svg);
     button.appendChild(this.buttonIcon.svg);
   }
