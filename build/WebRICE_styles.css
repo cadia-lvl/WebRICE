@@ -9,7 +9,7 @@
   --secondary-background: radial-gradient(circle, var(--secondary-color-one) 0%, var(--secondary-color-two) 100%);
   --border-color: #040505;
   --icon-size: 1.5rem;
-  --border-width: 0.05rem;
+  --border-width: thin;
   --corner-curve: 0.2rem;
   --inner-curve-corner: 0.11rem;
   --removed: 0;
@@ -24,6 +24,7 @@
   border-style: solid;
   border-radius: var(--border-rad);
   border-color: var(--border-color);
+  background: var(--border-color);
 }
 
 @media (max-width: 210px) {
@@ -69,6 +70,7 @@
 .webriceMainButton:hover,
 .webriceMainButton:focus {
   background: var(--secondary-background);
+  outline: 0;
 }
 
 .webriceMainButton:hover svg,
@@ -155,7 +157,7 @@
 .webriceMainSpeedOptions {
   position: absolute;
   float: left;
-  min-width: 160px;
+  min-width: 6rem;
   box-sizing: border-box;
   left: 0;
   background-color: var(--main-color-one);
@@ -175,6 +177,12 @@
 
 .webriceMainSpeedOptions > li {
   padding-left: 0.5rem;
+}
+
+.checkIcon {
+  max-width: 1rem;
+  padding-left: 0.2rem;
+  align-self: right;
 }
 
 .webriceMainSpeedOptions .active,

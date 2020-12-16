@@ -1,6 +1,6 @@
 
 /**
- * AN abstract Icon class containing the base of what every Icon should have
+ * An abstract Icon class containing the base of what every Icon should have
  */
 export abstract class Icon {
   readonly ID: string;
@@ -331,6 +331,44 @@ export class VolumeUpIcon extends Icon {
         '.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2'+
         '.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.9'+
         '1 7-4.49 7-8.77s-2.99-7.86-7-8.77z');
+  }
+}
+
+/**
+ * Check Icon
+ */
+export class CheckIcon extends Icon {
+  /**
+   * @param {string} id - id of Icon
+   * @param {string} classlist - classes of Icon
+   */
+  constructor(id: string, classlist?: string) {
+    super(id, classlist);
+  }
+
+  /**
+   * Creates checkIcon html
+   * @return {SVGSVGElement} - svg element
+   */
+  createSvg(): SVGSVGElement {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttributeNS(null, 'id', this.ID);
+    svg.setAttributeNS(null, 'enable-background', 'new 0 0 24 24');
+    svg.setAttributeNS(null, 'viewBox', '0 0 24 24');
+    svg.setAttributeNS(null, 'class', this.classList);
+
+    const firstPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    firstPath.setAttributeNS(null, 'd', 'M0 0h24v24H0z');
+    firstPath.setAttributeNS(null, 'fill', 'none');
+
+    const secondPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    secondPath.setAttributeNS(null, 'd',
+        'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z');
+
+    svg.appendChild(firstPath);
+    svg.appendChild(secondPath);
+
+    return svg;
   }
 }
 
