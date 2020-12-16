@@ -14,7 +14,7 @@ export class SpeechManager {
     // TODO: submit query to AWS polly
     console.log(webText);
     let audioContent : string[];
-    const voice = 'talromur/c';
+    const voice = 'talromur/b';
     // string.includes only works on ECMAScript 6+
     if (webText.includes('máltækni')) {
       audioContent = [

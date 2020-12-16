@@ -20,6 +20,18 @@ export class StopButton extends MainButton {
   }
 
   /**
+   * Adds to the button html
+   * without the neccesary base being affected.
+   * Add an access key - x
+   * @param {HTMLDivElement} button
+   */
+  protected additionalHTML(button: HTMLDivElement): void {
+    button.classList.add('webriceMainButton');
+    button.setAttribute('accesskey', 'x');
+    button.appendChild(this.buttonIcon.svg);
+  }
+
+  /**
    * Stop workflow
    * @param {HTMLAudioElement} player - the reference to the webrice audio
    *   player

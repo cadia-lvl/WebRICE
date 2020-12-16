@@ -1,6 +1,6 @@
 import {MainButton} from './MainButton';
 import {Icon} from './icons';
-// Functionality for other languages is needed
+// TODO: Functionality for other languages is needed
 import {text} from './../lang/is';
 import {CloseIcon} from './icons';
 import {ImageButton} from './ImageButton';
@@ -30,6 +30,19 @@ export class SettingsButton extends MainButton {
       title: string) {
     super(icon, alt, id, title);
     document.addEventListener('click', this.closeOnClickAway.bind(this));
+    document.addEventListener('keypress', this.closeOnClickAway.bind(this));
+  }
+
+  /**
+   * Adds to the button html
+   * without the neccesary base being affected.
+   * Add an access key - 1
+   * @param {HTMLDivElement} button
+   */
+  protected additionalHTML(button: HTMLDivElement): void {
+    button.classList.add('webriceMainButton');
+    button.setAttribute('accesskey', '1');
+    button.appendChild(this.buttonIcon.svg);
   }
 
   /**
@@ -95,22 +108,26 @@ export class SettingsButton extends MainButton {
         document.createTextNode(this.helpText.userText.mainHead));
     parent.appendChild(settingsMainHeading);
 
-    const aboutHead = document.createElement('h3');
-    const headingText = document.createTextNode(
-        this.helpText.userText.whatIsHead);
-    aboutHead.appendChild(headingText);
-    parent.appendChild(aboutHead);
+    const sections = this.helpText.userText.sections;
+    let sectNum;
+    for (sectNum = 0; sectNum < sections.length; sectNum++) {
+      const sectionHead = document.createElement('h3');
+      const headingText = document.createTextNode(
+          sections[sectNum].sectionHead);
+      sectionHead.appendChild(headingText);
+      parent.appendChild(sectionHead);
 
-    let paragraph = document.createElement('p');
-    let aboutNode = document.createTextNode(
-        this.helpText.userText.whatIsPhara1);
-    paragraph.appendChild(aboutNode);
-    parent.appendChild(paragraph);
-
-    paragraph = document.createElement('p');
-    aboutNode = document.createTextNode(this.helpText.userText.whatIsPhara2);
-    paragraph.appendChild(aboutNode);
-    parent.appendChild(paragraph);
+      const sectionParagraphs = sections[sectNum].sectionParagraphs;
+      let paragraphNum;
+      for (paragraphNum = 0; paragraphNum < sectionParagraphs.length;
+        paragraphNum++) {
+        const sectionParagraph = document.createElement('p');
+        const paragraphText = document.createTextNode(
+            sectionParagraphs[paragraphNum]);
+        sectionParagraph.appendChild(paragraphText);
+        parent.appendChild(sectionParagraph);
+      }
+    }
   }
 
   /**
@@ -144,6 +161,9 @@ export class SettingsButton extends MainButton {
     if (physicalCloseButton) {
       physicalCloseButton.addEventListener('click',
           this.hideSettingsModule.bind(this));
+      physicalCloseButton.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') this.hideSettingsModule();
+      });
     }
 
     this.isModuleCreated = true;
@@ -181,10 +201,10 @@ export class SettingsButton extends MainButton {
   }
 
   /**
-   * @param {any} event, click event.
+   * @param {MouseEvent|KeyboardEvent} event, click event.
    * Checks if user is clicking away from settings module.
    */
-  public closeOnClickAway(event: any) {
+  public closeOnClickAway(event: MouseEvent|KeyboardEvent) {
     if (this.isModuleVisible) {
       if (!this.isDescendant(event.target)) {
         this.hideSettingsModule();

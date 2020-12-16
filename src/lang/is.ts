@@ -19,11 +19,27 @@ export const text = {
   settingsModuleText: {
     userText: {
       mainHead: 'Stillingar',
-      whatIsHead: 'Hvað er veflesari?',
-      whatIsPhara1: 'Veflesari er tól sem les upp texta á vefsíðu.'+
-      ' Nóg er að ýta á spilunar takkann og lesturinn hefst!',
-      whatIsPhara2: ' Þessi veflesari var þróaður af Háskólanum í Reykjavík'+
-      ' sem hluti af máltækni áætlun.',
+      sections: [
+        {
+          sectionHead: 'Hvað er veflesari?',
+          sectionParagraphs: [
+            'Veflesari er tól sem les upp texta á vefsíðu.'+
+              ' Nóg er að ýta á afspilunartakkann og lesturinn hefst!',
+            ' Þessi veflesari var þróaður af Háskólanum í Reykjavík'+
+              ' sem hluti af máltækniáætlun.',
+          ],
+        },
+        {
+          sectionHead: 'Nota lyklaborð',
+          sectionParagraphs: [
+            'Það er hægt að nota Tab og Enter til að stýra veflesaranum. ' +
+              'Það er líka hægt að nota aðgangslykla.',
+            'Spila og pása: Breytihnappur + L',
+            'Stoppa lestur: Breytihnappur + x',
+            'Opna stillingar: Breytihnappur + 1',
+          ],
+        },
+      ],
       submit: 'Vista stillingar',
     },
   },
