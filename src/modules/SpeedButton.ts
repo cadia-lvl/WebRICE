@@ -13,6 +13,7 @@ export class SpeedButton extends MainButton {
     speedElementClass = 'webriceSpeedElement';
     // eslint-disable-next-line no-invalid-this
     hideSpeedModule = this.closeUnusedSpeedComponents.bind(this);
+    checkIcon = new CheckIcon('chosenSpeedChecker', 'checkIcon');
 
     /**
      *
@@ -147,8 +148,7 @@ export class SpeedButton extends MainButton {
       selectedSpeed.setAttribute('aria-checked', 'true');
       selectedSpeed.setAttribute('aria-selected', 'true');
       selectedSpeed.classList.add('active');
-      const check = new CheckIcon('chosenSpeedChecker','checkIcon');
-      selectedSpeed.appendChild(check.svg);
+      selectedSpeed.appendChild(this.checkIcon.svg);
     }
 
     /**
@@ -159,6 +159,11 @@ export class SpeedButton extends MainButton {
       aSpeed.setAttribute('aria-checked', 'false');
       aSpeed.setAttribute('aria-selected', 'false');
       aSpeed.classList.remove('active');
+      const check = document
+          .getElementById('chosenSpeedChecker') as HTMLElement;
+      if (check) {
+        aSpeed.removeChild(check);
+      }
     }
 
     /**
