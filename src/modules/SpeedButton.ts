@@ -114,7 +114,7 @@ export class SpeedButton extends MainButton {
       // Remove document.eventListener for hiding the speedoptions if anywhere
       // other than the speed stuff is clicked
       document.removeEventListener('click',
-          this.closeUnusedSpeedComponents.bind(this));
+          this.hideSpeedModule);
       document.removeEventListener('keydown', (e) => {
         this.keyboardCloseUnused(e);
       });
