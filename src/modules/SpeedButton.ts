@@ -84,7 +84,7 @@ export class SpeedButton extends MainButton {
             .setAttribute('aria-expanded', 'true');
         readingSpeedsElement.style.display = 'block';
         document.addEventListener('click',
-            this.closeUnusedSpeedComponents.bind(this.hideSpeedModule));
+            this.hideSpeedModule);
         document.addEventListener('keydown', (e) => {
           this.keyboardCloseUnused(e);
         });
