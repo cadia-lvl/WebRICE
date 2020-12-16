@@ -1,5 +1,5 @@
 import {MainButton} from './MainButton';
-import {Icon} from './icons';
+import {Icon, CheckIcon} from './icons';
 import {cli} from './ClientStoreManager';
 
 /**
@@ -147,6 +147,8 @@ export class SpeedButton extends MainButton {
       selectedSpeed.setAttribute('aria-checked', 'true');
       selectedSpeed.setAttribute('aria-selected', 'true');
       selectedSpeed.classList.add('active');
+      const check = new CheckIcon('chosenSpeedChecker','checkIcon');
+      selectedSpeed.appendChild(check.svg);
     }
 
     /**
