@@ -16,6 +16,7 @@
   --border-rad: var(--corner-curve) var(--corner-curve) var(--corner-curve) var(--corner-curve);
   --main-border: var(--border-width) solid var(--border-color);
   --module-visibility: none;
+  margin: 0.5rem
 }
 
 #webriceContainer {
