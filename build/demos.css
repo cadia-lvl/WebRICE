@@ -1,5 +1,6 @@
 .arrow-right {
   mask: url(resources/img/arrow-right.svg);
+  -webkit-mask-image: url(resources/img/arrow-right.svg);
 }
 
 .icon {
@@ -8,4 +9,5 @@
   width: 1.2rem;
   height: 1rem;
   mask-size: cover;
+  -webkit-mask-size: cover;
 }
