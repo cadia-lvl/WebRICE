@@ -1,0 +1,11 @@
+.arrow-right {
+  mask: url(resources/img/arrow-right.svg);
+}
+
+.icon {
+  display: inline-block;
+  background: white;
+  width: 1.2rem;
+  height: 1rem;
+  mask-size: cover;
+}
