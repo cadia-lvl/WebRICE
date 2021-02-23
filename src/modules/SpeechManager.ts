@@ -10,38 +10,53 @@ export class SpeechManager {
    *   into audio
    * @return {string[]} - returns the audio urls to the calling function
    */
-  private getAudio(webText: string): string[] {
+  private async getAudio(webText: string): Promise<string[]> {
     // TODO: submit query to AWS polly
-    console.log(webText);
-    let audioContent : string[];
-    const voice = 'talromur/b';
-    // string.includes only works on ECMAScript 6+
-    if (webText.includes('Microsoft')) {
-      audioContent = [
-        `resources/example_voice_files/${voice}/content-1.mp3`,
-        `resources/example_voice_files/${voice}/content-2.mp3`,
-        `resources/example_voice_files/${voice}/content-3.mp3`,
-        `resources/example_voice_files/${voice}/content-4.mp3`,
-        `resources/example_voice_files/${voice}/content-5.mp3`,
-        `resources/example_voice_files/${voice}/content-6.mp3`,
-        `resources/example_voice_files/${voice}/content-7.mp3`,
-        `resources/example_voice_files/${voice}/content-8.mp3`,
-        `resources/example_voice_files/${voice}/content-9.mp3`,
-        `resources/example_voice_files/${voice}/content-10.mp3`,
-        `resources/example_voice_files/${voice}/content-11.mp3`,
-        `resources/example_voice_files/${voice}/content-12.mp3`];
-    } else if (webText.includes('máltækniáætlun')) {
-      audioContent = [
-        `resources/example_voice_files/${voice}/index.mp3`];
-    } else {
-      audioContent = [
-        `resources/example_voice_files/${voice}/older-clips/content-1.mp3`,
-        `resources/example_voice_files/${voice}/older-clips/content-2.mp3`,
-        `resources/example_voice_files/${voice}/older-clips/content-3.mp3`,
-        `resources/example_voice_files/${voice}/older-clips/content-4.mp3`,
-        `resources/example_voice_files/${voice}/older-clips/content-5.mp3`];
-    }
-    return audioContent;
+    // TODO: submit multiple requests for longer articles/webpages
+    // TODO: currently can only read about 75% of the page, need to split it up
+    // into smaller requests to get it to read the whole page easily
+    // NOTE: the delay for 700+ character is too long, likely will need to split
+    // up the requests
+    // submit query to tts.tiro.is
+    // const voice = 'talromur/b';
+    const webSub = webText.substring(0, 1090);
+    console.log(webSub);
+    const audioContent : string[] = [];
+    console.log('Using talromur b/Other. Others are Polly: Karl and Dora');
+    const url = 'https://tts.tiro.is/v0/speech';
+    return await fetch(url, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        Engine: 'standard',
+        LanguageCode: 'is-IS',
+        LexiconNames: [],
+        OutputFormat: 'pcm',
+        SampleRate: '22050',
+        SpeechMarkTypes: [],
+        Text: webSub,
+        TextType: 'text',
+        VoiceId: 'Other',
+      }),
+    })
+        .then((result) => {
+          if (!result.ok) {
+            throw new Error('Network did not respond with audio file');
+          }
+          return result.blob();
+        })
+        .then((audStream) => {
+          const blobURL = window.URL.createObjectURL(audStream);
+          audioContent.push(blobURL);
+          return audioContent;
+        })
+        .catch((error) => {
+          console.error('No audio received from the tts web service: ', error);
+          return audioContent;
+        });
   }
 
   /**
@@ -50,8 +65,8 @@ export class SpeechManager {
    * @param {string} webText - The webtext given and which needs to be turned
    * @return {string[]} - returns the audio urls to the calling function
    */
-  public fetchAudioAndMarks(webText: string): string[] {
-    return this.getAudio(webText);
+  public async fetchAudioAndMarks(webText: string): Promise<string[]> {
+    return await this.getAudio(webText);
     // TODO: call and return getSpeechMarks();
   }
 }
