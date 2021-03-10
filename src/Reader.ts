@@ -61,22 +61,26 @@ export class Reader {
    * accessed later.
    */
   private setWebText(): void {
-    const webriceTextNode = document.getElementById(this.TEXT_CONTENT_ID);
     try {
-      if (webriceTextNode) {
-        let text = '';
-        // Go through content and extracts text content from html children nodes
-        for (let i = 0; i < webriceTextNode.children.length; i++) {
-          text += webriceTextNode.children[i].textContent + '. ';
-          // TODO: figure out how to indicate the text is from different
-          // nodes/tags to the TTS API so it doesn't read a header and a
-          // paragraph together. Currently using a period to indicate
-          // completion.
+      const webriceTextNode = document.getElementById(this.TEXT_CONTENT_ID);
+      let text = '';
+      // Go through content and extract text content from children
+      const children = webriceTextNode!.childNodes;
+      for (let i = 0; i < children.length; i++) {
+        if (children[i].nodeType === Node.ELEMENT_NODE &&
+          children[i].textContent!.trim()) {
+          text += children[i].textContent + '. ';
+        } else if (children[i].nodeType === Node.TEXT_NODE &&
+          children[i].nodeValue!.trim() ) {
+          text += children[i].nodeValue + '. ';
         }
-        text += webriceTextNode.textContent + '. ';
-        // TODO: extracts alt text for images and links
-        this.webText = text;
+        // TODO: figure out how to indicate the text is from different
+        // nodes/tags to the TTS API so it doesn't read a header and a
+        // paragraph together. Currently using a period to indicate
+        // completion.
       }
+      // TODO: extracts alt text for images and links
+      this.webText = text;
     } catch (e) {
       // Throw a warning because there's nothing to read
       console.warn(this.TEXT_CONTENT_ID + ': Text container id undefined.' +
