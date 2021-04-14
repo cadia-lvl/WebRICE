@@ -159,6 +159,14 @@
   margin-bottom: 0.4rem;
 }
 
+#settingsContainer > button {
+  border-radius: var(--border-rad);
+  border-width: var(--border-width);
+  border-color: var(--border-color);
+  background-color: var(--main-color-one);
+  color: var(--secondary-color-one);
+}
+
 #settingsHeader {
   border-radius: 0.1rem 0.1rem 0 0;
   color: var(--secondary-color-one);

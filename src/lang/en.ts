@@ -42,6 +42,7 @@ export const text = {
           ],
         },
       ],
+      sentenceColorBackground: 'Highlight sentences:',
       submit: 'Save settings',
     },
   },
