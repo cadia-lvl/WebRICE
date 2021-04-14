@@ -223,9 +223,78 @@ export class Reader {
   }
 }
 
+// TODO: move to the correct module according to the design docs
+
+/**
+ * Unhighlight the first word and highlight the second word.
+ * TODO: change function name
+ * @param {string} worda - currently highlighted word
+ * @param {string} wordb - word to highlight
+ */
+function hearsay(worda: string, wordb: string): void {
+  const paragraph2HL = document.getElementById('highlight') as HTMLElement;
+  paragraph2HL.innerHTML = paragraph2HL.innerHTML
+      .replace('<mark>' + worda +'</mark> ' + wordb,
+          worda + ' <mark>' + wordb + '</mark>');
+};
+
+/**
+ * Set a timeout of the given ms
+ * Thank you Dan Dasacalescu for the help
+ * https://stackoverflow.com/a/39914235
+ * @param {number} ms - number of milliseconds
+ * @return {Promise<any>} - returns the setTimeout
+ */
+function sleep(ms: number): Promise<any> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ *
+ * Split on spaces. Set timeout to highlight for half a second for
+ * each character in each word.
+ * TODO: sync it with a bjartur audio
+ * TODO: find the ctm of each word using gecko
+ * TODO: use the bjartur timings
+ * TODO: get it to start only once play is pressed
+ * TODO: pause it once pause is pressed.
+ * TODO: resume if play is pressed for the second time
+ * TODO: start all over when stop is pressed.
+ * TODO: change function name
+ * @return {Promise<any>} - returns something
+ */
+async function nowzer(): Promise<any> {
+  const paragraph2HL = document.getElementById('highlight') as HTMLElement;
+  if (paragraph2HL) {
+    const words = paragraph2HL.innerHTML.split(' ');
+    // Highlight the given word. (first word in paragraph)
+    paragraph2HL.innerHTML = paragraph2HL.innerHTML
+        .replace(words[0],
+            '<mark>' + words[0] + '</mark>');
+    console.log(words[0], words[1]);
+    for (let i = 0; i < words.length - 1; i++) {
+      console.log(words[i], words[i+1], i);
+      await sleep(words[i+1].length*500);
+      setInterval(hearsay, 2000, words[i], words[i+1]);
+    }
+    // Remove the highlighting on the last word.
+    await sleep(words.length*500);
+    // Remove the highlighting on the given word (last word in paragraph)
+    paragraph2HL.innerHTML = paragraph2HL.innerHTML
+        .replace('<mark>' + words[words.length - 1] + '</mark>',
+            words[words.length -1]);
+  }
+}
+
 // TODO: change export of WebRICE js depending on exporting to npm or using the
 // url from web
 export const webreader = new Reader();
+
+// for testing purposes
 window.addEventListener('DOMContentLoaded', () => {
   webreader.init();
+
+  // TODO: move to the correct module for calls to highlight
+  nowzer();
 });
+
