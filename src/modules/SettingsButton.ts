@@ -117,22 +117,22 @@ export class SettingsButton extends MainButton {
    * highlighting form
    */
   private createHighlightSection() {
-    const isHighlightSection = document.createElement('section');
+    const highlightSection = document.createElement('section');
     // Children of highlight section
-    const isHighlightLabel = document.createElement('label');
-    const isHighlightInput = document.createElement('input');
-    const highlightStatus = 'highlightStatus';
-    isHighlightInput.id = highlightStatus;
-    isHighlightInput.type = 'checkbox';
-    this.isCheckedCheckbox(isHighlightInput);
+    const sentenceHighlightLabel = document.createElement('label');
+    const sentenceHighlightInput = document.createElement('input');
+    const sentenceHighlightStatus = 'sentenceHighlightStatus';
+    sentenceHighlightInput.id = sentenceHighlightStatus;
+    sentenceHighlightInput.type = 'checkbox';
+    this.isSentenceHLChecked(sentenceHighlightInput);
 
-    isHighlightLabel.appendChild(document.createTextNode(
+    sentenceHighlightLabel.appendChild(document.createTextNode(
         this.helpText.userText.sentenceColorBackground));
-    isHighlightLabel.htmlFor = highlightStatus;
+    sentenceHighlightLabel.htmlFor = sentenceHighlightStatus;
     // Add children
-    isHighlightSection.appendChild(isHighlightLabel);
-    isHighlightSection.appendChild(isHighlightInput);
-    return isHighlightSection;
+    highlightSection.appendChild(sentenceHighlightLabel);
+    highlightSection.appendChild(sentenceHighlightInput);
+    return highlightSection;
   }
 
   /**
@@ -276,12 +276,12 @@ export class SettingsButton extends MainButton {
   }
 
   /**
-   * Check if highlighting is enabled.
-   * @param {HTMLInputElement} box - the checkbox for selecting text
+   * Check if sentence highlighting is enabled.
+   * @param {HTMLInputElement} box - the checkbox for selecting sentence
    * highlighting
    */
-  private isCheckedCheckbox(box: HTMLInputElement) {
-    const highlightSent = this.fetchUserSettings('highlightSent');
+  private isSentenceHLChecked(box: HTMLInputElement) {
+    const highlightSent = this.fetchUserSettings('highlightSentence');
     box.checked = (highlightSent === null) ? true : highlightSent;
   }
 
@@ -293,9 +293,9 @@ export class SettingsButton extends MainButton {
    */
   public fetchUserSettings(settingsItem: string): boolean|null {
     console.log('to be implemented fully');
-    const highlightStatus = localStorage.getItem(settingsItem);
-    if (highlightStatus !== null) {
-      const boxStatus = JSON.parse(highlightStatus);
+    const sentenceHighlightStatus = localStorage.getItem(settingsItem);
+    if (sentenceHighlightStatus !== null) {
+      const boxStatus = JSON.parse(sentenceHighlightStatus);
       return boxStatus;
     } else {
       return null;
@@ -307,10 +307,10 @@ export class SettingsButton extends MainButton {
    * TODO: use clientstore module
    */
   public saveUserSettings(): void {
-    const inputElement = document.getElementById('highlightStatus') as
-       HTMLInputElement;
-    const checkedVal = inputElement.checked;
-    localStorage.setItem('highlightSent', JSON.stringify(checkedVal));
+    const sentenceElement = document
+        .getElementById('sentenceHighlightStatus') as HTMLInputElement;
+    const sentenceStatus = sentenceElement.checked;
+    localStorage.setItem('highlightSentence', JSON.stringify(sentenceStatus));
   }
 
   /**
