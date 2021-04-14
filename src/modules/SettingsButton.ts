@@ -63,7 +63,7 @@ export class SettingsButton extends MainButton {
 
   /**
    * @param {created} created contains
-   * wheather the module has been created or not
+   * whether the module has been created or not
    */
   private set isModuleCreated(created: boolean) {
     this.moduleCreated = created;
@@ -90,7 +90,7 @@ export class SettingsButton extends MainButton {
    */
   public toggleModule(): void {
     if (!this.isModuleCreated) {
-      const parent = document.getElementById('webrice')!;
+      const parent = document.getElementById('webrice') as HTMLElement;
       this.createSettingsModule(parent);
     } else if (!this.isModuleVisible) {
       this.showSettingsModule();
@@ -190,18 +190,18 @@ export class SettingsButton extends MainButton {
    * hides the settings module
    */
   public hideSettingsModule(): void {
-    const container = document.getElementById('webrice')!;
+    const container = document.getElementById('webrice') as HTMLElement;
     container.style.setProperty('--module-visibility', 'none');
     this.isModuleVisible = false;
   }
 
   /**
    * @param {any} element
-   * If element is desendant of main settings module container
+   * If element is descendant of main settings module container
    * or the settings button.
    * @return {boolean} true if the element is a desendant and false if not.
    */
-  public isDescendant(element: any) {
+  public isDescendant(element: any): boolean {
     const parentId = this.moduleIds.maincontainer;
 
     if (element.id === parentId || element.id === this.id) {
@@ -220,7 +220,7 @@ export class SettingsButton extends MainButton {
    * @param {MouseEvent|KeyboardEvent} event, click event.
    * Checks if user is clicking away from settings module.
    */
-  public closeOnClickAway(event: MouseEvent|KeyboardEvent) {
+  public closeOnClickAway(event: MouseEvent|KeyboardEvent): void {
     if (this.isModuleVisible) {
       if (!this.isDescendant(event.target)) {
         this.hideSettingsModule();
