@@ -111,6 +111,44 @@ export class SettingsButton extends MainButton {
   }
 
   /**
+   * Add the text highlight section the settings module
+   * It's a form with a checkbox.
+   * @return {isHighlightSection} - the html div which contains the
+   * highlighting form
+   */
+  private createHighlightSection() {
+    const isHighlightSection = document.createElement('section');
+    // Children of highlight section
+    const isHighlightLabel = document.createElement('label');
+    const isHighlightInput = document.createElement('input');
+    const highlightStatus = 'highlightStatus';
+    isHighlightInput.id = highlightStatus;
+    isHighlightInput.type = 'checkbox';
+    this.isCheckedCheckbox(isHighlightInput);
+
+    isHighlightLabel.appendChild(document.createTextNode(
+        this.helpText.userText.sentenceColorBackground));
+    isHighlightLabel.htmlFor = highlightStatus;
+    // Add children
+    isHighlightSection.appendChild(isHighlightLabel);
+    isHighlightSection.appendChild(isHighlightInput);
+    return isHighlightSection;
+  }
+
+  /**
+   * Create the save settings button (form submission)
+   * @return {submitButton} (HTMLButtonElement) - the save settings button
+   */
+  private createSubmitButton() {
+    const submitButton = document.createElement('button');
+    submitButton.type = 'submit';
+    submitButton.id = 'submitSettings';
+    submitButton.appendChild(document.createTextNode(
+        this.helpText.userText.submit));
+    return submitButton;
+  }
+
+  /**
    * Creates the about section.
    * @param {HTMLElement} parent the parent element of the about section
    */
@@ -241,72 +279,38 @@ export class SettingsButton extends MainButton {
    * Check if highlighting is enabled.
    * @param {HTMLInputElement} box - the checkbox for selecting text
    * highlighting
-   * TODO: use clientstore
    */
   private isCheckedCheckbox(box: HTMLInputElement) {
-    const highlightStatus = localStorage.getItem('highlight');
+    const highlightSent = this.fetchUserSettings('highlightSent');
+    box.checked = (highlightSent === null) ? true : highlightSent;
+  }
+
+  /**
+   * Fetches the user settings from client storage
+   * TODO: use/move to clientstore module
+   * @param{string} settingsItem - the setting to fetch
+   * @return {(boolean|null)} return the value from localstorage
+   */
+  public fetchUserSettings(settingsItem: string): boolean|null {
+    console.log('to be implemented fully');
+    const highlightStatus = localStorage.getItem(settingsItem);
     if (highlightStatus !== null) {
       const boxStatus = JSON.parse(highlightStatus);
-      box.checked = boxStatus;
+      return boxStatus;
     } else {
-      box.checked = true;
+      return null;
     }
   }
 
   /**
-   * Add the text highlight section the settings module
-   * It's a form with a checkbox.
-   * @return {isHighlightSection} - the html div which contains the
-   * highlighting form
-   */
-  private createHighlightSection() {
-    const isHighlightSection = document.createElement('section');
-    // Children of highlight section
-    const isHighlightLabel = document.createElement('label');
-    const isHighlightInput = document.createElement('input');
-    const highlightStatus = 'highlightStatus';
-    isHighlightInput.id = highlightStatus;
-    isHighlightInput.type = 'checkbox';
-    this.isCheckedCheckbox(isHighlightInput);
-
-    isHighlightLabel.appendChild(document.createTextNode(
-        this.helpText.userText.sentenceColorBackground));
-    isHighlightLabel.htmlFor = highlightStatus;
-    // Add children
-    isHighlightSection.appendChild(isHighlightLabel);
-    isHighlightSection.appendChild(isHighlightInput);
-    return isHighlightSection;
-  }
-
-  /**
-   * Create the save settings button (form submission)
-   * @return {submitButton} (HTMLButtonElement) - the save settings button
-   */
-  private createSubmitButton() {
-    const submitButton = document.createElement('button');
-    submitButton.type = 'submit';
-    submitButton.id = 'submitSettings';
-    submitButton.appendChild(document.createTextNode(
-        this.helpText.userText.submit));
-    return submitButton;
-  }
-
-  /**
-   * Fetches the user settings and stores them
-   */
-  public fetchUserSettings(): void {
-    console.log('to be implemented');
-  }
-
-  /**
-   * saves user settings to client storage
+   * Saves user settings to client storage
    * TODO: use clientstore module
    */
   public saveUserSettings(): void {
     const inputElement = document.getElementById('highlightStatus') as
        HTMLInputElement;
     const checkedVal = inputElement.checked;
-    localStorage.setItem('highlight', JSON.stringify(checkedVal));
+    localStorage.setItem('highlightSent', JSON.stringify(checkedVal));
   }
 
   /**
