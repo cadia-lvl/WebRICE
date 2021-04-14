@@ -100,15 +100,21 @@ export class SettingsButton extends MainButton {
   }
 
   /**
-   * Creates the about section.
-   * @param {HTMLElement} parent the parent element of the about section
+   * Creates the settings header and text
+   * @param {HTMLElement} parent the parent element of the header
    */
-  private addAboutWEBRICE(parent: HTMLElement) {
+  private addSettingsHeader(parent: HTMLElement) {
     const settingsMainHeading = document.createElement('h2');
     settingsMainHeading.appendChild(
         document.createTextNode(this.helpText.userText.mainHead));
     parent.appendChild(settingsMainHeading);
+  }
 
+  /**
+   * Creates the about section.
+   * @param {HTMLElement} parent the parent element of the about section
+   */
+  private addAboutWEBRICE(parent: HTMLElement) {
     const sections = this.helpText.userText.sections;
     let sectNum;
     for (sectNum = 0; sectNum < sections.length; sectNum++) {
@@ -154,6 +160,9 @@ export class SettingsButton extends MainButton {
     const settingsMainContainer = document.createElement('div');
     settingsMainContainer.setAttribute('id', this.moduleIds.maincontainer);
 
+    this.addSettingsHeader(settingsContainer);
+    settingsContainer.appendChild(this.createHighlightSection());
+    settingsContainer.appendChild(this.createSubmitButton());
     this.addAboutWEBRICE(settingsContainer);
     settingsMainContainer.appendChild(settingsHeader);
     settingsMainContainer.appendChild(settingsContainer);
@@ -169,6 +178,9 @@ export class SettingsButton extends MainButton {
         if (e.key === 'Enter') this.hideSettingsModule();
       });
     }
+    const saveButton = document.getElementById('submitSettings') as
+        HTMLButtonElement;
+    saveButton.addEventListener('click', this.saveUserSettings);
 
     this.isModuleCreated = true;
     this.showSettingsModule();
@@ -220,9 +232,63 @@ export class SettingsButton extends MainButton {
    * Shows the settings module
    */
   public showSettingsModule(): void {
-    const container = document.getElementById('webrice')!;
+    const container = document.getElementById('webrice') as HTMLElement;
     container.style.setProperty('--module-visibility', 'flex');
     this.isModuleVisible = true;
+  }
+
+  /**
+   * Check if highlighting is enabled.
+   * @param {HTMLInputElement} box - the checkbox for selecting text
+   * highlighting
+   * TODO: use clientstore
+   */
+  private isCheckedCheckbox(box: HTMLInputElement) {
+    const highlightStatus = localStorage.getItem('highlight');
+    if (highlightStatus !== null) {
+      const boxStatus = JSON.parse(highlightStatus);
+      box.checked = boxStatus;
+    } else {
+      box.checked = true;
+    }
+  }
+
+  /**
+   * Add the text highlight section the settings module
+   * It's a form with a checkbox.
+   * @return {isHighlightSection} - the html div which contains the
+   * highlighting form
+   */
+  private createHighlightSection() {
+    const isHighlightSection = document.createElement('section');
+    // Children of highlight section
+    const isHighlightLabel = document.createElement('label');
+    const isHighlightInput = document.createElement('input');
+    const highlightStatus = 'highlightStatus';
+    isHighlightInput.id = highlightStatus;
+    isHighlightInput.type = 'checkbox';
+    this.isCheckedCheckbox(isHighlightInput);
+
+    isHighlightLabel.appendChild(document.createTextNode(
+        this.helpText.userText.sentenceColorBackground));
+    isHighlightLabel.htmlFor = highlightStatus;
+    // Add children
+    isHighlightSection.appendChild(isHighlightLabel);
+    isHighlightSection.appendChild(isHighlightInput);
+    return isHighlightSection;
+  }
+
+  /**
+   * Create the save settings button (form submission)
+   * @return {submitButton} (HTMLButtonElement) - the save settings button
+   */
+  private createSubmitButton() {
+    const submitButton = document.createElement('button');
+    submitButton.type = 'submit';
+    submitButton.id = 'submitSettings';
+    submitButton.appendChild(document.createTextNode(
+        this.helpText.userText.submit));
+    return submitButton;
   }
 
   /**
@@ -234,9 +300,13 @@ export class SettingsButton extends MainButton {
 
   /**
    * saves user settings to client storage
+   * TODO: use clientstore module
    */
   public saveUserSettings(): void {
-    console.log('to be implemented');
+    const inputElement = document.getElementById('highlightStatus') as
+       HTMLInputElement;
+    const checkedVal = inputElement.checked;
+    localStorage.setItem('highlight', JSON.stringify(checkedVal));
   }
 
   /**

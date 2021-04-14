@@ -40,6 +40,7 @@ export const text = {
           ],
         },
       ],
+      sentenceColorBackground: 'Lita bakgrunn setninga:',
       submit: 'Vista stillingar',
     },
   },
