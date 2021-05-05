@@ -20,6 +20,8 @@ module.exports = {
         publicPath: "build",
         filename: "WebRICE.js", //name of the outputfile
         path: path.resolve(__dirname, "build"), //Absolute path from this file to build
+        library: 'WebRICE',
+        libraryTarget: 'umd',
     },
     devServer: {
         contentBase: path.join(__dirname, 'build'),

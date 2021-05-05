@@ -208,20 +208,9 @@ export class Reader {
   }
 }
 
-// change depending on exporting to npm or using the url from web
-
-// for testing purposes
+// TODO: change export of WebRICE js depending on exporting to npm or using the
+// url from web
+export const webreader = new Reader();
 window.addEventListener('DOMContentLoaded', () => {
-  const webreader = new Reader();
   webreader.init();
-
-  /*
-   * Examples of using custom colors for the webrice toolbar
-  // orange blue theme
-  webreader.customStyles(
-      {backgroundColor: '#ffefdd', secondaryColor: '#229BBB'});
-  // light theme
-  webreader.customStyles(
-      {backgroundColor: '#f3f2f2', secondaryColor: '#242121'});
-   */
 });
