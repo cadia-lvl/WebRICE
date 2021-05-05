@@ -11,7 +11,17 @@ instead of reading it.
 2.  Run with: `npm run dev`
 
 ## Usage
-TODO: write usage when we have an npm package and plugins
+To include WebRICE's compiled CSS and JS in your website, add the following lines:
+
+'''
+<!-- CSS only -->
+<link href="http://www.webrice.is/WebRICE_styles.css" crossorigin="anonymous">
+'''
+
+'''
+<!-- JavaScript Bundle -->
+<script src="http://www.webrice.is/WebRICE.js" crossorigin="anonymous"></script>
+'''
 
 A demo of WebRICE can be found at [https://cadia-lvl.github.io/WebRICE](https://cadia-lvl.github.io/WebRICE/).
 
