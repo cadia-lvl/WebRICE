@@ -23,6 +23,20 @@ To include WebRICE's compiled CSS and JS in your website, add the following line
 <script src="http://www.webrice.is/WebRICE.js" crossorigin="anonymous"></script>
 '''
 
+But WebRICE will only be visible on your site if you add this tag for the WebRICE toolbar:
+
+'''
+<!-- Div for WebRICE's buttons -->
+<div id="webrice"></div>
+'''
+
+and this id to the HTML tag containing your text.
+
+'''
+id="webriceTextContainer"
+<!-- example <div id="webriceTextContainer"> Text </div>-->
+'''
+
 A demo of WebRICE can be found at [https://cadia-lvl.github.io/WebRICE](https://cadia-lvl.github.io/WebRICE/).
 
 ## Contributing
