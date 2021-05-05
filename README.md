@@ -15,7 +15,7 @@ To include WebRICE's compiled CSS and JS in your website, add the following line
 
 '''
 <!-- CSS only -->
-<link href="http://www.webrice.is/WebRICE_styles.css" crossorigin="anonymous">
+<link rel="stylesheet" href="http://www.webrice.is/WebRICE_styles.css" crossorigin="anonymous">
 '''
 
 '''
