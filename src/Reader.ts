@@ -210,3 +210,7 @@ export class Reader {
 
 // TODO: change export of WebRICE js depending on exporting to npm or using the
 // url from web
+export const webreader = new Reader();
+window.addEventListener('DOMContentLoaded', () => {
+  webreader.init();
+});
