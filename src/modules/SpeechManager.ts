@@ -34,12 +34,12 @@ export class SpeechManager {
         Engine: 'standard',
         LanguageCode: 'is-IS',
         LexiconNames: [],
-        OutputFormat: 'pcm',
-        SampleRate: '22050',
+        OutputFormat: 'mp3',
+        SampleRate: '16000',
         SpeechMarkTypes: [],
         Text: webSub,
         TextType: 'text',
-        VoiceId: 'Other',
+        VoiceId: 'Bjartur',
       }),
     })
         .then((result) => {
