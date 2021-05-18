@@ -18,9 +18,20 @@
           background-color: #082c4f;
           color: #fff;
         }
+
         .lead a {
-          background-color:#c6bc39;
+          background-color: #c6bc39;
           color: #082c4f;
+        }
+
+        .lead a:focus,
+        .lead a:hover {
+          background-color: #082c4f;
+          color: #c6bc39;
+        }
+
+        .main-container {
+          max-width: 42em;
         }
     </style>
 
@@ -28,58 +39,54 @@
   </head>
   <body class="text-center">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-        <a class="text-secondary" href="index.html">Webrice <span class="sr-only">(current)</span></a>
+        <a class="navbar-brand" href="index.html">WebRICE <span class="sr-only">(current)</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon">
-
           </span>
-
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-
-          <div class="navbar-nav " >
-
-            <a class="nav-link active" aria-current="page" href="maltaekni.html">Dæmi 1 <span class="sr-only">(current)</span></a>
+          <div class="navbar-nav">
+            <a class="nav-link" href="maltaekni.html">Dæmi 1</a>
             <a class="nav-link" href="solskin.html" >Dæmi 2</a>
             <a class="nav-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdcyoUambWJeX_FvHG5UacE68xIa7UNGvHlKUhchT42NJO1ZQ/viewform" target="_blank">Notandakönnun</a>
             <a class="nav-link" href="throun.html">Þróun</a>
           </div>
         </div>
       </nav>
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <div class="main-container cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
-  <main role="main" class="">
-    <img src="logo.png"/>
-    <h1 class="">WebRICE</h1>
-    <div id="webrice"></div>
-    <p class="lead" id="webriceTextContainer">Þessi veflesari var þróaður af Mál- og raddtæknistofa Gervigreindarseturs Háskólanum í Reykjavík sem hluti af máltækniáætlun.</p>
-    <p class="lead">
-      <a href="maltaekni.html" class="btn btn-lg btn-secondary">Dæmi</a>
-    </p>
-  </main>
+      <main role="main">
+        <img src="logo.png" alt="WebRICE grains logo" title="WebRICE grains logo"/>
+        <h1 class="">WebRICE</h1>
+        <div id="webrice"></div>
+        <p class="lead" id="webriceTextContainer">Þessi veflesari var þróaður af Mál- og raddtæknistofa Gervigreindarseturs Háskólanum í Reykjavík sem hluti af máltækniáætlun.</p>
+        <p class="lead">
+          <a href="maltaekni.html" class="btn btn-lg btn-secondary">Dæmi</a>
+        </p>
+      </main>
 
-  <!-- <footer class="footer mt-auto bg-dark">
-       <nav class="navbar">
-           <p class="navbar-nav ml-auto">
-               <a class="nav-link text-white" href="solskin.html" >
-               </a>
-           </p>
-       </nav>
-   </footer>
-    -->
-</div>
-<script type="module" src="./WebRICE.js"></script>
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <!-- <footer class="footer mt-auto bg-dark">
+           <nav class="navbar">
+               <p class="navbar-nav ml-auto">
+                   <a class="nav-link text-white" href="solskin.html" >
+                   </a>
+               </p>
+           </nav>
+       </footer>
+        -->
+    </div>
+    <script type="module" src="./WebRICE.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<script type='module'>
-window.addEventListener('DOMContentLoaded', () => {
-  // light theme
-  WebRICE.webreader.customStyles(
-      {backgroundColor: '#c6bc39', secondaryColor: '#082c4f'});
-});
-</script>
+    <script type='module'>
+    window.addEventListener('DOMContentLoaded', () => {
+      // webrice logo colors
+      WebRICE.webreader.customStyles(
+          {backgroundColor: '#c6bc39', secondaryColor: '#082c4f'});
+    });
+    </script>
 
 </body></html>
