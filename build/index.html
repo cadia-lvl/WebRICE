@@ -7,6 +7,7 @@
     <meta name="author" content="Judy Fong">
     <title>WebRICE</title>
 
+    <link rel="stylesheet" href="WebRICE_styles.css">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -51,7 +52,7 @@
     <img src="logo.png"/>
     <h1 class="">WebRICE</h1>
     <div id="webrice"></div>
-    <p class="lead webriceTextContainer">Þessi veflesari var þróaður af Háskólanum í Reykjavík sem hluti af máltækniáætlun.</p>
+    <p class="lead" id="webriceTextContainer">Þessi veflesari var þróaður af Mál- og raddtæknistofa Gervigreindarseturs Háskólanum í Reykjavík sem hluti af máltækniáætlun.</p>
     <p class="lead">
       <a href="maltaekni.html" class="btn btn-lg btn-secondary">Dæmi</a>
     </p>
@@ -73,5 +74,12 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+<script type='module'>
+window.addEventListener('DOMContentLoaded', () => {
+  // light theme
+  WebRICE.webreader.customStyles(
+      {backgroundColor: '#c6bc39', secondaryColor: '#082c4f'});
+});
+</script>
 
 </body></html>
