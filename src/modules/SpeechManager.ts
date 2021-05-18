@@ -16,7 +16,7 @@ export class SpeechManager {
     let audioContent : string[];
     const voice = 'talromur/b';
     // string.includes only works on ECMAScript 6+
-    if (webText.includes('máltækni')) {
+    if (webText.includes('Microsoft')) {
       audioContent = [
         `resources/example_voice_files/${voice}/content-1.mp3`,
         `resources/example_voice_files/${voice}/content-2.mp3`,
@@ -30,6 +30,9 @@ export class SpeechManager {
         `resources/example_voice_files/${voice}/content-10.mp3`,
         `resources/example_voice_files/${voice}/content-11.mp3`,
         `resources/example_voice_files/${voice}/content-12.mp3`];
+    } else if (webText.includes('máltækniáætlun')) {
+      audioContent = [
+        `resources/example_voice_files/${voice}/index.mp3`];
     } else {
       audioContent = [
         `resources/example_voice_files/${voice}/older-clips/content-1.mp3`,
