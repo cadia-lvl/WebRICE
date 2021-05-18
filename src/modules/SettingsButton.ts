@@ -18,6 +18,7 @@ export class SettingsButton extends MainButton {
     header: 'settingsHeader',
     maincontainer: 'webriceMainSettingsContainer',
     container: 'settingsContainer',
+    overlay: 'webriceOverlay',
   }
   /**
    * @param {Icon} icon - icon on button
@@ -135,6 +136,9 @@ export class SettingsButton extends MainButton {
    * @param {HTMLElement} parent - parent element of module
    */
   public createSettingsModule(parent: HTMLElement): void {
+    const settingsOverlay = document.createElement('div');
+    settingsOverlay.setAttribute('id', this.moduleIds.overlay);
+    parent.appendChild(settingsOverlay);
     const settingsContainer = document.createElement('div');
     settingsContainer.setAttribute('id', this.moduleIds.container);
 

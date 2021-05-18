@@ -205,7 +205,7 @@ export class SpeedButton extends MainButton {
       this.initializePlayback().then(() => {
         // Then we create the HTML
         button.setAttribute('aria-expanded', 'false');
-        button.classList.add('webriceSpeedButtonGroup');
+        button.classList.add('webriceButtonGroup');
         button.classList.add('webriceMainButton');
         button.classList.add(this.speedElementClass);
         this.buttonIcon.svg.classList.add(this.speedElementClass);
