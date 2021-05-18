@@ -59,6 +59,35 @@
   }
 }
 
+@media (min-width: 200px) {
+  #webriceMainSettingsContainer {
+    left: 0;
+    right: 0;
+    top: 10%;
+    bottom: 0;
+  }
+}
+
+@media (min-width: 800px) {
+  #webriceMainSettingsContainer {
+    width: max-content;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #webriceOverlay {
+    background-color: var(--secondary-color-one);
+    display: var(--module-visibility);
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    opacity: 0.7;
+  }
+}
+
 /* Buttons */
 .webriceMainButton {
   background: var(--main-background);
@@ -106,16 +135,14 @@
   display: var(--module-visibility);
   flex-direction: column;
   margin: 0.15rem 0 0 0;
-  position: absolute;
+  position: fixed;
   background-color: var(--main-color-two);
-  max-width: 13rem;
 }
 
 #settingsContainer {
   overflow-y: scroll;
   color: var(--secondary-color-one);
   margin: 0.2rem 0.2rem 0 0.2rem;
-  max-height: 10rem;
 }
 
 #settingsContainer > h2 {
@@ -151,7 +178,7 @@
 /**
  * Speed styles
  */
-.webriceSpeedButtonGroup {
+.webriceButtonGroup {
   position: relative;
 }
 
