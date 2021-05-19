@@ -140,7 +140,7 @@
 }
 
 #settingsContainer {
-  overflow-y: scroll;
+  overflow-y: auto;
   color: var(--secondary-color-one);
   margin: 0.2rem 0.2rem 0 0.2rem;
 }
