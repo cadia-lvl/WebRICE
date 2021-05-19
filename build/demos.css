@@ -5,9 +5,20 @@
 
 .icon {
   display: inline-block;
-  background: white;
+  background: #082c4f;
   width: 1.2rem;
   height: 1rem;
   mask-size: cover;
   -webkit-mask-size: cover;
+}
+
+body {
+  background-color: #082c4f;
+  color: #fff;
+}
+
+.bg-grains,
+.bg-grains a {
+  background-color: #c6bc39;
+  color: #082c4f;
 }
