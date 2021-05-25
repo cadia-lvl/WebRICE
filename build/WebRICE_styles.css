@@ -80,6 +80,7 @@
     background-color: var(--secondary-color-one);
     display: var(--module-visibility);
     position: fixed;
+    z-index: 1005;
     bottom: 0;
     right: 0;
     left: 0;
@@ -136,6 +137,7 @@
   flex-direction: column;
   margin: 0.15rem 0 0 0;
   position: fixed;
+  z-index: 1008;
   background-color: var(--main-color-two);
 }
 
@@ -184,6 +186,7 @@
 
 .webriceMainSpeedOptions {
   position: absolute;
+  z-index: 1004;
   float: left;
   min-width: 6rem;
   box-sizing: border-box;

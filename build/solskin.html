@@ -13,7 +13,7 @@
         <link rel='icon' href="resources/img/favicons/favicon.ico">
     </head>
     <body>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+      <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="index.html">WebRICE</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon">
@@ -28,6 +28,7 @@
           </div>
         </div>
       </nav>
+      <div class="container">
         <div id="webrice"></div>
         <!--Sample text-->
         <div id="webriceTextContainer">
@@ -43,21 +44,22 @@
                 </div>
             </div>
         </div>
-        <footer class="footer mt-auto bg-dark">
-            <nav class="navbar">
-                <p class="navbar-nav ml-auto">
-                    <a class="nav-link text-white" href="https://docs.google.com/forms/d/e/1FAIpQLSdcyoUambWJeX_FvHG5UacE68xIa7UNGvHlKUhchT42NJO1ZQ/viewform">Notandakönnun
-                        <span class="icon arrow-right"></span>
-                    </a>
-                </p>
-            </nav>
-        </footer>
-        <script type="module" src="WebRICE.js"></script>
-        <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-- Latest compiled JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script type='module'>
+      </div>
+      <footer class="footer mt-auto">
+        <nav class="navbar bg-grains">
+          <p class="navbar-nav ml-auto">
+            <a class="nav-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdcyoUambWJeX_FvHG5UacE68xIa7UNGvHlKUhchT42NJO1ZQ/viewform">Notandakönnun
+              <span class="icon arrow-right"></span>
+            </a>
+          </p>
+        </nav>
+      </footer>
+      <script type="module" src="WebRICE.js"></script>
+      <!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <script type='module'>
         window.addEventListener('DOMContentLoaded', () => {
           // light theme
           WebRICE.webreader.customStyles(
@@ -72,6 +74,6 @@
               {backgroundColor: '#f3f2f2', secondaryColor: '#242121'});
           */
         });
-        </script>
+      </script>
     </body>
 </html>
