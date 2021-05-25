@@ -1,6 +1,6 @@
 {
   "name": "webrice",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "WebRICE is an open source web reader. It reads text aloud to users!",
   "main": "build/WebRICE.js",
   "scripts": {

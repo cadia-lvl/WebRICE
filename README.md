@@ -54,7 +54,11 @@ This project is licensed under [Apache 2.0](LICENSE).
 ## Authors/Credit
 [Reykjavik University](https://ru.is)
 * Judy Fong [judyfong@ru.is](mailto:judyfong@ru.is)
+* Ragnheiður Þórhallsdóttir
+* Róbert Kjaran
+* Safa Jemai
 * Sunneva Þorsteinsdóttir [sunnevath@ru.is](mailto:sunnevath@ru.is)
+* Þorsteinn Daði Gunnarsson
 
 ## Acknowledgements
 This project was funded by the Language Technology Programme for Icelandic
