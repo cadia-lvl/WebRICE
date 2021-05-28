@@ -118,26 +118,30 @@ export class PlayPauseButton extends MainButton {
     }
 
     // fetch the audio from the speech manager
-    const audioContent: string[] = await (new
-    SpeechManager()).fetchAudioAndMarks(webText);
-    if (audioContent !== []) {
-      let i = 0;
-      player.src = audioContent[i];
-      player.onended = () => {
-        if (++i !== audioContent.length) {
-          // add the audio url to the audio player, given the audio player id
-          player.src = audioContent[i];
+    const audioContent: string[] = [];
+    (new SpeechManager()).fetchAudioAndMarks(webText, audioContent)
+        .then((res) => {
+          let i = 0;
+          player.src = res[i];
+          player.onended = () => {
+            if (++i !== audioContent.length) {
+              // add the audio url to the audio player, given the audio player
+              // id
+              player.src = audioContent[i];
+              player.playbackRate = webPlayerAttributes.getPlaybackRate();
+              if (!webPlayerAttributes.getPaused()) {
+                player.play();
+              }
+            } else {
+              webPlayerAttributes.init(player);
+            }
+          };
           player.playbackRate = webPlayerAttributes.getPlaybackRate();
-          if (!webPlayerAttributes.getPaused()) {
-            player.play();
-          }
-        } else {
-          webPlayerAttributes.init(player);
-        }
-      };
-      player.playbackRate = webPlayerAttributes.getPlaybackRate();
-      player.play();
-      webPlayerAttributes.setPlaying();
-    }
+          player.play();
+          webPlayerAttributes.setPlaying();
+        })
+        .catch((error) => {
+          console.log('Error when fetching audio: ' + error.message);
+        });
   }
 }

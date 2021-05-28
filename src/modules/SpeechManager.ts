@@ -4,27 +4,57 @@
  */
 export class SpeechManager {
   /**
-   * Submit the text to be read to a TTS API. Currently we're working to support
-   * AWS Polly.
+   * General function to fetch the audio from a TTS API, of the text to be
+   * read. Currently, we submits separate requests for each paragraph or header
+   *
+   * TODO: We're working to support AWS Polly.
    * @param {string} webText - The webtext given and which needs to be turned
-   *   into audio
+   * @param {string[]} audioContent - The webtext given and which needs
+   * to be turned
    * @return {string[]} - returns the audio urls to the calling function
    */
-  private async getAudio(webText: string): Promise<string[]> {
+  public async getAudio(webText: string, audioContent:
+    string[]): Promise<string[]> {
+    const webTextArray = webText.split(/\.+/);
+    // Filter out segments which are only white space
+    const webTextArrayFiltered = webTextArray
+        .filter((seg) => seg.trim().length != 0);
+    console.log(webTextArrayFiltered);
+    await Promise.all(
+        webTextArrayFiltered
+            .map((webTextSegment) => {
+              return this.getAudioSegment(webTextSegment);
+            })
+    ).then((urls) => {
+      urls.map((url) => {
+        audioContent.push(url);
+      });
+    });
+    console.log(audioContent);
+    return audioContent;
+  }
+
+  /**
+   * Helper function to submit the text to be read to a TTS API. Currently, we
+   * support Tiro's Cicero tts.
+   *
+   * @param {string} webText - The webtext given and which needs to be turned
+   *   into audio
+   * @return {string} - returns the audio url to the calling function
+   */
+  private async getAudioSegment(webText: string): Promise<string> {
     // TODO: submit query to AWS polly
-    // TODO: submit multiple requests for longer articles/webpages
-    // TODO: currently can only read about 75% of the page, need to split it up
-    // into smaller requests to get it to read the whole page easily
-    // NOTE: the delay for 700+ character is too long, likely will need to split
-    // up the requests
+    // TODO: cache results and default to using the cached audio
+    // TODO: the delay for 700+ character long articles is too long
     // submit query to tts.tiro.is
     // const voice = 'talromur/b';
-    const webSub = webText.substring(0, 1090);
-    console.log(webSub);
-    const audioContent : string[] = [];
-    console.log('Using talromur b/Other. Others are Polly: Karl and Dora');
+    console.log(webText);
+    const voiceName = 'Alfur';
+    const audioType = 'mp3';
     const url = 'https://tts.tiro.is/v0/speech';
-    return await fetch(url, {
+    console.log('Using Tiro Cicero talromur b/' + voiceName +
+      '. Others are Polly: Karl and Dora');
+    return fetch(url, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -34,28 +64,29 @@ export class SpeechManager {
         Engine: 'standard',
         LanguageCode: 'is-IS',
         LexiconNames: [],
-        OutputFormat: 'mp3',
+        OutputFormat: audioType,
         SampleRate: '16000',
         SpeechMarkTypes: [],
-        Text: webSub,
+        Text: webText,
         TextType: 'text',
-        VoiceId: 'Bjartur',
+        VoiceId: voiceName,
       }),
     })
-        .then((result) => {
-          if (!result.ok) {
-            throw new Error('Network did not respond with audio file');
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`${res.status} = ${res.statusText}`);
+            // throw new Error('Network did not respond with audio file');
           }
-          return result.blob();
+          return res.blob();
         })
         .then((audStream) => {
+          // don't forget to URL.revokeObjectURL(url) when finished
           const blobURL = window.URL.createObjectURL(audStream);
-          audioContent.push(blobURL);
-          return audioContent;
+          return blobURL;
         })
         .catch((error) => {
           console.error('No audio received from the tts web service: ', error);
-          return audioContent;
+          return '';
         });
   }
 
@@ -63,10 +94,13 @@ export class SpeechManager {
    * Public general function to handle fetching the audio from the given text
    * TODO: It also fetches the timestamps for each word and sentence.
    * @param {string} webText - The webtext given and which needs to be turned
+   * @param {string[]} audioContent - The webtext given and which needs
+   * to be turned
    * @return {string[]} - returns the audio urls to the calling function
    */
-  public async fetchAudioAndMarks(webText: string): Promise<string[]> {
-    return await this.getAudio(webText);
+  public async fetchAudioAndMarks(webText: string, audioContent:
+    string[]): Promise<string[]> {
+    return this.getAudio(webText, audioContent);
     // TODO: call and return getSpeechMarks();
   }
 }
