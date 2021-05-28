@@ -36,7 +36,7 @@ export const text = {
               'Það er líka hægt að nota aðgangslykla.',
             'Spila og pása: Breytihnappur + L',
             'Stoppa lestur: Breytihnappur + x',
-            'Opna stillingar: Breytihnappur + 1',
+            'Opna stillingar: Breytihnappur + S',
           ],
         },
       ],

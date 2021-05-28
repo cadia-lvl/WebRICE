@@ -42,7 +42,7 @@ export class SettingsButton extends MainButton {
    */
   protected additionalHTML(button: HTMLDivElement): void {
     button.classList.add('webriceMainButton');
-    button.setAttribute('accesskey', '1');
+    button.setAttribute('accesskey', 'S');
     button.appendChild(this.buttonIcon.svg);
   }
 

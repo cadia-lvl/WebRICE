@@ -38,7 +38,7 @@ export const text = {
               'The second way is by using the access keys',
             'Play and pause: Modifier + L',
             'Stop reading: Modifier + x',
-            'Stop and close Settings: Modifier + 1',
+            'Stop and close Settings: Modifier + S',
           ],
         },
       ],
