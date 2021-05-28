@@ -2,6 +2,7 @@ import {MainButton} from './MainButton';
 import {Icon} from './icons';
 import {PlayerAttributes} from './PlayerAttributes';
 import {SpeechManager} from './SpeechManager';
+import {HighlightTracker} from './HighlightTracker';
 
 /**
  * Button that plays and pauses reading of a web page section
@@ -10,6 +11,7 @@ export class PlayPauseButton extends MainButton {
   isPlaying: boolean;
   secondIcon: Icon;
   toggleIcon: Icon;
+  highlighter = new HighlightTracker();
   /**
    *
    * @param {Icon} icon - The play icon of button
@@ -138,6 +140,10 @@ export class PlayPauseButton extends MainButton {
           };
           player.playbackRate = webPlayerAttributes.getPlaybackRate();
           player.play();
+          // Start highlighting only when audio and speech marks have been
+          // returned
+          // Highlight each time play is pressed
+          this.highlighter.startHighlighting();
           webPlayerAttributes.setPlaying();
         })
         .catch((error) => {

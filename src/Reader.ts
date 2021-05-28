@@ -6,7 +6,6 @@ import {SpeedButton} from './modules/SpeedButton';
 import {text} from './lang/is';
 import {PlayIcon, StopIcon, PauseIcon, EarIcon,
   SettingsIcon, SpeedIcon} from './modules/icons';
-import {MainButton} from './modules/MainButton';
 import {stylingInterface, CustomStyles} from './modules/CustomStyleManager';
 
 /**
@@ -178,10 +177,6 @@ export class Reader {
     this.playPauseButton.addEventListener('click', () => {
       mainPlayPauseButton.playPause(this.player, this.webPlayerAttributes,
           this.getWebText());
-      // TODO: move to the correct module for calls to highlight
-      // Start highlighting only once play is pressed
-      // TODO: get it to highlight the second+ time play is pressed
-      this.nowzer();
     }, false);
     this.stopButton.addEventListener('click', () => {
       mainStopButton.stop(this.player, this.webPlayerAttributes);
@@ -200,10 +195,6 @@ export class Reader {
       if (e.key === 'Enter') {
         mainPlayPauseButton.playPause(this.player, this.webPlayerAttributes,
             this.getWebText());
-        // TODO: move to the correct module for calls to highlight
-        // Start highlighting only once play is pressed
-        // TODO: get it to highlight the second+ time play is pressed
-        this.nowzer();
       }
     }, false);
     this.stopButton.addEventListener('keydown', (e) => {
@@ -228,88 +219,6 @@ export class Reader {
       'Changing styles often may slow down website');
     }
     this.styles.changeStyles(options);
-  }
-
-  // TODO: move the text highlight stuff to the correct module according to the
-  // design docs
-  /**
-   * Unhighlight the first word and highlight the second word.
-   * TODO: change function name
-   * @param {string} worda - currently highlighted word
-   * @param {string} wordb - word to highlight
-   */
-  hearsay(worda: string, wordb: string): void {
-    const paragraph2HL = document.getElementById('highlight') as HTMLElement;
-    paragraph2HL.innerHTML = paragraph2HL.innerHTML
-        .replace('<mark>' + worda +'</mark> ' + wordb,
-            worda + ' <mark>' + wordb + '</mark>');
-  }
-
-  /**
-   * Set a timeout of the given ms
-   * Thank you Dan Dasacalescu for the help
-   * https://stackoverflow.com/a/39914235
-   * @param {number} ms - number of milliseconds
-   * @return {Promise<any>} - returns the setTimeout
-   */
-  sleep(ms: number): Promise<any> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
-  /**
-   *
-   * Split on spaces. Set timeout to highlight for the duration of that word in
-   * the audio recording.
-   * Use the bjartur timings
-   * Find the ctm of each word using gecko
-   * Sync it with a bjartur audio
-   * TODO: pause it once pause is pressed.
-   * TODO: resume if play is pressed for the second time
-   * TODO: start all over when stop is pressed.
-   * TODO: play from beginning once it's all re-initialized + play
-   * TODO: get it to work with other current recordings
-   * TODO: get it to work with other recordings from tts.tiro.is
-   * TODO: change function name
-   * @return {Promise<any>} - returns something
-   */
-  async nowzer(): Promise<any> {
-    const paragraph2HL = document.getElementById('highlight') as HTMLElement;
-    const speechMarks = [
-      {'time': 30, 'type': 'word', 'duration': 200, 'value': 'Með'},
-      {'time': 230, 'type': 'word', 'duration': 650, 'value': 'textalitun'},
-      {'time': 880, 'type': 'word', 'duration': 270, 'value': 'eiga'},
-      {'time': 1050, 'type': 'word', 'duration': 570, 'value': 'notendur'},
-      {'time': 1630, 'type': 'word', 'duration': 390, 'value': 'auðveldar'},
-      {'time': 2020, 'type': 'word', 'duration': 160, 'value': 'með'},
-      {'time': 2180, 'type': 'word', 'duration': 130, 'value': 'að'},
-      {'time': 2320, 'type': 'word', 'duration': 300, 'value': 'lesa'},
-      {'time': 2620, 'type': 'word', 'duration': 210, 'value': 'og'},
-      {'time': 2820, 'type': 'word', 'duration': 250, 'value': 'hlusta'},
-      {'time': 3070, 'type': 'word', 'duration': 160, 'value': 'á'},
-      {'time': 3230, 'type': 'word', 'duration': 400, 'value': 'efnið.'},
-    ];
-    if (paragraph2HL) {
-      const words = paragraph2HL.innerHTML.split(' ');
-      // Highlight the given word. (first word in paragraph)
-      paragraph2HL.innerHTML = paragraph2HL.innerHTML
-          .replace(words[0],
-              '<mark>' + words[0] + '</mark>');
-      // TODO: remove console.log
-      console.log(words[0], words[1]);
-      for (let i = 0; i < words.length - 1; i++) {
-        // TODO: remove console.log
-        console.log(words[i], words[i+1], i);
-        await this.sleep(speechMarks[i].duration);
-        setInterval(this.hearsay, 10, words[i],
-            words[i+1]);
-      }
-      // Remove the highlighting on the last word.
-      await this.sleep(speechMarks[words.length - 1].duration);
-      // Remove the highlighting on the given word (last word in paragraph)
-      paragraph2HL.innerHTML = paragraph2HL.innerHTML
-          .replace('<mark>' + words[words.length - 1] + '</mark>',
-              words[words.length -1]);
-    }
   }
 }
 
