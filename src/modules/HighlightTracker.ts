@@ -3,6 +3,7 @@
  * It is in charge of all aspects related to highlighting text.
  * TODO: add highlightSentences
  * TODO: Trigger on audio.onTimeUpdate X current Time
+ * TODO: make the properties and methods static
  */
 export class HighlightTracker {
   /**
@@ -32,6 +33,8 @@ export class HighlightTracker {
   /**
    * Split on spaces. Set timeout to highlight for the duration of that word in
    * the audio recording.
+   * Clear intervals and timeouts so highlighting can work each time play is
+   * pressed.
    *
    * Use the bjartur timings
    * Found the ctm of each word using gecko
@@ -62,6 +65,8 @@ export class HighlightTracker {
       {'time': 3230, 'type': 'word', 'duration': 400, 'value': 'efnið.'},
     ];
     if (paragraph2HL) {
+      let handler = 0;
+      let sleepHandler = 0;
       const words = paragraph2HL.innerHTML.split(' ');
       // Highlight the given word. (first word in paragraph)
       paragraph2HL.innerHTML = paragraph2HL.innerHTML
@@ -69,19 +74,27 @@ export class HighlightTracker {
               '<mark>' + words[0] + '</mark>');
       // TODO: remove console.log
       console.log(words[0], words[1]);
+
       for (let i = 0; i < words.length - 1; i++) {
         // TODO: remove console.log
         console.log(words[i], words[i+1], i);
-        await this.sleep(speechMarks[i].duration);
-        setInterval(this.unHighlightAndHighlight, 10, words[i],
+        sleepHandler = await this.sleep(speechMarks[i].duration);
+        clearInterval(handler);
+        handler = 0;
+        handler = setInterval(this.unHighlightAndHighlight, 10, words[i],
             words[i+1]);
+        clearTimeout(sleepHandler);
       }
+
       // Remove the highlighting on the last word.
-      await this.sleep(speechMarks[words.length - 1].duration);
+      sleepHandler = await this.sleep(speechMarks[words.length - 1].duration);
       // Remove the highlighting on the given word (last word in paragraph)
       paragraph2HL.innerHTML = paragraph2HL.innerHTML
           .replace('<mark>' + words[words.length - 1] + '</mark>',
               words[words.length -1]);
+      clearInterval(handler);
+      handler = 0;
+      clearTimeout(sleepHandler);
     }
   }
 
