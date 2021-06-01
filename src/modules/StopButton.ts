@@ -1,6 +1,7 @@
 import {MainButton} from './MainButton';
 import {Icon} from './icons';
 import {PlayerAttributes} from './PlayerAttributes';
+import {HighlightTracker} from './HighlightTracker';
 
 /**
  * A button enabling users to reset webrice web reader
@@ -40,6 +41,7 @@ export class StopButton extends MainButton {
    */
   stop(player: HTMLAudioElement, webPlayerAttributes: PlayerAttributes): void {
     player.pause();
+    HighlightTracker.stopHighlighting();
     webPlayerAttributes.init(player);
   }
 }

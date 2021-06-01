@@ -6,6 +6,11 @@
  * TODO: make the properties and methods static
  */
 export class HighlightTracker {
+  static handler = 0;
+  static sleepHandler = 0;
+  static highlightWords = true;
+  static reset = false;
+
   /**
    * Unhighlight the first word and highlight the second word.
    *
@@ -33,8 +38,12 @@ export class HighlightTracker {
   /**
    * Split on spaces. Set timeout to highlight for the duration of that word in
    * the audio recording.
+   *
    * Clear intervals and timeouts so highlighting can work each time play is
    * pressed.
+   *
+   * When HighlightTracker.reset is true then stop highlighting and remove
+   * highlighting on last highlighted word.
    *
    * Use the bjartur timings
    * Found the ctm of each word using gecko
@@ -42,8 +51,6 @@ export class HighlightTracker {
    *
    * TODO: pause it once pause is pressed.
    * TODO: resume if play is pressed for the second time
-   * TODO: start all over when stop is pressed.
-   * TODO: play from beginning once it's all re-initialized + play
    * TODO: get it to work with other current recordings
    * TODO: get it to work with other recordings from tts.tiro.is
    * @return {Promise<void>} - returns something
@@ -65,8 +72,6 @@ export class HighlightTracker {
       {'time': 3230, 'type': 'word', 'duration': 400, 'value': 'efnið.'},
     ];
     if (paragraph2HL) {
-      let handler = 0;
-      let sleepHandler = 0;
       const words = paragraph2HL.innerHTML.split(' ');
       // Highlight the given word. (first word in paragraph)
       paragraph2HL.innerHTML = paragraph2HL.innerHTML
@@ -76,26 +81,48 @@ export class HighlightTracker {
       console.log(words[0], words[1]);
 
       for (let i = 0; i < words.length - 1; i++) {
-        // TODO: remove console.log
-        console.log(words[i], words[i+1], i);
-        sleepHandler = await this.sleep(speechMarks[i].duration);
-        clearInterval(handler);
-        handler = 0;
-        handler = setInterval(this.unHighlightAndHighlight, 10, words[i],
-            words[i+1]);
-        clearTimeout(sleepHandler);
+        if (HighlightTracker.reset) {
+          // Remove the highlighting on the last highlighted word
+          paragraph2HL.innerHTML = paragraph2HL.innerHTML
+              .replace('<mark>' + words[i - 1] + '</mark>', words[i -1]);
+          break;
+        } else {
+          // TODO: remove console.log
+          console.log(words[i], words[i+1], i);
+          HighlightTracker.sleepHandler =
+              await this.sleep(speechMarks[i].duration);
+          clearInterval(HighlightTracker.handler);
+          HighlightTracker.handler = 0;
+          HighlightTracker.handler = setInterval(this.unHighlightAndHighlight,
+              10, words[i], words[i+1]);
+          clearTimeout(HighlightTracker.sleepHandler);
+        }
       }
 
       // Remove the highlighting on the last word.
-      sleepHandler = await this.sleep(speechMarks[words.length - 1].duration);
+      HighlightTracker.sleepHandler = await this.sleep(speechMarks[
+          words.length - 1].duration);
       // Remove the highlighting on the given word (last word in paragraph)
       paragraph2HL.innerHTML = paragraph2HL.innerHTML
           .replace('<mark>' + words[words.length - 1] + '</mark>',
               words[words.length -1]);
-      clearInterval(handler);
-      handler = 0;
-      clearTimeout(sleepHandler);
+      clearInterval(HighlightTracker.handler);
+      HighlightTracker.handler = 0;
+      clearTimeout(HighlightTracker.sleepHandler);
     }
+  }
+
+  /**
+   * Stop highlighting
+   *
+   * @return {Promise<void>} - returns something
+   */
+  static async stopHighlighting(): Promise<void> {
+    console.log('clear highlighting');
+    HighlightTracker.reset = true;
+    clearInterval(HighlightTracker.handler);
+    HighlightTracker.handler = 0;
+    clearTimeout(HighlightTracker.sleepHandler);
   }
 
   /**
@@ -104,6 +131,7 @@ export class HighlightTracker {
    * @return {Promise<void>} - returns something
    */
   public async startHighlighting(): Promise<void> {
+    HighlightTracker.reset = false;
     this.highlightWords();
   }
 }
