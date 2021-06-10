@@ -1,0 +1,20 @@
+{
+
+  "name": "WebRICE",
+  "description": "WebRICE is an open source web reader. It reads text aloud to users!",
+  "version": "1.0",
+  "manifest_version": 2,
+  "homepage_url": "https://www.webrice.is",
+  "icons": {
+    "48": "icons/logo.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["WebRICE_styles.css"],
+      "js": ["borderify.js", "WebRICE.js"]
+    }
+  ]
+
+}
