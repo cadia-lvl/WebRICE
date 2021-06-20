@@ -6,9 +6,9 @@
  * TODO: make the properties and methods static
  */
 export class HighlightTracker {
-  static handler = 0;
   static sleepHandler = 0;
   static highlightWords = true;
+  static highlightSentences = false;
   static reset = false;
 
   /**
@@ -36,10 +36,57 @@ export class HighlightTracker {
   }
 
   /**
+   * Converts player time from seconds to milliseconds
+   * @param {number} s - number of seconds
+   * @return {number} - returns the time in milliseconds
+   */
+  private convertS2MS(s: number): number {
+    return s*1000;
+  }
+
+  /**
+   * Turns speech marks into usable json
+   * TODO: Still isn't perfect json yet
+   * @return {string[]} - returns the speechMarks in an easily parsable format
+   */
+  private async parseSpeechMarks(): Promise<string[]> {
+    const tiroSpeechMarks =
+        await fetch(`resources/speech_marks/cicero_textalitun.json`)
+            .then((response) =>(response.text()));
+    const parsedSpeechMarks = tiroSpeechMarks.split('\n');
+    return parsedSpeechMarks;
+  }
+
+  /**
+   * HighlightWords using SpeechMarks for words
+   */
+  private async highlightWordSpeechMarks(): Promise<void> {
+    const paragraph2HL = document.getElementById('highlight') as HTMLElement;
+    const highlightText = new TextEncoder().encode(paragraph2HL.innerHTML);
+    const parsedSpeechMarks = await this.parseSpeechMarks();
+    const aSM = JSON.parse(parsedSpeechMarks[1]);
+    /* Get the text from the html tag
+     * Get the speech marks
+     * Convert the text from the html tag to a byte array
+     * slice the byte array by the start and end numbers indicated by the
+     * speech marks this is the portion of the text which will be highlighted
+     */
+    const player = document.getElementById('webricePlayer') as HTMLAudioElement;
+    console.log('tiroSpeechMarks ' + JSON.stringify(aSM) +
+      ' byteEncode innerHTML ' +
+      highlightText.slice(aSM.start, aSM.end) +
+      new TextDecoder().decode(highlightText.slice(aSM.start, aSM.end)));
+    console.log('player current time: ' +
+      this.convertS2MS(player.currentTime));
+  }
+
+  /**
    * Split on spaces. Set timeout to highlight for the duration of that word in
    * the audio recording.
    *
-   * Clear intervals and timeouts so highlighting can work each time play is
+   * Change highlight speed when audio speed is changed
+   *
+   * Clear timeouts so highlighting can work each time play is
    * pressed.
    *
    * When HighlightTracker.reset is true then stop highlighting and remove
@@ -49,6 +96,8 @@ export class HighlightTracker {
    * Found the ctm of each word using gecko
    * Sync it with a bjartur audio
    *
+   * TODO: work with speech marks
+   * TODO: get the text as Uint8Array bytes
    * TODO: pause it once pause is pressed.
    * TODO: resume if play is pressed for the second time
    * TODO: get it to work with other current recordings
@@ -57,28 +106,52 @@ export class HighlightTracker {
    */
   private async highlightWords(): Promise<void> {
     const paragraph2HL = document.getElementById('highlight') as HTMLElement;
+    const player = document.getElementById('webricePlayer') as HTMLAudioElement;
+    console.log('Audio playbackRate: ' + player.playbackRate);
+    let highlightSpeedMultiplier = 1/player.playbackRate;
+    console.log('Highlighting timings: ' + highlightSpeedMultiplier);
+    this.highlightWordSpeechMarks();
     const speechMarks = [
-      {'time': 30, 'type': 'word', 'duration': 200, 'value': 'Með'},
-      {'time': 230, 'type': 'word', 'duration': 650, 'value': 'textalitun'},
-      {'time': 880, 'type': 'word', 'duration': 270, 'value': 'eiga'},
-      {'time': 1050, 'type': 'word', 'duration': 570, 'value': 'notendur'},
-      {'time': 1630, 'type': 'word', 'duration': 390, 'value': 'auðveldar'},
-      {'time': 2020, 'type': 'word', 'duration': 160, 'value': 'með'},
-      {'time': 2180, 'type': 'word', 'duration': 130, 'value': 'að'},
-      {'time': 2320, 'type': 'word', 'duration': 300, 'value': 'lesa'},
-      {'time': 2620, 'type': 'word', 'duration': 210, 'value': 'og'},
-      {'time': 2820, 'type': 'word', 'duration': 250, 'value': 'hlusta'},
-      {'time': 3070, 'type': 'word', 'duration': 160, 'value': 'á'},
-      {'time': 3230, 'type': 'word', 'duration': 400, 'value': 'efnið.'},
+      {'time': 30, 'type': 'word', 'value': 'Með'},
+      {'time': 230, 'type': 'word', 'value': 'textalitun'},
+      {'time': 880, 'type': 'word', 'value': 'eiga'},
+      {'time': 1050, 'type': 'word', 'value': 'notendur'},
+      {'time': 1630, 'type': 'word', 'value': 'auðveldar'},
+      {'time': 2020, 'type': 'word', 'value': 'með'},
+      {'time': 2180, 'type': 'word', 'value': 'að'},
+      {'time': 2320, 'type': 'word', 'value': 'lesa'},
+      {'time': 2620, 'type': 'word', 'value': 'og'},
+      {'time': 2820, 'type': 'word', 'value': 'hlusta'},
+      {'time': 3070, 'type': 'word', 'value': 'á'},
+      {'time': 3230, 'type': 'word', 'value': 'efnið.'},
     ];
+
     if (paragraph2HL) {
       const words = paragraph2HL.innerHTML.split(' ');
+
+      while (isNaN(player.duration)) {
+        clearTimeout(HighlightTracker.sleepHandler);
+        highlightSpeedMultiplier = 1/player.playbackRate;
+        HighlightTracker.sleepHandler =
+          await this.sleep((speechMarks[0].time/2)*highlightSpeedMultiplier);
+        console.log('player current time: ' +
+          this.convertS2MS(player.currentTime));
+      }
+      let timeDiff = speechMarks[0].time -
+        this.convertS2MS(player.currentTime);
+      console.log('player current time: ' +
+          this.convertS2MS(player.currentTime));
+      if (timeDiff > 0) {
+        clearTimeout(HighlightTracker.sleepHandler);
+        highlightSpeedMultiplier = 1/player.playbackRate;
+        HighlightTracker.sleepHandler =
+          await this.sleep(timeDiff*highlightSpeedMultiplier);
+      }
+
       // Highlight the given word. (first word in paragraph)
       paragraph2HL.innerHTML = paragraph2HL.innerHTML
           .replace(words[0],
               '<mark>' + words[0] + '</mark>');
-      // TODO: remove console.log
-      console.log(words[0], words[1]);
 
       for (let i = 0; i < words.length - 1; i++) {
         if (HighlightTracker.reset) {
@@ -87,27 +160,31 @@ export class HighlightTracker {
               .replace('<mark>' + words[i - 1] + '</mark>', words[i -1]);
           break;
         } else {
-          // TODO: remove console.log
-          console.log(words[i], words[i+1], i);
-          HighlightTracker.sleepHandler =
-              await this.sleep(speechMarks[i].duration);
-          clearInterval(HighlightTracker.handler);
-          HighlightTracker.handler = 0;
-          HighlightTracker.handler = setInterval(this.unHighlightAndHighlight,
-              10, words[i], words[i+1]);
-          clearTimeout(HighlightTracker.sleepHandler);
+          const timeDiff = speechMarks[i].time -
+            this.convertS2MS(player.currentTime);
+          if (timeDiff > 0) {
+            clearTimeout(HighlightTracker.sleepHandler);
+            highlightSpeedMultiplier = 1/player.playbackRate;
+            HighlightTracker.sleepHandler =
+                await this.sleep(timeDiff*highlightSpeedMultiplier);
+            this.unHighlightAndHighlight(words[i], words[i+1]);
+          }
         }
       }
 
-      // Remove the highlighting on the last word.
-      HighlightTracker.sleepHandler = await this.sleep(speechMarks[
-          words.length - 1].duration);
+      // Sleep until the end of the audio file has been reached
+      timeDiff = this.convertS2MS(player.duration) -
+        this.convertS2MS(player.currentTime);
+      if (timeDiff > 0) {
+        clearTimeout(HighlightTracker.sleepHandler);
+        highlightSpeedMultiplier = 1/player.playbackRate;
+        HighlightTracker.sleepHandler =
+          await this.sleep(timeDiff*highlightSpeedMultiplier);
+      }
       // Remove the highlighting on the given word (last word in paragraph)
       paragraph2HL.innerHTML = paragraph2HL.innerHTML
           .replace('<mark>' + words[words.length - 1] + '</mark>',
               words[words.length -1]);
-      clearInterval(HighlightTracker.handler);
-      HighlightTracker.handler = 0;
       clearTimeout(HighlightTracker.sleepHandler);
     }
   }
@@ -120,9 +197,16 @@ export class HighlightTracker {
   static async stopHighlighting(): Promise<void> {
     console.log('clear highlighting');
     HighlightTracker.reset = true;
-    clearInterval(HighlightTracker.handler);
-    HighlightTracker.handler = 0;
     clearTimeout(HighlightTracker.sleepHandler);
+    const paragraph2HL = document.getElementById('highlight') as HTMLElement;
+    const words = paragraph2HL.innerHTML.split(' ');
+    words.forEach((word) => {
+      if (word.includes('<mark>')) {
+        const wordOnly = word.replace('<mark>', '').replace('</mark>', '');
+        paragraph2HL.innerHTML = paragraph2HL.innerHTML
+            .replace(word, wordOnly);
+      }
+    });
   }
 
   /**
