@@ -20,19 +20,6 @@ export class HighlightTracker {
   static origWebText = '';
 
   /**
-   * Unhighlight the first word and highlight the second word.
-   *
-   * @param {string} worda - currently highlighted word
-   * @param {string} wordb - word to highlight
-   */
-  private unHighlightAndHighlight(worda: string, wordb: string): void {
-    const paragraph2HL = document.getElementById('highlight') as HTMLElement;
-    paragraph2HL.innerHTML = paragraph2HL.innerHTML
-        .replace('<mark>' + worda +'</mark> ' + wordb,
-            worda + ' <mark>' + wordb + '</mark>');
-  }
-
-  /**
    * Set a timeout of the given ms
    * Thank you Dan Dasacalescu for the help
    * https://stackoverflow.com/a/39914235
@@ -73,55 +60,23 @@ export class HighlightTracker {
   }
 
   /**
-   * HighlightWords using SpeechMarks for words
-   */
-  private async highlightWordSpeechMarks(): Promise<void> {
-    const paragraph2HL = document.getElementById('highlight') as HTMLElement;
-    const highlightText = new TextEncoder().encode(paragraph2HL.innerHTML);
-    const startMark = new TextEncoder().encode('<mark>');
-    const endMark = new TextEncoder().encode('</mark>');
-    const speechMarks = await this.parseSpeechMarks();
-    /* Get the text from the html tag
-     * Get the speech marks
-     * Convert the text from the html tag to a byte array
-     * slice the byte array by the start and end numbers indicated by the
-     * speech marks this is the portion of the text which will be highlighted
-     */
-    const player = document.getElementById('webricePlayer') as HTMLAudioElement;
-
-    // Construct the highlighted innerHTML
-    speechMarks.forEach((SM) => {
-      const textWHL = new Uint8Array(
-          [...highlightText.slice(0, SM.start),
-            ...startMark,
-            ...highlightText.slice(SM.start, SM.end),
-            ...endMark,
-            ...highlightText.slice(SM.end, highlightText.length)]);
-      console.log(new TextDecoder().decode(textWHL));
-      console.log(paragraph2HL.innerHTML);
-      console.log('player current time: ' +
-        this.convertS2MS(player.currentTime));
-    });
-  }
-
-  /**
-   * Split on spaces. Set timeout to highlight for the duration of that word in
-   * the audio recording.
+   * Highlight words with speech marks
    *
-   * Change highlight speed when audio speed is changed
+   * Get the text from the html tag as Uint8Array bytes.
+   * Get the speech marks.
+   * Slice the web text byte array by the start and end numbers indicated by
+   * the speech mark. This is the portion of the text which will be highlighted
+   * Set timeout to highlight for the duration of that word in the audio.
    *
-   * Clear timeouts so highlighting can work each time play is
-   * pressed.
-   *
+   * Change highlight speed when audio playbackRate changes.
+   * Clear timeouts so highlighting can work each time play is pressed.
    * When HighlightTracker.reset is true then stop highlighting and remove
    * highlighting on last highlighted word.
    *
-   * Use the Alfur timings
-   * Found the ctm of each word using gecko
-   * Sync it with a bjartur audio
-   * Works with speech marks
+   * Use the Alfur timings:
+   * Found the ctm of each word using gecko.
+   * Synced it with the Alfur audio.
    *
-   * TODO: get the text as Uint8Array bytes
    * TODO: pause it once pause is pressed.
    * TODO: resume if play is pressed for the second time
    * TODO: get it to work with other current recordings
@@ -131,18 +86,18 @@ export class HighlightTracker {
   private async highlightWords(): Promise<void> {
     const paragraph2HL = document.getElementById('highlight') as HTMLElement;
     HighlightTracker.origWebText = paragraph2HL.innerHTML;
-    const origWebTextArray = new TextEncoder().encode(HighlightTracker.origWebText);
+    const origWebTextArray = new
+    TextEncoder().encode(HighlightTracker.origWebText);
+    const startMark = new TextEncoder().encode('<mark>');
+    const endMark = new TextEncoder().encode('</mark>');
     const player = document.getElementById('webricePlayer') as HTMLAudioElement;
     console.log('Audio playbackRate: ' + player.playbackRate);
     let highlightSpeedMultiplier = 1/player.playbackRate;
     console.log('Highlighting timings: ' + highlightSpeedMultiplier);
-    this.highlightWordSpeechMarks();
     const speechMarks = await this.parseSpeechMarks();
 
     if (paragraph2HL) {
-      const words = paragraph2HL.innerHTML.split(' ');
-
-      // Wait for player duration to be a valid number before highlighting
+      // Wait for player duration to be a number before highlighting
       while (isNaN(player.duration)) {
         clearTimeout(HighlightTracker.sleepHandler);
         highlightSpeedMultiplier = 1/player.playbackRate;
@@ -162,12 +117,7 @@ export class HighlightTracker {
           await this.sleep(timeDiff*highlightSpeedMultiplier);
       }
 
-      // Highlight the given word. (first word in paragraph)
-      paragraph2HL.innerHTML = paragraph2HL.innerHTML
-          .replace(words[0],
-              '<mark>' + words[0] + '</mark>');
-
-      for (let i = 0; i < words.length - 1; i++) {
+      for (let i = 0; i < speechMarks.length; i++) {
         if (HighlightTracker.reset) {
           // Restore innerHTML to just the words
           paragraph2HL.innerHTML = HighlightTracker.origWebText;
@@ -180,7 +130,17 @@ export class HighlightTracker {
             highlightSpeedMultiplier = 1/player.playbackRate;
             HighlightTracker.sleepHandler =
                 await this.sleep(timeDiff*highlightSpeedMultiplier);
-            this.unHighlightAndHighlight(words[i], words[i+1]);
+
+            // Construct the highlighted innerHTML
+            const textWHL = new Uint8Array(
+                [...origWebTextArray.slice(0, speechMarks[i].start),
+                  ...startMark,
+                  ...origWebTextArray.slice(speechMarks[i].start,
+                      speechMarks[i].end),
+                  ...endMark,
+                  ...origWebTextArray.slice(speechMarks[i].end,
+                      origWebTextArray.length)]);
+            paragraph2HL.innerHTML = new TextDecoder().decode(textWHL);
           }
         }
       }
