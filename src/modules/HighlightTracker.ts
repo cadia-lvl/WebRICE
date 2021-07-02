@@ -1,3 +1,10 @@
+interface AllSpeechMarks {
+  time: number,
+  'type': string,
+  start: number,
+  end: number,
+  value: string,
+}
 /**
  * The main highlight class of webrice
  * It is in charge of all aspects related to highlighting text.
@@ -45,16 +52,23 @@ export class HighlightTracker {
   }
 
   /**
-   * Turns speech marks into usable json
-   * TODO: Still isn't perfect json yet
-   * @return {string[]} - returns the speechMarks in an easily parsable format
+   * Turns speech marks into usable json array
+   * @return {AllSpeechMarks[]} - returns the speechMarks in an easily parsable
+   * format
    */
-  private async parseSpeechMarks(): Promise<string[]> {
+  private async parseSpeechMarks(): Promise<AllSpeechMarks[]> {
     const tiroSpeechMarks =
         await fetch(`resources/speech_marks/cicero_textalitun.json`)
-            .then((response) =>(response.text()));
-    const parsedSpeechMarks = tiroSpeechMarks.split('\n');
-    return parsedSpeechMarks;
+            .then((response) =>(
+              response.text()
+            ));
+    // Filter out the last element which is the empty string
+    return tiroSpeechMarks
+        .split('\n')
+        .filter((mark) => {
+          return mark != '';
+        })
+        .map((speechMark) => JSON.parse(speechMark));
   }
 
   /**
@@ -63,8 +77,9 @@ export class HighlightTracker {
   private async highlightWordSpeechMarks(): Promise<void> {
     const paragraph2HL = document.getElementById('highlight') as HTMLElement;
     const highlightText = new TextEncoder().encode(paragraph2HL.innerHTML);
-    const parsedSpeechMarks = await this.parseSpeechMarks();
-    const aSM = JSON.parse(parsedSpeechMarks[1]);
+    const startMark = new TextEncoder().encode('<mark>');
+    const endMark = new TextEncoder().encode('</mark>');
+    const speechMarks = await this.parseSpeechMarks();
     /* Get the text from the html tag
      * Get the speech marks
      * Convert the text from the html tag to a byte array
@@ -72,12 +87,20 @@ export class HighlightTracker {
      * speech marks this is the portion of the text which will be highlighted
      */
     const player = document.getElementById('webricePlayer') as HTMLAudioElement;
-    console.log('tiroSpeechMarks ' + JSON.stringify(aSM) +
-      ' byteEncode innerHTML ' +
-      highlightText.slice(aSM.start, aSM.end) +
-      new TextDecoder().decode(highlightText.slice(aSM.start, aSM.end)));
-    console.log('player current time: ' +
-      this.convertS2MS(player.currentTime));
+
+    // Construct the highlighted innerHTML
+    speechMarks.forEach((SM) => {
+      const textWHL = new Uint8Array(
+          [...highlightText.slice(0, SM.start),
+            ...startMark,
+            ...highlightText.slice(SM.start, SM.end),
+            ...endMark,
+            ...highlightText.slice(SM.end, highlightText.length)]);
+      console.log(new TextDecoder().decode(textWHL));
+      console.log(paragraph2HL.innerHTML);
+      console.log('player current time: ' +
+        this.convertS2MS(player.currentTime));
+    });
   }
 
   /**
@@ -92,11 +115,11 @@ export class HighlightTracker {
    * When HighlightTracker.reset is true then stop highlighting and remove
    * highlighting on last highlighted word.
    *
-   * Use the bjartur timings
+   * Use the Alfur timings
    * Found the ctm of each word using gecko
    * Sync it with a bjartur audio
+   * Works with speech marks
    *
-   * TODO: work with speech marks
    * TODO: get the text as Uint8Array bytes
    * TODO: pause it once pause is pressed.
    * TODO: resume if play is pressed for the second time
@@ -111,24 +134,12 @@ export class HighlightTracker {
     let highlightSpeedMultiplier = 1/player.playbackRate;
     console.log('Highlighting timings: ' + highlightSpeedMultiplier);
     this.highlightWordSpeechMarks();
-    const speechMarks = [
-      {'time': 30, 'type': 'word', 'value': 'Með'},
-      {'time': 230, 'type': 'word', 'value': 'textalitun'},
-      {'time': 880, 'type': 'word', 'value': 'eiga'},
-      {'time': 1050, 'type': 'word', 'value': 'notendur'},
-      {'time': 1630, 'type': 'word', 'value': 'auðveldar'},
-      {'time': 2020, 'type': 'word', 'value': 'með'},
-      {'time': 2180, 'type': 'word', 'value': 'að'},
-      {'time': 2320, 'type': 'word', 'value': 'lesa'},
-      {'time': 2620, 'type': 'word', 'value': 'og'},
-      {'time': 2820, 'type': 'word', 'value': 'hlusta'},
-      {'time': 3070, 'type': 'word', 'value': 'á'},
-      {'time': 3230, 'type': 'word', 'value': 'efnið.'},
-    ];
+    const speechMarks = await this.parseSpeechMarks();
 
     if (paragraph2HL) {
       const words = paragraph2HL.innerHTML.split(' ');
 
+      // Wait for player duration to be a valid number before highlighting
       while (isNaN(player.duration)) {
         clearTimeout(HighlightTracker.sleepHandler);
         highlightSpeedMultiplier = 1/player.playbackRate;
