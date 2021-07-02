@@ -17,6 +17,7 @@ export class HighlightTracker {
   static highlightWords = true;
   static highlightSentences = false;
   static reset = false;
+  static origWebText = '';
 
   /**
    * Unhighlight the first word and highlight the second word.
@@ -129,6 +130,8 @@ export class HighlightTracker {
    */
   private async highlightWords(): Promise<void> {
     const paragraph2HL = document.getElementById('highlight') as HTMLElement;
+    HighlightTracker.origWebText = paragraph2HL.innerHTML;
+    const origWebTextArray = new TextEncoder().encode(HighlightTracker.origWebText);
     const player = document.getElementById('webricePlayer') as HTMLAudioElement;
     console.log('Audio playbackRate: ' + player.playbackRate);
     let highlightSpeedMultiplier = 1/player.playbackRate;
@@ -166,9 +169,8 @@ export class HighlightTracker {
 
       for (let i = 0; i < words.length - 1; i++) {
         if (HighlightTracker.reset) {
-          // Remove the highlighting on the last highlighted word
-          paragraph2HL.innerHTML = paragraph2HL.innerHTML
-              .replace('<mark>' + words[i - 1] + '</mark>', words[i -1]);
+          // Restore innerHTML to just the words
+          paragraph2HL.innerHTML = HighlightTracker.origWebText;
           break;
         } else {
           const timeDiff = speechMarks[i].time -
@@ -192,10 +194,8 @@ export class HighlightTracker {
         HighlightTracker.sleepHandler =
           await this.sleep(timeDiff*highlightSpeedMultiplier);
       }
-      // Remove the highlighting on the given word (last word in paragraph)
-      paragraph2HL.innerHTML = paragraph2HL.innerHTML
-          .replace('<mark>' + words[words.length - 1] + '</mark>',
-              words[words.length -1]);
+      // Remove highlighting on the last word in the paragraph
+      paragraph2HL.innerHTML = HighlightTracker.origWebText;
       clearTimeout(HighlightTracker.sleepHandler);
     }
   }
@@ -206,18 +206,13 @@ export class HighlightTracker {
    * @return {Promise<void>} - returns something
    */
   static async stopHighlighting(): Promise<void> {
-    console.log('clear highlighting');
+    console.log('Clear highlighting');
     HighlightTracker.reset = true;
     clearTimeout(HighlightTracker.sleepHandler);
     const paragraph2HL = document.getElementById('highlight') as HTMLElement;
-    const words = paragraph2HL.innerHTML.split(' ');
-    words.forEach((word) => {
-      if (word.includes('<mark>')) {
-        const wordOnly = word.replace('<mark>', '').replace('</mark>', '');
-        paragraph2HL.innerHTML = paragraph2HL.innerHTML
-            .replace(word, wordOnly);
-      }
-    });
+    if (HighlightTracker.origWebText != '') {
+      paragraph2HL.innerHTML = HighlightTracker.origWebText;
+    }
   }
 
   /**
