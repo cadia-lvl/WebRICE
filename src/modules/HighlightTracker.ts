@@ -178,10 +178,13 @@ export class HighlightTracker {
 
   /**
    * Highlight words and or sentence if those properties are true.
+   * 1. need to reset highlighting when startHighlighting is pressed just to
+   * make sure there are no old highlighting artifacts from say a pause
    *
    * @return {Promise<void>} - returns something
    */
   public async startHighlighting(): Promise<void> {
+    HighlightTracker.stopHighlighting();
     HighlightTracker.reset = false;
     this.highlightWords();
   }
