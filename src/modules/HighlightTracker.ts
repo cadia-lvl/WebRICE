@@ -9,8 +9,6 @@ interface AllSpeechMarks {
  * The main highlight class of webrice
  * It is in charge of all aspects related to highlighting text.
  * TODO: add highlightSentences
- * TODO: Trigger on audio.onTimeUpdate X current Time
- * TODO: make the properties and methods static
  */
 export class HighlightTracker {
   static sleepHandler = 0;
@@ -130,6 +128,9 @@ export class HighlightTracker {
             highlightSpeedMultiplier = 1/player.playbackRate;
             HighlightTracker.sleepHandler =
                 await this.sleep(timeDiff*highlightSpeedMultiplier);
+            if (player.paused) {
+              return;
+            }
 
             // Construct the highlighted innerHTML
             const textWHL = new Uint8Array(
