@@ -52,7 +52,7 @@ export class SpeechManager {
     const voiceName = 'Alfur_v2';
     const audioType = 'mp3';
     const url = 'https://tts.tiro.is/v0/speech';
-    console.log('Using Tiro Cicero talromur b/' + voiceName +
+    console.log('Using Tiro Cicero Talromur B/' + voiceName +
       '. Others are Polly: Karl and Dora');
     return fetch(url, {
       method: 'POST',
