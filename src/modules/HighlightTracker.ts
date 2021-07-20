@@ -39,12 +39,14 @@ export class HighlightTracker {
 
   /**
    * Turns speech marks into usable json array
+   * @param {string} speechMarksFile - number of seconds
    * @return {AllSpeechMarks[]} - returns the speechMarks in an easily parsable
    * format
    */
-  private async parseSpeechMarks(): Promise<AllSpeechMarks[]> {
+  private async parseSpeechMarks(speechMarksFile: string):
+  Promise<AllSpeechMarks[]> {
     const tiroSpeechMarks =
-        await fetch(`resources/speech_marks/cicero_textalitun.json`)
+        await fetch(speechMarksFile)
             .then((response) =>(
               response.text()
             ));
@@ -77,20 +79,18 @@ export class HighlightTracker {
    * Start/resume highlighting only during the relevant player duration for
    * that speech mark.
    *
+   * NOTE! Highlighting only works for webrice's main and highlight pages
    * Use the Alfur timings:
-   * Found the ctm of each word using gecko.
-   * Synced it with the Alfur audio.
+   * The ctm of each word can be manually found using gecko and the Alfur audio.
    *
-   * TODO: pause it once pause is pressed.
-   * TODO: resume if play is pressed for the second time
+   * TODO: connect to toggle
+   * TODO: work with speech marks request
    * TODO: get it to work with other current recordings
    * TODO: get it to work with other recordings from tts.tiro.is
    * @return {Promise<void>} - returns something
    */
   private async highlightWords(): Promise<void> {
-    // TODO: remove the need for the element id to be highlight, maybe just
-    // that the element class contains webriceHLWord or webrice HLsentence
-    const paragraph2HL = document.getElementById('highlight') as HTMLElement;
+    const paragraph2HL = document.querySelector('.webriceHL') as HTMLElement;
     const player = document.getElementById('webricePlayer') as HTMLAudioElement;
     // Only set origwebText when the text has never been highlighted before
     if (isNaN(player.duration) || player.duration == 0) {
@@ -100,7 +100,13 @@ export class HighlightTracker {
     TextEncoder().encode(HighlightTracker.origWebText);
     const startMark = new TextEncoder().encode('<mark>');
     const endMark = new TextEncoder().encode('</mark>');
-    const speechMarks = await this.parseSpeechMarks();
+    let filename = '';
+    if (HighlightTracker.origWebText.includes('veflesari')) {
+      filename = `resources/speech_marks/cicero_veflesari.json`;
+    } else {
+      filename = `resources/speech_marks/cicero_textalitun.json`;
+    }
+    const speechMarks = await this.parseSpeechMarks(filename);
     let highlightSpeedMultiplier = 1/player.playbackRate;
 
     if (paragraph2HL) {
@@ -177,7 +183,7 @@ export class HighlightTracker {
     console.log('Clear highlighting');
     HighlightTracker.reset = true;
     clearTimeout(HighlightTracker.sleepHandler);
-    const paragraph2HL = document.getElementById('highlight') as HTMLElement;
+    const paragraph2HL = document.querySelector('.webriceHL') as HTMLElement;
     if (HighlightTracker.origWebText != '') {
       paragraph2HL.innerHTML = HighlightTracker.origWebText;
     }
