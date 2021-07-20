@@ -115,6 +115,7 @@ export class PlayPauseButton extends MainButton {
       if (!player.ended) {
         player.play();
         webPlayerAttributes.setPaused(false);
+        this.highlighter.resumeHighlighting();
       }
       return;
     }

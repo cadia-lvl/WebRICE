@@ -62,14 +62,20 @@ export class HighlightTracker {
    *
    * Get the text from the html tag as Uint8Array bytes.
    * Get the speech marks.
+   * Only set the origWebText when the audio is at or before the beginning.
    * Slice the web text byte array by the start and end numbers indicated by
-   * the speech mark. This is the portion of the text which will be highlighted
-   * Set timeout to highlight for the duration of that word in the audio.
+   * the current speech mark. This is the portion of the text which will be
+   * highlighted. Set timeout to highlight for the duration of that word in
+   * the audio.
    *
    * Change highlight speed when audio playbackRate changes.
    * Clear timeouts so highlighting can work each time play is pressed.
    * When HighlightTracker.reset is true then stop highlighting and remove
    * highlighting on last highlighted word.
+   *
+   * When the audio player is paused then don't highlight the next word.
+   * Start/resume highlighting only during the relevant player duration for
+   * that speech mark.
    *
    * Use the Alfur timings:
    * Found the ctm of each word using gecko.
@@ -82,17 +88,20 @@ export class HighlightTracker {
    * @return {Promise<void>} - returns something
    */
   private async highlightWords(): Promise<void> {
+    // TODO: remove the need for the element id to be highlight, maybe just
+    // that the element class contains webriceHLWord or webrice HLsentence
     const paragraph2HL = document.getElementById('highlight') as HTMLElement;
-    HighlightTracker.origWebText = paragraph2HL.innerHTML;
+    const player = document.getElementById('webricePlayer') as HTMLAudioElement;
+    // Only set origwebText when the text has never been highlighted before
+    if (isNaN(player.duration) || player.duration == 0) {
+      HighlightTracker.origWebText = paragraph2HL.innerHTML;
+    }
     const origWebTextArray = new
     TextEncoder().encode(HighlightTracker.origWebText);
     const startMark = new TextEncoder().encode('<mark>');
     const endMark = new TextEncoder().encode('</mark>');
-    const player = document.getElementById('webricePlayer') as HTMLAudioElement;
-    console.log('Audio playbackRate: ' + player.playbackRate);
-    let highlightSpeedMultiplier = 1/player.playbackRate;
-    console.log('Highlighting timings: ' + highlightSpeedMultiplier);
     const speechMarks = await this.parseSpeechMarks();
+    let highlightSpeedMultiplier = 1/player.playbackRate;
 
     if (paragraph2HL) {
       // Wait for player duration to be a number before highlighting
@@ -101,8 +110,6 @@ export class HighlightTracker {
         highlightSpeedMultiplier = 1/player.playbackRate;
         HighlightTracker.sleepHandler =
           await this.sleep((speechMarks[0].time/2)*highlightSpeedMultiplier);
-        console.log('player current time: ' +
-          this.convertS2MS(player.currentTime));
       }
       let timeDiff = speechMarks[0].time -
         this.convertS2MS(player.currentTime);
@@ -174,6 +181,18 @@ export class HighlightTracker {
     if (HighlightTracker.origWebText != '') {
       paragraph2HL.innerHTML = HighlightTracker.origWebText;
     }
+  }
+
+  /**
+   * Resume highlighting words or sentences
+   * call highlightWords again to resume highlighting
+   *
+   * @return {Promise<void>} - returns something
+   */
+  public async resumeHighlighting(): Promise<void> {
+    console.log('resume highlighting');
+    HighlightTracker.reset = false;
+    this.highlightWords();
   }
 
   /**
