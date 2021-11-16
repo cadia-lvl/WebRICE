@@ -39,6 +39,8 @@ id="webriceTextContainer"
 
 A demo of WebRICE can be found at [https://cadia-lvl.github.io/WebRICE](https://cadia-lvl.github.io/WebRICE/).
 
+NOTE! WebRICE depends on the [Tiro TTS API](https://tts.tiro.is/). The code to their API is available on [their gitlab page](https://gitlab.com/tiro-is/tiro-tts).
+
 ## Contributing
 Use the following linters: eslint and stylelint. They will be run on every pull request.
 This project is mainly written in TypeScript. 
