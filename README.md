@@ -53,6 +53,9 @@ Then submit a pull request of your changes.
 ## License
 This project is licensed under [Apache 2.0](LICENSE).
 
+## Contact
+If you have any inquiries or comments, please contact us at [webrice@ru.is](mailto:webrice@ru.is).
+
 ## Authors/Credit
 [Reykjavik University](https://ru.is)
 * Judy Fong [judyfong@ru.is](mailto:judyfong@ru.is)
