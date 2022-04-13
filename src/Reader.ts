@@ -49,7 +49,7 @@ export class Reader {
 
   /**
    * Checks if the text of the webrice text element has changed.
-   * @returns true if the text of the webrice text element has changed
+   * @return {boolean} true if the text of the webrice text element has changed
    */
   private textChanged(): boolean {
     const webriceTextElement = document.getElementById(this.TEXT_CONTENT_ID);
