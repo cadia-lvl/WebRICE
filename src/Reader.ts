@@ -24,6 +24,7 @@ export class Reader {
   styles: CustomStyles | undefined;
   player = new Audio();
   webPlayerAttributes: PlayerAttributes;
+  rawInnerText = '';
 
   /**
    * Constructor for the Reader class
@@ -47,12 +48,24 @@ export class Reader {
   }
 
   /**
+   * Checks if the text of the webrice text element has changed.
+   * @return {boolean} true if the text of the webrice text element has changed
+   */
+  private textChanged(): boolean {
+    const webriceTextElement = document.getElementById(this.TEXT_CONTENT_ID);
+    return this.rawInnerText !== webriceTextElement?.innerText;
+  }
+
+  /**
    * Getter for the complete web text
    * This text should be ready to be submitted to a TTS api like Google,
    * ReadSpeaker, or AWS Polly
    * @return {string} - text of web section
    */
   public getWebText(): string {
+    if (this.textChanged()) {
+      this.setWebText();
+    }
     return this.webText;
   }
 
@@ -81,6 +94,8 @@ export class Reader {
       }
       // TODO: extracts alt text for images and links
       this.webText = text;
+      // Raw text for change comparison
+      this.rawInnerText = webriceTextNode!.innerText;
     } catch (e) {
       // Throw a warning because there's nothing to read
       console.warn(this.TEXT_CONTENT_ID + ': Text container id undefined.' +
