@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="is"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="WebRICE - Þessi veflesari var þróaður af Háskólanum í Reykjavík sem hluti af máltækniáætlun.">
+    <meta name="author" content="Judy Fong">
+    <title>WebRICE</title>
+
+    <link rel="stylesheet" href="WebRICE_styles.css">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="demos.css">
+    <style>
+        #postlistaButton:focus,
+        #postlistaButton:hover,
+        .lead a:focus,
+        .lead a:hover {
+          background-color: #082c4f;
+          color: #c6bc39;
+        }
+
+        .main-container {
+          max-width: 42em;
+        }
+
+        iframe {
+          margin: 1rem;
+          width: 21rem;
+          height: 30rem;
+        }
+    </style>
+
+    <link rel='icon' href="resources/img/favicons/favicon.ico">
+  </head>
+  <body class="text-center">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="index.html">WebRICE <span class="sr-only">(current)</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon">
+          </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link" href="maltaekni.html">Dæmi 1</a>
+            <a class="nav-link" href="solskin.html">Dæmi 2</a>
+            <a class="nav-link" href="https://chrome.google.com/webstore/detail/webrice/mmijkiiefioinbdgbadgghcchfilmlmp">Chrome viðbót</a>
+            <a class="nav-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdcyoUambWJeX_FvHG5UacE68xIa7UNGvHlKUhchT42NJO1ZQ/viewform" target="_blank">Notandakönnun</a>
+            <a class="nav-link" href="throun.html">Þróun</a>
+          </div>
+        </div>
+      </nav>
+    <div class="main-container cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+      <main role="main">
+        <img src="logo.png" alt="WebRICE grains logo" title="WebRICE grains logo"/>
+        <h1 class="">WebRICE</h1>
+        <div id="webrice"></div>
+        <p class="lead" id="webriceTextContainer">Þessi veflesari var þróaður af Mál- og raddtæknistofu Gervigreindarseturs Háskólans í Reykjavík sem hluti af máltækniáætlun fyrir íslensku.</p>
+        <p class="lead">
+          <a href="maltaekni.html" class="btn btn-lg btn-secondary bg-grains">Dæmi</a>
+        </p>
+      </main>
+
+    </div>
+    <footer class="footer">
+      <nav class="navbar navbar-nav ml-auto">
+        <iframe src="https://cdn.forms-content.sg-form.com/14de89d9-bd45-11eb-a3dd-86fa3bfd82d3"></iframe>
+      </nav>
+    </footer>
+    <script type="module" src="./WebRICE.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script type='module'>
+    window.addEventListener('DOMContentLoaded', () => {
+      // webrice logo colors
+      WebRICE.webreader.customStyles(
+          {backgroundColor: '#c6bc39', secondaryColor: '#082c4f'});
+    });
+    </script>
+
+</body></html>
