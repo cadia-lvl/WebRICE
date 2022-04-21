@@ -10,6 +10,14 @@ instead of reading it.
 1.  Install packages with: `npm install`
 2.  Run with: `npm run dev`
 
+### Chrome Extension
+
+WebRICE is also available as an extension on the Chrome web store:
+[https://chrome.google.com/webstore/detail/webrice/mmijkiiefioinbdgbadgghcchfilmlmp](https://chrome.google.com/webstore/detail/webrice/mmijkiiefioinbdgbadgghcchfilmlmp).
+The code for the extension is in the
+[webrice-chrome-extension](https://github.com/cadia-lvl/webrice-chrome-extension)
+repo.
+
 ## Usage
 To include WebRICE's compiled CSS and JS in your website, add the following lines:
 
