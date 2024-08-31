@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="is">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above three tags must come first in the head to be mobile friendly -->
+        <meta name="description" content="Uppskrift af Hrísgrjónum á íslensku">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <title>WebRICE hrísgrjón</title>
+        <link rel="stylesheet" href="WebRICE_styles.css">
+        <link rel="stylesheet" href="demos.css">
+        <link rel='icon' href="resources/img/favicons/favicon.ico">
+    </head>
+    <body>
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="index.html">WebRICE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon">
+          </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="uppskrift-hrisgrjon.html">Hrísgrjón<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="maltaekni.html">Dæmi 1</a>
+            <a class="nav-link" href="solskin.html">Dæmi 2</a>
+            <a class="nav-link" href="https://chrome.google.com/webstore/detail/webrice/mmijkiiefioinbdgbadgghcchfilmlmp">Chrome viðbót</a>
+            <a class="nav-link" href="https://docs.google.com/forms/d/e/1FAIpQLSdcyoUambWJeX_FvHG5UacE68xIa7UNGvHlKUhchT42NJO1ZQ/viewform" target="_blank">Notandakönnun</a>
+            <a class="nav-link" href="throun.html">Þróun</a>
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+        <div id="webrice"></div>
+        <!--Sample text-->
+        <div id="webriceTextContainer">
+            <h2 id="content-1">Hrísgrjón</h2>
+            
+            <div>
+                <p id="content-2"><strong>fengið frá Lucky the leprechaun</strong></p>
+                <p id="content-3"><strong>Þýðandi: Judy Y Fong</strong></p>
+                <p id="content-4"><strong>Profkaralesari: Harpa Hlin Valgerdardottir</strong></p>
+            </div>
+           <p id="content-5">Bætið við einum hluta af hrísgrjónum og einum og hálfum hluta sama magns af vatni í skál. Notið örbylgjuofn og hitið í tíu mínútur eða lengur fyrir brún hrísgrjón, og hrærið þegar grjónin eru tilbúin.</p>
+        </div>
+      </div>
+      <footer class="footer mt-auto">
+        <nav class="navbar bg-grains">
+          <p class="navbar-nav ml-auto">
+            <a class="nav-link" href="maltaekni.html">Dæmi 1
+              <span class="icon arrow-right"></span>
+            </a>
+          </p>
+        </nav>
+      </footer>
+      <script type="module" src="WebRICE.js"></script>
+      <!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      <script type='module'>
+        window.addEventListener('DOMContentLoaded', () => {
+          // light theme
+          WebRICE.webreader.customStyles(
+              {backgroundColor: '#f3f2f2', secondaryColor: '#242121'});
+
+          /** Examples of using custom colors for the webrice toolbar
+          // orange blue theme
+          webreader.customStyles(
+              {backgroundColor: '#ffefdd', secondaryColor: '#229BBB'});
+          // light theme
+          webreader.customStyles(
+              {backgroundColor: '#f3f2f2', secondaryColor: '#242121'});
+          */
+        });
+      </script>
+    </body>
+</html>
